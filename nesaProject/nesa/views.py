@@ -1,11 +1,18 @@
 from django.shortcuts import render
+from .models import ContactUs
 
 # Create your views here.
-def index(request):
-    return render(request, 'home.html', {'name' : 'Bolortoli'})
+def index(req):
+    return render(req, 'home.html', {'name' : 'Bolortoli'})
 
-def rewards(request):
-    return render(request, 'rewards.html', {'name' : 'Bolortoli'})
+def rewards(req):
+    return render(req, 'rewards.html', {'name' : 'Bolortoli'})
 
-def contactUs(request):
-    return render(request, 'contactUs.html', {'name' : 'Bolortoli'})
+def contactUs(req):
+
+    if req.method == 'POST':
+        item = ContactUs(fullName=req.POST['name'],email=req.POST['email']
+            ,phone=req.POST['phone'],text=req.POST['text'])
+        item.save()
+
+    return render(req, 'contactUs.html', {'name' : 'Bolortoli'})
