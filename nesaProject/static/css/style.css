@@ -180,6 +180,7 @@ nav ul {
 	text-align: left;
 	vertical-align: middle;
 	position: relative;
+	font-family: 'Rubik', sans-serif;
 }
 nav li {
 	float: left;
@@ -188,6 +189,7 @@ nav li {
 	margin: 0 4px;
 	box-sizing: border-box;
 	position: relative;
+	font-family: 'Rubik', sans-serif;
 }
 nav ul li a {
 	position: relative;
@@ -201,6 +203,7 @@ nav ul li a {
 	box-sizing: border-box;
 	text-decoration: none;
 	color: #fff;
+	font-family: 'Rubik', sans-serif;
 }
 .inner-header-center {
 	background-image: url(https://playerx.qodeinteractive.com/wp-content/uploads/2018/06/logo-background-img.jpg);
