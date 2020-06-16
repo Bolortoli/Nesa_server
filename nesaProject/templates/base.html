@@ -6,25 +6,211 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" />
-    <script src='main.js'></script>
+    <meta name="description" content="GoodGames - Bootstrap template for communities and games store">
+    <meta name="keywords" content="game, gaming, template, HTML template, responsive, Bootstrap, premium">
+    <meta name="author" content="_nK">
+    <link rel="icon" type="image/png" href="{% static "images/Nesa.png" %}>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static "vendor/bootstrap/dist/css/bootstrap.min.css" %}>
+    <script defer src="static/vendor/fontawesome-free/js/all.js"></script>
+    <script defer src="static/vendor/fontawesome-free/js/v4-shims.js"></script>
+    <link rel="stylesheet" href="{% static "vendor/ionicons/css/ionicons.min.css" %}">
+    <link rel="stylesheet" href="{% static "vendor/flickity/dist/flickity.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "vendor/photoswipe/dist/photoswipe.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "vendor/photoswipe/dist/default-skin/default-skin.css" %}">
+    <link rel="stylesheet" href="{% static "vendor/bootstrap-slider/dist/css/bootstrap-slider.min.css" %} ">
+    <link rel="stylesheet" type="text/css" href="{% static "vendor/summernote/dist/summernote-bs4.css" %} ">
+    <link rel="stylesheet" href="{% static "css/goodgames.css" %} ">
+    <link rel="stylesheet" href="{% static "css/custom.css" %} ">
+    <script src="{% static "vendor/jquery/dist/jquery.min.js" %} "></script>
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+    <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+    <link rel="stylesheet" href="{% static "css/css.css" %} ">
 </head>
-<body>
-    <ul>
-        <li><a href="{% url "home" %}">GO to home</a></li>
-        <li><a href="{% url "rewards" %}">GO to rewards</a></li>
-        <li><a href="{% url "contactUs" %}">GO to contactus</a></li>
-    </ul>
+<header>
+    <div class="page-header">
+        <div class="inner-header">
+            <div class="header-left">
+                <div class="header-left-inner">
+                    <div class="header-left-inner-line"></div>
+                    <div class="header-social">
+                        <div class="inner-social">
+                            <div class="inner-social-text">
+                                <p class="social-text">follow us on:</p>
+                            </div>
+                            <div class="inner-social-icons">
+                                <a class="social-icons" href="#">
+                                    <span class="iconify" data-icon="fa-brands:facebook-square" data-inline="false"></span>
+                                </a>
+                                <a class="social-icons" href="#">
+                                    <span class="iconify" data-icon="fa-brands:twitter-square" data-inline="false"></span>
+                                </a>
+                                <a class="social-icons" href="#">
+                                    <span class="iconify" data-icon="fa-brands:youtube" data-inline="false"></span>
+                                </a>
+                                <a class="social-icons" href="#">
+                                    <span class="iconify" data-icon="fa-brands:instagram" data-inline="false"></span>
+                                </a>
+                                <a class="social-icons" href="#">
+                                    <span class="iconify" data-icon="fa-brands:twitch" data-inline="false"></span>
+                                </a>
+                                <a class="social-icons" href="#">
+                                    <span class="iconify" data-icon="fa-brands:steam-square" data-inline="false"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="nav-bar-left">
+                        <ul>
+                            <li><a href="index.html">Нүүр</a></li>
+                            <li><a href="prize.html">Шагнал</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="inner-header-center">
+                    <div class="header-logo-wrapper">
+                        <a class="logo-clicker" href="#">
+                        <img class="header-logo"src="assets/images/Nesa.png" alt="logo" width="85" height="85">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-right-inner">
+                    <div class="header-right-inner-line"></div>
+                    <div class="header-title">
+                        <div class="header-title-container">
+                            <div class="header-ttitle">
+                                <p>Tanii reclamnii oron zai</p>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="nav-bar-right">
+                        <ul>
+                            <li><a href="https://nesa.mn/" target="_blank">NESA.MN</a></li>
+                            <li><a href="contactus.html">Холбоо барих</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
     {% block content %}
-
+    
     {% endblock %}
+    <footer class="nk-footer">
+
+        <div class="container">
+            <div class="nk-gap-3"></div>
+            <div class="row vertical-gap" style="margin-left: 780px;">
+                
+                <div >
+                    <div class="nk-widget nk-widget-highlighted">
+                        
+                        <div class="nk-widget-content">
+                            <!--
+                                Social Links 3
+                    
+                                Additional Classes:
+                                    .nk-social-links-cols-5
+                                    .nk-social-links-cols-4
+                                    .nk-social-links-cols-3
+                                    .nk-social-links-cols-2
+                            -->
+                            <ul class="nk-social-links-2 nk-social-links-cols-5">
+                                <li><a class="nk-social-twitch" href="#"><span class="fab fa-twitch"></span></a></li>
+                                <li><a class="nk-social-instagram" href="#"><span class="fab fa-instagram"></span></a></li>
+                                <li><a class="nk-social-facebook" href="#"><span class="fab fa-facebook"></span></a></li>
+                                <li><a class="nk-social-google-plus" href="#"><span class="fab fa-google-plus"></span></a></li>
+                                <li><a class="nk-social-youtube" href="#"><span class="fab fa-youtube"></span></a></li>
+                                <li><a class="nk-social-twitter" href="https://twitter.com/nkdevv" target="_blank"><span class="fab fa-twitter"></span></a></li>
+                                <li><a class="nk-social-pinterest" href="#"><span class="fab fa-pinterest-p"></span></a></li>
+                                <li><a class="nk-social-rss" href="#"><span class="fa fa-rss"></span></a></li>
+                    
+                        
+                            </ul>
+                            
+                        </div>
+                    </div>
+                    
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="nk-gap-3"></div>
+        </div>
+    
+        
+    </footer>
+    
+    <Script defer src="assets/js/456.js"></Script>
+<!-- Object Fit Polyfill -->
+<script src="assets/vendor/object-fit-images/dist/ofi.min.js"></script>
+
+<!-- Jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.compatibility.min.js.map"></script>
+
+<!-- GSAP -->
+<script src="assets/vendor/gsap/src/minified/TweenMax.min.js"></script>
+<script src="assets/vendor/gsap/src/minified/plugins/ScrollToPlugin.min.js"></script>
+
+<!-- Popper -->
+<script src="assets/vendor/popper.js/dist/umd/popper.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- Sticky Kit -->
+<script src="assets/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
+
+<!-- Jarallax -->
+<script src="assets/vendor/jarallax/dist/jarallax.min.js"></script>
+<script src="assets/vendor/jarallax/dist/jarallax-video.min.js"></script>
+
+<!-- imagesLoaded -->
+<script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+
+<!-- Flickity -->
+<script src="assets/vendor/flickity/dist/flickity.pkgd.min.js"></script>
+
+<!-- Photoswipe -->
+<script src="assets/vendor/photoswipe/dist/photoswipe.min.js"></script>
+<script src="assets/vendor/photoswipe/dist/photoswipe-ui-default.min.js"></script>
+
+<!-- Jquery Validation -->
+<script src="assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+
+<!-- Jquery Countdown + Moment -->
+<script src="assets/vendor/jquery-countdown/dist/jquery.countdown.min.js"></script>
+<script src="assets/vendor/moment/min/moment.min.js"></script>
+<script src="assets/vendor/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
+
+<!-- Hammer.js -->
+<script src="assets/vendor/hammerjs/hammer.min.js"></script>
+
+<!-- NanoSroller -->
+<script src="assets/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js"></script>
+
+<!-- SoundManager2 -->
+<script src="assets/vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js"></script>
+
+<!-- Seiyria Bootstrap Slider -->
+<script src="assets/vendor/bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+
+<!-- Summernote -->
+<script src="assets/vendor/summernote/dist/summernote-bs4.min.js"></script>
+
+<!-- nK Share -->
+<script src="assets/plugins/nk-share/nk-share.js"></script>
+
+<!-- GoodGames -->
+<script src="assets/js/goodgames.min.js"></script>
+<script src="assets/js/goodgames-init.js"></script>
+<!-- END: Scripts -->
 </body>
-
-<style>
-    body {
-        background-color: azure;
-    }
-</style>
-
 </html>
-
