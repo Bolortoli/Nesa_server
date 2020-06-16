@@ -9,24 +9,24 @@
     <meta name="description" content="GoodGames - Bootstrap template for communities and games store">
     <meta name="keywords" content="game, gaming, template, HTML template, responsive, Bootstrap, premium">
     <meta name="author" content="_nK">
-    <link rel="icon" type="image/png" href="{% static "images/Nesa.png" %} ">
+    <link rel="icon" type="image/png" href="{% static "images/Nesa.png" %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="{% static "vendor/bootstrap/dist/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "/vendor/bootstrap/dist/css/bootstrap.min.css" %}">
     <script defer src="{% static "vendor/fontawesome-free/js/all.js" %}"></script>
     <script defer src="{% static "vendor/fontawesome-free/js/v4-shims.js" %}"></script>
-    <link rel="stylesheet" href="{% static "vendor/ionicons/css/ionicons.min.css" %}">
-    <link rel="stylesheet" href="{% static "vendor/flickity/dist/flickity.min.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "vendor/photoswipe/dist/photoswipe.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "vendor/photoswipe/dist/default-skin/default-skin.css" %}">
-    <link rel="stylesheet" href="{% static "vendor/bootstrap-slider/dist/css/bootstrap-slider.min.css" %} ">
-    <link rel="stylesheet" type="text/css" href="{% static "vendor/summernote/dist/summernote-bs4.css" %} ">
-    <link rel="stylesheet" href="{% static "css/goodgames.css" %} ">
-    <link rel="stylesheet" href="{% static "css/custom.css" %} ">
-    <script src="{% static "/vendor/jquery/dist/jquery.min.js" %} "></script>
+    <link rel="stylesheet" href="{% static "/vendor/ionicons/css/ionicons.min.css" %}">
+    <link rel="stylesheet" href="{% static "/vendor/flickity/dist/flickity.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "/vendor/photoswipe/dist/photoswipe.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "/vendor/photoswipe/dist/default-skin/default-skin.css" %}">
+    <link rel="stylesheet" href="{% static "vendor/bootstrap-slider/dist/css/bootstrap-slider.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "/vendor/summernote/dist/summernote-bs4.css" %}">
+    <link rel="stylesheet" href="{% static "/css/goodgames.css" %}">
+    <link rel="stylesheet" href="{% static "/css/custom.css" %}">
+    <script src="{% static "/vendor/jquery/dist/jquery.min.js" %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static "/css/style.css" %}">
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
-    <link rel="stylesheet" href="{% static "/css/css.css" %} ">
+    <link rel="stylesheet" href="{% static "/css/css.css" %}">
 </head>
 <header>
     <div class="page-header">
@@ -40,22 +40,22 @@
                                 <p class="social-text">follow us on:</p>
                             </div>
                             <div class="inner-social-icons">
-                                <a class="social-icons" href="#">
+                                <a class="social-icons" href="{{ global_settings.facebook }}">
                                     <span class="iconify" data-icon="fa-brands:facebook-square" data-inline="false"></span>
                                 </a>
-                                <a class="social-icons" href="#">
+                                <a class="social-icons" href="{{ global_settings.twitter }}">
                                     <span class="iconify" data-icon="fa-brands:twitter-square" data-inline="false"></span>
                                 </a>
-                                <a class="social-icons" href="#">
+                                <a class="social-icons" href="{{ global_settings.youtube }}">
                                     <span class="iconify" data-icon="fa-brands:youtube" data-inline="false"></span>
                                 </a>
-                                <a class="social-icons" href="#">
+                                <a class="social-icons" href="{{ global_settings.gmail }}">
                                     <span class="iconify" data-icon="fa-brands:instagram" data-inline="false"></span>
                                 </a>
-                                <a class="social-icons" href="#">
+                                <a class="social-icons" href="{{ global_settings.twitch }}">
                                     <span class="iconify" data-icon="fa-brands:twitch" data-inline="false"></span>
                                 </a>
-                                <a class="social-icons" href="#">
+                                <a class="social-icons" href="{{ global_settings.steam }}">
                                     <span class="iconify" data-icon="fa-brands:steam-square" data-inline="false"></span>
                                 </a>
                             </div>
@@ -73,7 +73,7 @@
                 <div class="inner-header-center">
                     <div class="header-logo-wrapper">
                         <a class="logo-clicker" href="#">
-                        <img class="header-logo"src="{% static "/images/Nesa.png" %}" alt="logo" width="85" height="85">
+                        <img class="header-logo"src="{{ global_settings.logo.url }}" alt="logo" width="85" height="85">
                         </a>
                     </div>
                 </div>
@@ -212,60 +212,60 @@
 
 <!-- GSAP -->
 <script src="{% static "vendor/gsap/src/minified/TweenMax.min.js" %}"></script>
-<script src="{% static "vendor/gsap/src/minified/plugins/ScrollToPlugin.min.js" %"></script>
+<script src="{% static "vendor/gsap/src/minified/plugins/ScrollToPlugin.min.js" %}"></script>
 
 <!-- Popper -->
 <script src="{% static "vendor/popper.js/dist/umd/popper.min.js" %}"></script>
 
 <!-- Bootstrap -->
-<script src="{%static "vendor/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+<script src="{% static "vendor/bootstrap/dist/js/bootstrap.min.js" %}"></script>
 
 <!-- Sticky Kit -->
-<script src="{%static "vendor/sticky-kit/dist/sticky-kit.min.js" %}"></script>
+<script src="{% static "vendor/sticky-kit/dist/sticky-kit.min.js" %}"></script>
 
 <!-- Jarallax -->
-<script src="{%static "vendor/jarallax/dist/jarallax.min.js" %}"></script>
-<script src="{%static "vendor/jarallax/dist/jarallax-video.min.js" %}"></script>
+<script src="{% static "vendor/jarallax/dist/jarallax.min.js" %}"></script>
+<script src="{% static "vendor/jarallax/dist/jarallax-video.min.js" %}"></script>
 
 <!-- imagesLoaded -->
-<script src="{%static "vendor/imagesloaded/imagesloaded.pkgd.min.js" %}"></script>
+<script src="{% static "vendor/imagesloaded/imagesloaded.pkgd.min.js" %}"></script>
 
 <!-- Flickity -->
-<script src="{%static "/vendor/flickity/dist/flickity.pkgd.min.js" %}"></script>
+<script src="{% static "/vendor/flickity/dist/flickity.pkgd.min.js" %}"></script>
 
 <!-- Photoswipe -->
-<script src="{%static "vendor/photoswipe/dist/photoswipe.min.js" %}"></script>
-<script src="{%static "vendor/photoswipe/dist/photoswipe-ui-default.min.js" %}"></script>
+<script src="{% static "vendor/photoswipe/dist/photoswipe.min.js" %}"></script>
+<script src="{% static "vendor/photoswipe/dist/photoswipe-ui-default.min.js" %}"></script>
 
 <!-- Jquery Validation -->
-<script src="{%static "vendor/jquery-validation/dist/jquery.validate.min.js" %}"></script>
+<script src="{% static "vendor/jquery-validation/dist/jquery.validate.min.js" %}"></script>
 
 <!-- Jquery Countdown + Moment -->
-<script src="{%static "vendor/jquery-countdown/dist/jquery.countdown.min.js" %}"></script>
-<script src="{%static "vendor/moment/min/moment.min.js"></script>
-<script src="{%static "vendor/moment-timezone/builds/moment-timezone-with-data.min.js" %}"></script>
+<script src="{% static "vendor/jquery-countdown/dist/jquery.countdown.min.js" %}"></script>
+<script src="{% static "vendor/moment/min/moment.min.js" %}" ></script>
+<script src="{% static "vendor/moment-timezone/builds/moment-timezone-with-data.min.js" %}"></script>
 
 <!-- Hammer.js -->
-<script src="{%static "vendor/hammerjs/hammer.min.js" %}"></script>
+<script src="{% static "vendor/hammerjs/hammer.min.js" %}"></script>
 
 <!-- NanoSroller -->
-<script src="{%static "vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js" %}"></script>
+<script src="{% static "vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js" %}"></script>
 
 <!-- SoundManager2 -->
-<script src="{%static "vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js" %}"></script>
+<script src="{% static "vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js" %}"></script>
 
 <!-- Seiyria Bootstrap Slider -->
-<script src="{%static "vendor/bootstrap-slider/dist/bootstrap-slider.min.js" %}"></script>
+<script src="{% static "vendor/bootstrap-slider/dist/bootstrap-slider.min.js" %}"></script>
 
 <!-- Summernote -->
-<script src="{%static "vendor/summernote/dist/summernote-bs4.min.js" %}"></script>
+<script src="{% static "vendor/summernote/dist/summernote-bs4.min.js" %}"></script>
 
 <!-- nK Share -->
-<script src="{%static "plugins/nk-share/nk-share.js" %}"></script>
+<script src="{% static "plugins/nk-share/nk-share.js" %}"></script>
 
 <!-- GoodGames -->
-<script src="{%static "js/goodgames.min.js" %}"></script>
-<script src="{%static "js/goodgames-init.js" %}"></script>
+<script src="{% static "js/goodgames.min.js" %}"></script>
+<script src="{% static "js/goodgames-init.js" %}"></script>
 <!-- END: Scripts -->
 </body>
 </html>
