@@ -191,15 +191,16 @@ nav li {
 }
 nav ul li a {
 	position: relative;
+	display: inline-block;
 	width: 100%;
-	padding: 0 30px;
+	height: 100%;
+	padding: 30px 30px 0 30px;
 	font-weight: 500;
 	font-size: 13px;
 	line-height: 23px;
 	box-sizing: border-box;
 	text-decoration: none;
 	color: #fff;
-	top: 40%;
 }
 .inner-header-center {
 	background-image: url(https://playerx.qodeinteractive.com/wp-content/uploads/2018/06/logo-background-img.jpg);
@@ -234,3 +235,8 @@ nav ul li a {
 	text-align: center;
 }
 
+nav li :hover {
+	text-decoration: none;
+	color: white;
+	border-bottom: 5px solid red;
+}
