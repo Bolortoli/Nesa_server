@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-right-side nk-navbar-overlay-content d-lg-none">
     <div class="nano">
@@ -59,7 +59,7 @@
                             </a>
                         </div>
                         <div id="accordion-1-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="accordion-1-1-heading">
-                            <img src="assets/images/arc.jpg" alt="Smell magic in the air. Or maybe barbecue">
+                            <img src="{{image.url}}"  alt="Smell magic in the air. Or maybe barbecue">
                             <div class="row vertical-gap">
                                 <div class="col-md-8 col-lg-9">
                                     <h2 class="nk-post-title h4"><a href="blog-article.html">Arctis 5</a></h2>

@@ -58,7 +58,8 @@ class Settings(models.Model):
     twitch=models.URLField(max_length=200,default='',blank=True,verbose_name="Twitch хаяг ")
     
     # Web logo
-    # logo=models.ImageField(upload_to="settings", verbose_name="Сайтын лого")
+
+    logo=models.ImageField(upload_to="settings", verbose_name="Сайтын лого", default="")
 
     def __str__(self):
         return self.title
