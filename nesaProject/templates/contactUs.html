@@ -8,4 +8,12 @@
             CONTACTUS CONTENTS HERE
         </h1>
     </ul>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="name">
+        <input type="text" name="email">
+        <input type="text" name="phone">
+        <input type="text" name="text">
+        <input type="submit">
+    </form>
 {% endblock %}
