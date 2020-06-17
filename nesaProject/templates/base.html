@@ -9,17 +9,13 @@
     <meta name="description" content="GoodGames - Bootstrap template for communities and games store">
     <meta name="keywords" content="game, gaming, template, HTML template, responsive, Bootstrap, premium">
     <meta name="author" content="_nK">
-<<<<<<< HEAD
     <link rel="icon" type="image/png" href="{% static "images/Nesa.png" %}">
-=======
     <link rel="icon" type="image/png" href="{% static "/images/Nesa.png" %} ">
->>>>>>> fcbe8d90757357b663efb84eb5c98648d43ee10e
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{% static "/vendor/bootstrap/dist/css/bootstrap.min.css" %}">
     <script defer src="{% static "vendor/fontawesome-free/js/all.js" %}"></script>
     <script defer src="{% static "vendor/fontawesome-free/js/v4-shims.js" %}"></script>
-<<<<<<< HEAD
     <link rel="stylesheet" href="{% static "/vendor/ionicons/css/ionicons.min.css" %}">
     <link rel="stylesheet" href="{% static "/vendor/flickity/dist/flickity.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "/vendor/photoswipe/dist/photoswipe.css" %}">
@@ -32,7 +28,6 @@
     <link rel="stylesheet" type="text/css" href="{% static "/css/style.css" %}">
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
     <link rel="stylesheet" href="{% static "/css/css.css" %}">
-=======
     <link rel="stylesheet" href="{% static "vendor/ionicons/css/ionicons.min.css" %}">
     <link rel="stylesheet" href="{% static "vendor/flickity/dist/flickity.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "/vendor/photoswipe/dist/photoswipe.css" %}">
@@ -45,8 +40,10 @@
     <link rel="stylesheet" type="text/css" href="{% static "/css/style.css" %}">
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
     <link rel="stylesheet" href="{% static "/css/css.css" %} ">
+    <link rel="stylesheet" href="{% static "/css/filter.css" %} ">
+    <link rel="stylesheet" href="{% static "/css/date.css" %} ">
+    <link rel="stylesheet" href="{% static "/css/material-datetime-picker.css" %} ">
     <link href="https://fonts.googleapis.com/css?family=Rubik:700" rel="stylesheet" property="stylesheet" type="text/css" media="all">
->>>>>>> fcbe8d90757357b663efb84eb5c98648d43ee10e
 </head>
 <header>
     <div class="page-header">
@@ -84,7 +81,7 @@
                     <nav class="nav-bar-left">
                         <ul>
                             <li><a href="{% url "home" %}">Нүүр</a></li>
-                            <li><a href="{% url "rewards" %}">Шагнал</a></li>
+                            <li><a href="{% url "blogGrid" %}">Мэдээлэл</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -127,103 +124,132 @@
 
         <div class="container">
             <div class="nk-gap-3"></div>
-            <div class="row vertical-gap" style="margin-left: 780px;">
-                
-                <div >
-                    <div class="nk-widget nk-widget-highlighted">
-                        
+            <div class="row vertical-gap">
+                <div class="col-md-6">
+                    <div class="nk-widget">
+                        <h4 class="nk-widget-title"><span class="text-main-1">Холбоо</span> Барих</h4>
                         <div class="nk-widget-content">
-                            <!--
-                                Social Links 3
-                    
-                                Additional Classes:
-                                    .nk-social-links-cols-5
-                                    .nk-social-links-cols-4
-                                    .nk-social-links-cols-3
-                                    .nk-social-links-cols-2
-                            -->
-                            <ul class="nk-social-links-2 nk-social-links-cols-5">
-                                <li><a class="nk-social-twitch" href="#"><span class="fab fa-twitch"></span></a></li>
-                                <li><a class="nk-social-instagram" href="#"><span class="fab fa-instagram"></span></a></li>
-                                <li><a class="nk-social-facebook" href="#"><span class="fab fa-facebook"></span></a></li>
-                                <li><a class="nk-social-google-plus" href="#"><span class="fab fa-google-plus"></span></a></li>
-                                <li><a class="nk-social-youtube" href="#"><span class="fab fa-youtube"></span></a></li>
-                                <li><a class="nk-social-twitter" href="https://twitter.com/nkdevv" target="_blank"><span class="fab fa-twitter"></span></a></li>
-                                <li><a class="nk-social-pinterest" href="#"><span class="fab fa-pinterest-p"></span></a></li>
-                                <li><a class="nk-social-rss" href="#"><span class="fa fa-rss"></span></a></li>
-                    
-                        
-                            </ul>
-                            
+                            <form action="php/ajax-contact-form.php" class="nk-form nk-form-ajax">
+                                <div class="row vertical-gap sm-gap">
+                                    <div class="col-md-6">
+                                        <input type="email" class="form-control required" name="email" placeholder="Email *">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control required" name="name" placeholder="Нэр *">
+                                    </div>
+                                </div>
+                                <div class="nk-gap"></div>
+                                <textarea class="form-control required" name="message" rows="5" placeholder="Message *"></textarea>
+                                <div class="nk-gap-1"></div>
+                                <button class="nk-btn nk-btn-rounded nk-btn-color-white">
+                                    <span>Илгээх</span>
+                                    <span class="icon"><i class="ion-paper-airplane"></i></span>
+                                </button>
+                                <div class="nk-form-response-success"></div>
+                                <div class="nk-form-response-error"></div>
+                            </form>
                         </div>
                     </div>
-                    
+                </div>
+                <div class="col-md-6">
+                    <div class="nk-widget">
+                        <h4 class="nk-widget-title"><span class="text-main-1">Latest</span> Posts</h4>
+                        <div class="nk-widget-content">
+                            <div class="row vertical-gap sm-gap">
+                                
+                                <div class="col-lg-6">
+                                    <div class="nk-widget-post-2">
+                                        <a href="blog-article.html" class="nk-post-image">
+                                            <img src="assets/images/post-1-sm.jpg" alt="">
+                                        </a>
+                                        <div class="nk-post-title"><a href="blog-article.html">Smell magic in the air. Or maybe barbecue</a></div>
+                                        <div class="nk-post-date">
+                                            <span class="fa fa-calendar"></span> Sep 18, 2018
+                                            <span class="fa fa-comments"></span> <a href="#">4</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-6">
+                                    <div class="nk-widget-post-2">
+                                        <a href="blog-article.html" class="nk-post-image">
+                                            <img src="assets/images/post-2-sm.jpg" alt="">
+                                        </a>
+                                        <div class="nk-post-title"><a href="blog-article.html">Grab your sword and fight the Horde</a></div>
+                                        <div class="nk-post-date">
+                                            <span class="fa fa-calendar"></span> Sep 5, 2018
+                                            <span class="fa fa-comments"></span> <a href="#">7</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
                     </div>
-                    
+                    <div class="nk-widget">
+                        <h4 class="nk-widget-title"><span class="text-main-1">Холбоо барих</span> Утас</h4>
+                        <div class="nk-widget-content">
+                            <div class="nk-phone-list" data-twitter-count="1"><span>+97688034798</span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="nk-gap-3"></div>
         </div>
     
-        
-    </footer>
-
-    <div class="nk-modal modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span class="ion-android-close"></span>
-                    </button>
+        <div class="nk-copyright">
+            <div class="container">
+                <div class="nk-copyright-left">
+                    <img src="{% static "/images/foot.png "%}" alt="footer logo">
+                </div>
+                <div class="nk-copyright-right">
+                    <ul class="nk-social-links-2">
+                        <li><a class="nk-social-rss" href="#"><span class="fa fa-rss"></span></a></li>
+                        <li><a class="nk-social-twitch" href="#"><span class="fab fa-twitch"></span></a></li>
+                        <li><a class="nk-social-steam" href="#"><span class="fab fa-steam"></span></a></li>
+                        <li><a class="nk-social-facebook" href="#"><span class="fab fa-facebook"></span></a></li>
+                        <li><a class="nk-social-google-plus" href="#"><span class="fab fa-google-plus"></span></a></li>
+                        <li><a class="nk-social-twitter" href="https://twitter.com/nkdevv" target="_blank"><span class="fab fa-twitter"></span></a></li>
+                        <li><a class="nk-social-pinterest" href="#"><span class="fab fa-pinterest-p"></span></a></li>
     
-                    <h4 class="mb-0"><span class="text-main-1">Нэвтрэх</span></h4>
-    
-                    <div class="nk-gap-1"></div>
-                    <form action="#" class="nk-form text-white">
-                        <div class="row vertical-gap">
-                            <div class="col-md-6">
-                                Email Нууц үг
-    
-                                <div class="nk-gap"></div>
-                                <input type="email" value="" name="email" class=" form-control" placeholder="Email">
-    
-                                <div class="nk-gap"></div>
-                                <input type="password" value="" name="password" class="required form-control" placeholder="Password">
-                            </div>
-                            <div class="col-md-6">
-                                Steam-ээр Нэвтрэх
-    
-                                <div class="nk-gap"></div>
-    
-                                <ul class="nk-social-links-2">
-                                    <li><a class="nk-social-facebook" href="#"><span class="fab fa-facebook"></span></a></li>
-                                    <li><a class="nk-social-google-plus" href="#"><span class="fab fa-google-plus"></span></a></li>
-                                    <li><a class="nk-social-twitter" href="#"><span class="fab fa-twitter"></span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-    
-                        <div class="nk-gap-1"></div>
-                        <div class="row vertical-gap">
-                            <div class="col-md-6">
-                                <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-block">Нэвтрэх</a>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mnt-5">
-                                    <small><a href="#">нууц үгээ мартсан уу?</a></small>
-                                </div>
-                                <div class="mnt-5">
-                                    <small><a href="#">Бүртгүүлэх</a></small>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                        <!-- Additional Social Buttons
+                            <li><a class="nk-social-behance" href="#"><span class="fab fa-behance"></span></a></li>
+                            <li><a class="nk-social-bitbucket" href="#"><span class="fab fa-bitbucket"></span></a></li>
+                            <li><a class="nk-social-dropbox" href="#"><span class="fab fa-dropbox"></span></a></li>
+                            <li><a class="nk-social-dribbble" href="#"><span class="fab fa-dribbble"></span></a></li>
+                            <li><a class="nk-social-deviantart" href="#"><span class="fab fa-deviantart"></span></a></li>
+                            <li><a class="nk-social-flickr" href="#"><span class="fab fa-flickr"></span></a></li>
+                            <li><a class="nk-social-foursquare" href="#"><span class="fab fa-foursquare"></span></a></li>
+                            <li><a class="nk-social-github" href="#"><span class="fab fa-github"></span></a></li>
+                            <li><a class="nk-social-instagram" href="#"><span class="fab fa-instagram"></span></a></li>
+                            <li><a class="nk-social-linkedin" href="#"><span class="fab fa-linkedin"></span></a></li>
+                            <li><a class="nk-social-medium" href="#"><span class="fab fa-medium"></span></a></li>
+                            <li><a class="nk-social-odnoklassniki" href="#"><span class="fab fa-odnoklassniki"></span></a></li>
+                            <li><a class="nk-social-paypal" href="#"><span class="fab fa-paypal"></span></a></li>
+                            <li><a class="nk-social-reddit" href="#"><span class="fab fa-reddit"></span></a></li>
+                            <li><a class="nk-social-skype" href="#"><span class="fab fa-skype"></span></a></li>
+                            <li><a class="nk-social-soundcloud" href="#"><span class="fab fa-soundcloud"></span></a></li>
+                            <li><a class="nk-social-slack" href="#"><span class="fab fa-slack"></span></a></li>
+                            <li><a class="nk-social-tumblr" href="#"><span class="fab fa-tumblr"></span></a></li>
+                            <li><a class="nk-social-vimeo" href="#"><span class="fab fa-vimeo"></span></a></li>
+                            <li><a class="nk-social-vk" href="#"><span class="fab fa-vk"></span></a></li>
+                            <li><a class="nk-social-wordpress" href="#"><span class="fab fa-wordpress"></span></a></li>
+                            <li><a class="nk-social-youtube" href="#"><span class="fab fa-youtube"></span></a></li>
+                        -->
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
     
     <Script defer src="{% static "/js/456.js" %}"></Script>
+    <Script defer src="{% static "/js/filter.js" %}"></Script>
+    <Script defer src="{% static "/js/datepicker.js" %}"></Script>
+    <script src="https://unpkg.com/babel-polyfill@6.2.0/dist/polyfill.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rome/2.1.22/rome.standalone.js"></script>
+  <script src="{% static "/js/material-datetime-picker.js" %}"></script>
+
 <!-- Object Fit Polyfill -->
 <script src="{% static "vendor/object-fit-images/dist/ofi.min.js" %}"></script>
 

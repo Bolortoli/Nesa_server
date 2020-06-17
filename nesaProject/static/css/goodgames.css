@@ -4396,10 +4396,10 @@ img.rounded {
 }
 
 .nk-widget-match .nk-widget-match-teams .nk-widget-match-team-logo img {
-    width: 47px;
+    width: 91px;
     height: auto;
     border: 1px solid #232930;
-}
+} 
 
 .nk-widget-match .nk-widget-match-teams .nk-widget-match-vs + .nk-widget-match-team-logo {
     text-align: right;
@@ -4929,6 +4929,7 @@ img.rounded {
 }
 
 .nk-social-links-2 {
+    margin-top: 30px;
     margin-right: -4px;
     margin-left: -4px;
 }
