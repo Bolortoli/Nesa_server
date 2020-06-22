@@ -126,11 +126,11 @@
     <div class="mobile-header-container">
         <div class="mobile-inner-header">
             <div class="mobile-menu" >
-                    <img  onclick="mobileNavMenu()" id="menuImg" class="mobile-menu-img" src="{% static "/images/men.png "%}" alt="mobile-menu" width="30" height="30">
+                    <img  onclick="mobileNavMenu()" id="menuImg" class="mobile-menu-img" src="{% static "/images/men.png"%}" alt="mobile-menu" width="30" height="30">
             </div>
             <div class="mobile-logo">
                     <a href="#">
-                        <img src="{% static "/images/log.png " %}" alt="mobile-logo" width="45" height="45">
+                        <img src="{% static "/images/log.png" %}" alt="mobile-logo" width="45" height="45">
                     </a>
             </div>
         </div>
@@ -189,7 +189,7 @@
                                 <div class="col-lg-6">
                                     <div class="nk-widget-post-2">
                                         <a href="{% url 'news-blog-archive' %}" class="nk-post-image">
-                                            <img src="{% static "/images/ty.jpg "%}" alt="">
+                                            <img src="{% static "/images/ty.jpg"%}" alt="">
                                         </a>
                                         <div class="nk-post-title"><a href="{% url 'news-blog-archive' %}">2020 оны зуны RMR онооны тэмцээний тов зарлагдлаа.</a>
                                         </div>
@@ -203,7 +203,7 @@
                                 <div class="col-lg-6">
                                     <div class="nk-widget-post-2">
                                         <a href="{% url 'news-blog-archive' %}" class="nk-post-image">
-                                            <img src="{% static "/images/ty.jpg "%}" alt="">
+                                            <img src="{% static "/images/ty.jpg"%}" alt="">
                                         </a>
                                         <div class="nk-post-title"><a href="{% url 'news-blog-archive' %}">2020 оны зуны RMR онооны тэмцээний тов зарлагдлаа.</a></div>
                                         <div class="nk-post-date">
@@ -234,7 +234,7 @@
                 </div>
                 <div class="nk-copyright-right">
                     <ul class="nk-social-links-2">
-                        <li><a class="nk-social-rss" href="#"><span class="fa fa-rss"></span></a></li>
+                        <li><a class="nk-social-rss" href="{{ global_settings.facebook }}"><span class="fa fa-rss"></span></a></li>
                         <li><a class="nk-social-twitch" href="#"><span class="fab fa-twitch"></span></a></li>
                         <li><a class="nk-social-steam" href="#"><span class="fab fa-steam"></span></a></li>
                         <li><a class="nk-social-facebook" href="#"><span class="fab fa-facebook"></span></a></li>
