@@ -114,10 +114,6 @@ a {
     transition: .15s color;
 }
 
-a:focus,
-a:hover {
-    color: #dd163b;
-}
 
 ::-moz-selection {
     color: #fff;
@@ -211,6 +207,9 @@ a:hover {
     z-index: -1;
 }
 
+.txt-1{
+    margin-left: 4%;
+}
 .bg-image-row > div,
 .bg-video-row > div,
 .bg-map-row > div {
@@ -950,7 +949,7 @@ h6,
 }
 
 .bg-main-2 {
-    background-color: #a714b9 !important;
+    background-color: #dd163b !important;
 }
 
 .bg-main-3 {
@@ -4003,6 +4002,7 @@ img.rounded {
  -------------------------------------------------------------------*/
 .nk-widget {
     overflow: hidden;
+    margin-top: 18px;
 }
 
 .nk-widget ~ .nk-widget {
@@ -5127,8 +5127,8 @@ img.rounded {
 }
 
 .nk-btn.nk-btn-outline {
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .nk-btn-xs {
@@ -5386,8 +5386,8 @@ img.rounded {
 }
 
 .nk-btn-color-success {
-    background-color: #38a220;
-    border-color: #266f16;
+    background-color: red;
+    border-color: red;
     border-style: solid;
 }
 
@@ -5397,12 +5397,12 @@ img.rounded {
 }
 
 .nk-btn-color-success:active, .nk-btn-color-success.active {
-    background-color: #55d737;
+    background-color: red;
     border-color: #6edd55;
 }
 
 .nk-btn-color-success.nk-btn-outline {
-    color: #38a220;
+    color: red;
 }
 
 .nk-btn-color-success.nk-btn-outline:hover, .nk-btn-color-success.nk-btn-outline.hover {
@@ -5442,8 +5442,8 @@ img.rounded {
 }
 
 .nk-btn-color-warning {
-    background-color: #ef9e2b;
-    border-color: #cd7f0f;
+    background-color: red;
+    border-color:red;
     border-style: solid;
 }
 
@@ -5458,7 +5458,7 @@ img.rounded {
 }
 
 .nk-btn-color-warning.nk-btn-outline {
-    color: #ef9e2b;
+    color: red;
 }
 
 .nk-btn-color-warning.nk-btn-outline:hover, .nk-btn-color-warning.nk-btn-outline.hover {
@@ -7033,7 +7033,7 @@ img.rounded {
     position: relative;
     display: block;
     width: 100%;
-    padding-top: 56.25%;
+    padding-top: 120.25%;
     cursor: pointer;
     background-position: 50% 50%;
     background-size: cover;
@@ -8062,7 +8062,7 @@ div.nk-error {
 
 .nk-post-categories span,
 .nk-post-categories a {
-    padding: 2px 19px;
+    padding: 0px 30px;
     color: #fff;
     background-color: #293139;
     border-radius: 4px;
@@ -8168,6 +8168,11 @@ div.nk-error {
 
 .nk-post-text > p:last-child {
     margin-bottom: 0;
+    overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
 }
 
 /* FullWidth Posts */
@@ -8375,8 +8380,9 @@ div.nk-error {
 }
 
 .nk-news-box .nk-news-box-each-info .nk-news-box-item-image img {
-    width: 100%;
+    width: 45%;
     height: auto;
+    
 }
 
 .nk-news-box .nk-news-box-each-info .nk-news-box-item-image[style*="background"] {

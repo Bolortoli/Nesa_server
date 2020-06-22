@@ -10,14 +10,14 @@
 	position: relative;
 }
 #msform fieldset {
-	background: white;
+	background: #232930;
 	border: 0 none;
 	border-radius: 3px;
 	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
 	padding: 20px 30px;
 	box-sizing: border-box;
-	width: 80%;
-	margin: 0 10%;
+	width: 182%;
+	margin: 0 -40%;
 	
 	/*stacking fieldsets above each other*/
 	position: relative;
@@ -28,20 +28,21 @@
 }
 /*inputs*/
 #msform input, #msform textarea {
-	padding: 15px;
-	border: 1px solid #ccc;
+	padding: 5px;
+	border: 1px solid rgb(127, 139, 146);
 	border-radius: 3px;
 	margin-bottom: 10px;
-	width: 100%;
+	width: 30%;
 	box-sizing: border-box;
 	font-family: montserrat;
-	color: #2C3E50;
+	color: white;
 	font-size: 13px;
+	margin-left: 35%;
 }
 /*buttons*/
 #msform .action-button {
 	width: 100px;
-	background: #27AE60;
+	background: #dd163b !important;
 	font-weight: bold;
 	color: white;
 	border: 0 none;
@@ -49,9 +50,10 @@
 	cursor: pointer;
 	padding: 10px 5px;
 	margin: 10px 5px;
+	margin-right: 130px;
 }
 #msform .action-button:hover, #msform .action-button:focus {
-	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+	box-shadow: 0 0 0 2px rgb(127, 139, 146), 0 0 0 3px  #dd163b !important;
 }
 /*headings*/
 .fs-title {
@@ -70,6 +72,7 @@
 #progressbar {
 	margin-bottom: 30px;
 	overflow: hidden;
+	margin-left: 80px;
 	/*CSS counters to number the steps*/
 	counter-reset: step;
 }
@@ -90,7 +93,7 @@
 	display: block;
 	font-size: 10px;
 	color: #333;
-	background: white;
+	background: rgb(127, 139, 146);
 	border-radius: 3px;
 	margin: 0 auto 5px auto;
 }
@@ -99,7 +102,7 @@
 	content: '';
 	width: 100%;
 	height: 2px;
-	background: white;
+	background: rgb(127, 139, 146);
 	position: absolute;
 	left: -50%;
 	top: 9px;
@@ -112,9 +115,19 @@
 /*marking active/completed steps green*/
 /*The number of the step and the connector before it = green*/
 #progressbar li.active:before,  #progressbar li.active:after{
-	background: #27AE60;
+	background: #dd163b !important;
 	color: white;
 }
 
+.action-buttons{
+	margin-right: 235px;
+	width: 100px;
+	background: #dd163b !important;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+}
 
 

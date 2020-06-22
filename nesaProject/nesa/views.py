@@ -10,10 +10,17 @@ def contactUs(req):
         item = ContactUs(fullName=req.POST['name'],email=req.POST['email']
             ,phone=req.POST['phone'],text=req.POST['text'])
         item.save()
-
     return render(req, 'contactUs.html')
-def blogGrid(req):
-    return render(req, 'blogGrid.html')   
 
-def blogSingle(req):
-    return render(req, 'blogSingle1.html')
+def rewardsBlogArchive(req):
+    return render(req, 'rewards-blog-archive.html')   
+
+def newsBlogArchive(req):
+    return render(req, 'news-blog-archive.html')
+
+def rewardsBlogSingle(req):
+    return render(req, 'rewards-blog-single.html')
+
+def newsBlogSingle(req):
+    return render(req, 'news-blog-single.html')    
+
