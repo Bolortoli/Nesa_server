@@ -408,11 +408,15 @@ body {
 	z-index: 99;
 	top: 80px;
 	min-width: 160px;
-	height: min-content;
+	height: auto;
 }
 .hover-effect-content li{
 	margin: 5px 0;
 
+}
+.a {
+	z-index: 8;
+	position: relative;
 }
 
 .hover-effect-tuku:hover
