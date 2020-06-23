@@ -419,6 +419,14 @@ body {
 	position: relative;
 }
 
+.loginpos{
+	margin-left: 100px;
+	margin-top: 5px;
+    left:33%;
+    top:43%;
+    max-width: 100%;
+}
+
 .hover-effect-tuku:hover
 .hover-effect-content{
 	opacity: 1;
