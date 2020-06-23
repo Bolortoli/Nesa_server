@@ -478,7 +478,7 @@ body {
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
 	z-index: 10;
-	margin-left: 85.5%;
+	transform: translateX(2460%);
   }
   
   .icon-bar a {
