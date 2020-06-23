@@ -474,6 +474,7 @@ body {
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
 	z-index: 10;
+	margin-left: 85.5%;
   }
   
   .icon-bar a {
@@ -481,9 +482,7 @@ body {
 	text-align: center;
 	padding: 16px;
 	transition: all 0.3s ease;
-	color: white;
 	font-size: 20px;
-	margin-left: 1210px;
   }
   
   .icon-bar a:hover {
@@ -496,12 +495,12 @@ body {
   }
   
   
-  .steam {
-	background: gray;
-	color: white;
+  .messenger {
+	background: white;
+	color: #3B5998;
   }
   
   .content {
-	margin-left: 75px;
+	margin-right: 75px;
 	font-size: 30px;
   }

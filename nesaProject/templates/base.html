@@ -92,7 +92,7 @@
                     </nav>
                 </div>
             </div>
-            <div class="header-center">
+            <div class="header-center"> 
                 <div class="inner-header-center">
                     <div class="header-logo-wrapper">
                         <a class="logo-clicker" href="{% url "home" %}">
@@ -140,8 +140,8 @@
         <li><a href="{% url "home" %}">НҮҮР</a></li>
         <li><a href="#">МЭДЭЭЛЭЛ</a>
            <ul>
-               <li><a href="#">SERVER</a></li>
-               <li><a href="#">МЭДЭЭЛЭЛ</a></li>
+               <li><a href="{% url "rewards-blog-archive" %}">SERVER</a></li>
+               <li><a href="{% url "news-blog-archive" %}">МЭДЭЭЛЭЛ</a></li>
            </ul>
         </li>
         <a href="https://nesa.mn/" target="_blank"><li>NESA.MN</li></a>
