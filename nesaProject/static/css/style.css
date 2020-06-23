@@ -400,7 +400,7 @@ body {
 	opacity: 0;
 	visibility: hidden;
 	transform: translateY(50%);
-	transition: ease .2s;
+	transition: ease .0.1s;
 	position: absolute;
 	left: 0;
 	padding: 20px;
@@ -425,7 +425,7 @@ body {
 .hover-effect-tuku:hover 
 .border-b::after{
 	opacity: 1;
-	transition: cubic-bezier(0.6, -0.28, 0.735, 0.045) 0.3s;
+	transition: cubic-bezier(0.6, -0.28, 0.735, 0.045) 0.1s;
 }
 .border-b::after{
 	content: '';

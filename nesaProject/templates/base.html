@@ -95,7 +95,7 @@
             <div class="header-center">
                 <div class="inner-header-center">
                     <div class="header-logo-wrapper">
-                        <a class="logo-clicker" href="#">
+                        <a class="logo-clicker" href="{% url "home" %}">
                         <img class="header-logo"src="{% static "/images/log.png" %}" alt="logo" width="85" height="85">
                         </a>
                     </div>
@@ -106,8 +106,8 @@
                     <div class="header-right-inner-line"></div>
                     <div class="header-title">
                         <div class="header-title-container">
-                            <div class="header-ttitle">
-                                <p>Нэр байна <a href="#" class="nk-btn nk-btn-outline nk-btn-color-success"> Нэвтрэх </a></p>
+                            <div class="nk-post-text">
+                                <a href="#" class="nk-btn nk-btn-outline nk-btn-color-success"> Нэвтрэх </a>
                             </div>
                         </div>
                     </div>
@@ -126,19 +126,24 @@
     <div class="mobile-header-container">
         <div class="mobile-inner-header">
             <div class="mobile-menu" >
-                    <img  onclick="mobileNavMenu()" id="menuImg" class="mobile-menu-img" src="{% static "/images/men.png "%}" alt="mobile-menu" width="30" height="30">
+                    <img  onclick="mobileNavMenu()" id="menuImg" class="mobile-menu-img" src="{% static "/images/men.png"%}" alt="mobile-menu" width="30" height="30">
             </div>
             <div class="mobile-logo">
                     <a href="#">
-                        <img src="{% static "/images/log.png " %}" alt="mobile-logo" width="45" height="45">
+                        <img src="{% static "/images/log.png" %}" alt="mobile-logo" width="45" height="45">
                     </a>
             </div>
         </div>
     </div>
     <div class="mobile-nav">
     <ul id="mobileNavInner" class="mobile-nav-inner">
-        <a href="{% url "home" %}"><li>НҮҮР</li></a>
-        <a href="#"><li>МЭДЭЭЛЭЛ</li></a>
+        <li><a href="{% url "home" %}">НҮҮР</a></li>
+        <li><a href="#">МЭДЭЭЛЭЛ</a>
+           <ul>
+               <li><a href="#">SERVER</a></li>
+               <li><a href="#">МЭДЭЭЛЭЛ</a></li>
+           </ul>
+        </li>
         <a href="https://nesa.mn/" target="_blank"><li>NESA.MN</li></a>
         <a href="{% url "contactUs" %}"><li>ХОЛБОО БАРИХ</li></a>
     </ul>
@@ -165,6 +170,9 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control required" name="name" placeholder="Нэр *">
                                     </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control required" name="phone" placeholder="Утас *">
+                                    </div>
                                 </div>
                                 <div class="nk-gap"></div>
                                 <textarea class="form-control required" name="message" rows="5" placeholder="Message *"></textarea>
@@ -188,7 +196,7 @@
                                 <div class="col-lg-6">
                                     <div class="nk-widget-post-2">
                                         <a href="{% url 'news-blog-archive' %}" class="nk-post-image">
-                                            <img src="{% static "/images/ty.jpg "%}" alt="">
+                                            <img src="{% static "/images/ty.jpg"%}" alt="">
                                         </a>
                                         <div class="nk-post-title"><a href="{% url 'news-blog-archive' %}">2020 оны зуны RMR онооны тэмцээний тов зарлагдлаа.</a>
                                         </div>
@@ -202,7 +210,7 @@
                                 <div class="col-lg-6">
                                     <div class="nk-widget-post-2">
                                         <a href="{% url 'news-blog-archive' %}" class="nk-post-image">
-                                            <img src="{% static "/images/ty.jpg "%}" alt="">
+                                            <img src="{% static "/images/ty.jpg"%}" alt="">
                                         </a>
                                         <div class="nk-post-title"><a href="{% url 'news-blog-archive' %}">2020 оны зуны RMR онооны тэмцээний тов зарлагдлаа.</a></div>
                                         <div class="nk-post-date">
