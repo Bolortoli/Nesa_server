@@ -5386,8 +5386,8 @@ img.rounded {
 }
 
 .nk-btn-color-success {
-    background-color: red;
-    border-color: red;
+    background-color: #297718;
+    border-color: #297718;
     border-style: solid;
 }
 
@@ -5397,12 +5397,12 @@ img.rounded {
 }
 
 .nk-btn-color-success:active, .nk-btn-color-success.active {
-    background-color: red;
+    background-color: #297718;
     border-color: #6edd55;
 }
 
 .nk-btn-color-success.nk-btn-outline {
-    color: red;
+    color: #297718;
 }
 
 .nk-btn-color-success.nk-btn-outline:hover, .nk-btn-color-success.nk-btn-outline.hover {

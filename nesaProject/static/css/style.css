@@ -136,6 +136,7 @@ body {
 		vertical-align: middle;
 		margin: 0;
 		color: white;
+		margin-top: 20px;
 	}
 	.header-title-container {
 		height: 100%;
@@ -143,6 +144,8 @@ body {
 		vertical-align: middle;
 		margin: 0;
 		color: white;
+		margin-left: 65px;
+        margin-top: 15px;
 	}
 	.social-text {
 		margin-right: 30px;
@@ -463,3 +466,42 @@ body {
 	to {width: 21px;}
   }
   
+
+  .icon-bar {
+	position: fixed;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	z-index: 10;
+  }
+  
+  .icon-bar a {
+	display: block;
+	text-align: center;
+	padding: 16px;
+	transition: all 0.3s ease;
+	color: white;
+	font-size: 20px;
+	margin-left: 1210px;
+  }
+  
+  .icon-bar a:hover {
+	background-color: #000;
+  }
+  
+  .facebook {
+	background: #3B5998;
+	color: white;
+  }
+  
+  
+  .steam {
+	background: gray;
+	color: white;
+  }
+  
+  .content {
+	margin-left: 75px;
+	font-size: 30px;
+  }
