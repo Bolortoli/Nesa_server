@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="{% static "/css/css.css" %} ">
     <link rel="stylesheet" href="{% static "/css/filter.css" %} ">
     <link rel="stylesheet" href="{% static "/css/date.css" %} ">
+      <link rel="stylesheet" href="{% static "/css/steam.css" %} ">
     <link href="https://fonts.googleapis.com/css?family=Rubik:700" rel="stylesheet" property="stylesheet" type="text/css" media="all">
 </head>
 <header class="desktop-header" >
@@ -78,7 +79,7 @@
                     </div>
                     <nav class="nav-bar-left">
                         <ul>
-                            <li class="hover-effect-tuku">
+                            <li class="">
                                 <a href="{% url "home" %}" class=" border-b">НҮҮР</a>
                             </li>
                             <li class="hover-effect-tuku"  >
@@ -92,8 +93,8 @@
                     </nav>
                 </div>
             </div>
-            <div class="header-center"> 
-                <div class="inner-header-center">
+            <div class="header-center">
+                <div class="inner-header-center" style="background-image: url('{% static "/images/back1.jpg"%}');">
                     <div class="header-logo-wrapper">
                         <a class="logo-clicker" href="{% url "home" %}">
                         <img class="header-logo"src="{% static "/images/Nesa.png" %}" alt="logo" width="85" height="85">
@@ -107,8 +108,11 @@
                     <div class="header-title">
                         <div class="header-title-container">
                             <div class="nk-post-text">
-                           
-                          <div class="a"><a href="steam.com"><img border="0" alt="W3Schools" src="{% static "/images/steam.png"%}"  width="25px" height="auto"></a></div>  
+                           <a href="#" class="steambutton"><span>НЭВТРЭХ</span><div class="icon">
+		<i class="fa fa-steam-square"></i>
+
+	</div></a>
+                        
                             </div>
                         </div>
                     </div>
@@ -141,8 +145,8 @@
         <li><a href="{% url "home" %}">НҮҮР</a></li>
         <li><a href="#">МЭДЭЭЛЭЛ</a>
            <ul>
-               <li><a href="{% url "rewards-blog-archive" %}">SERVER</a></li>
-               <li><a href="{% url "news-blog-archive" %}">МЭДЭЭЛЭЛ</a></li>
+               <li><a href="#">SERVER</a></li>
+               <li><a href="#">МЭДЭЭЛЭЛ</a></li>
            </ul>
         </li>
         <a href="https://nesa.mn/" target="_blank"><li>NESA.MN</li></a>
