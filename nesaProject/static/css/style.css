@@ -208,7 +208,7 @@ body {
 		top: 40%;
 	}
 	.inner-header-center {
-		background-image: url(https://playerx.qodeinteractive.com/wp-content/uploads/2018/06/logo-background-img.jpg);
+
 		height: calc(100% + 10px);
 		clip-path: polygon(0 0,100% 0,81% 100%,19% 100%);
 		display: inline-block;
@@ -419,13 +419,7 @@ body {
 	position: relative;
 }
 
-.loginpos{
-	margin-left: 100px;
-	margin-top: 5px;
-    left:33%;
-    top:43%;
-    max-width: 100%;
-}
+
 
 .hover-effect-tuku:hover
 .hover-effect-content{
@@ -486,7 +480,7 @@ body {
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
 	z-index: 10;
-	transform: translateX(2460%);
+	margin-left: 85.5%;
   }
   
   .icon-bar a {
