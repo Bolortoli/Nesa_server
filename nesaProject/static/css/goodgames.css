@@ -8239,7 +8239,7 @@ div.nk-error {
 }
 
 .nk-news-box {
-    height: 425px;
+    height: 525px;
     overflow: hidden;
     background-color: #232930;
     border: 1px solid #293139;
@@ -8383,7 +8383,7 @@ div.nk-error {
 }
 
 .nk-news-box .nk-news-box-each-info .nk-news-box-item-image img {
-    width: 45%;
+    width: 55%;
     height: auto;
     
 }
