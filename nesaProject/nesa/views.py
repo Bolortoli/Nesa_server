@@ -24,3 +24,5 @@ def rewardsBlogSingle(req):
 def newsBlogSingle(req):
     return render(req, 'news-blog-single.html')    
 
+def rewardsBlogGrid(req):
+    return render(req,'rewards-blog-grid.html')

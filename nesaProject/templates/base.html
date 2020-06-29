@@ -87,6 +87,7 @@
                                 <ul class="hover-effect-content">
                                     <li><a href="{% url "rewards-blog-archive" %}" class="border-a">SERVER</a></li>
                                     <li><a href="{% url "news-blog-archive" %}" class="border-a">МЭДЭЭЛЭЛ</a></li>
+                                    <li><a href="{% url "rewards-blog-grid" %}" class="border-a">ШАГНАЛ</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -145,8 +146,9 @@
         <li><a href="{% url "home" %}">НҮҮР</a></li>
         <li><a href="#">МЭДЭЭЛЭЛ</a>
            <ul>
-               <li><a href="#">SERVER</a></li>
-               <li><a href="#">МЭДЭЭЛЭЛ</a></li>
+               <li><a href="{% url "rewards-blog-archive" %}">SERVER</a></li>
+               <li><a href="{% url "news-blog-archive" %}">МЭДЭЭЛЭЛ</a></li>
+               <li><a href="{% url "rewards-blog-grid" %}">ШАГНАЛ</a></li>
            </ul>
         </li>
         <a href="https://nesa.mn/" target="_blank"><li>NESA.MN</li></a>
