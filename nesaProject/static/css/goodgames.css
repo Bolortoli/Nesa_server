@@ -4002,7 +4002,9 @@ img.rounded {
  -------------------------------------------------------------------*/
 .nk-widget {
     overflow: hidden;
-    margin-top: 18px;
+    margin-top: 0px;
+    height: 100%;
+    width: 155%;
 }
 
 .nk-widget ~ .nk-widget {
@@ -7036,9 +7038,9 @@ img.rounded {
     position: relative;
     display: block;
     width: 100%;
-    padding-top: 120.25%;
+    padding-top: 79.25%;
     cursor: pointer;
-    background-position: 50% 50%;
+    background-position: 65% 50%;
     background-size: cover;
 }
 
