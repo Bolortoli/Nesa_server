@@ -145,7 +145,9 @@ a {
     top: auto;
     bottom: 0;
 }
-
+.ew{
+    width: 95%;
+}
 .nk-page-background-fixed {
     position: fixed;
     height: 100%;
@@ -4003,8 +4005,7 @@ img.rounded {
 .nk-widget {
     overflow: hidden;
     margin-top: 0px;
-    height: 100%;
-    width: 155%;
+    
 }
 
 .nk-widget ~ .nk-widget {
@@ -7038,7 +7039,7 @@ img.rounded {
     position: relative;
     display: block;
     width: 100%;
-    padding-top: 79.25%;
+    padding-top: 83.25%;
     cursor: pointer;
     background-position: 65% 50%;
     background-size: cover;
