@@ -4043,7 +4043,9 @@ img.rounded {
     background-color: #fff;
     z-index: -1;
 }
-
+.qr{
+    padding: 36px 23px;
+}
 .nk-widget-highlighted .nk-widget-content {
     padding: 20px 23px;
     background-color: #232930;
@@ -5128,11 +5130,13 @@ img.rounded {
     color: #fff;
     text-decoration: none;
 }
-
+.po{
+    width: 100%;
+}
 .nk-btn.nk-btn-outline {
     padding-top: 0px;
     padding-bottom: 0px;
-    margin-left: 42%;
+    margin-left: 0%;
 }
 
 .nk-btn-xs {
