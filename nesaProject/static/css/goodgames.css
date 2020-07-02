@@ -3007,6 +3007,12 @@ img.rounded {
 /*
  * Responsive embeds
  */
+ .responsive {
+    width: 100%;
+    max-height: 90%;
+    height: auto;
+  }
+
 .responsive-embed {
     position: relative;
     display: block;
@@ -6272,7 +6278,7 @@ img.rounded {
 /* Titles */
 .nk-feature-title {
     margin-bottom: .5rem;
-    font-size: 0.5rem;
+    font-size: 0.8rem;
 }
 
 .nk-feature-title a {
