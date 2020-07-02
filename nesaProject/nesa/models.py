@@ -68,22 +68,22 @@ class Settings(models.Model):
     # Box-1
     box1_title=models.CharField(max_length=255,verbose_name="Box 1-Гарчиг", blank=True)
     box1_text=models.CharField(max_length=255, verbose_name="Box 1-Текст", blank=True)
-    box1_pic=models.ImageField(upload_to="settings", verbose_name="Box 1-Зураг", default="", blank=True)
+    # box1_pic=models.ImageField(upload_to="settings", verbose_name="Box 1-Зураг", default="", blank=True)
 
     # Box-2
     box2_title=models.CharField(max_length=255, verbose_name="Box 2-Гарчиг", blank=True)
     box2_text=models.CharField(max_length=255, verbose_name="Box 2-Текст", blank=True)
-    box2_pic=models.ImageField(upload_to="settings", verbose_name="Box 2-Зураг", default="", blank=True)
+    # box2_pic=models.ImageField(upload_to="settings", verbose_name="Box 2-Зураг", default="", blank=True)
 
     # Box-3
     box3_title=models.CharField(max_length=255, verbose_name="Box 3-Гарчиг", blank=True)
     box3_text=models.CharField(max_length=255, verbose_name="Box 3-Текст", blank=True)
-    box3_pic=models.ImageField(upload_to="settings", verbose_name="Box 3-Зураг", default="", blank=True)
+    #box3_pic=models.ImageField(upload_to="settings", verbose_name="Box 3-Зураг", default="", blank=True)
     
     # Box-4
     box4_title=models.CharField(max_length=255, verbose_name="Box 4-Гарчиг", blank=True)
-    box4_text=models.CharField(max_length=255, verbose_name="Box 4-Текст", blank=True)
-    box4_pic=models.ImageField(upload_to="settings", verbose_name="Box 4-Зураг", default="", blank=True)
+    # box4_text=models.CharField(max_length=255, verbose_name="Box 4-Текст", blank=True)
+    # box4_pic=models.ImageField(upload_to="settings", verbose_name="Box 4-Зураг", default="", blank=True)
     
     # Phone number
     phone_no=models.CharField(max_length=255, verbose_name="Холбоо барих утасны дугаар", default="")
