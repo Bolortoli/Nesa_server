@@ -135,15 +135,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'mn'
+# LANGUAGE_CODE = 'mn'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
 
-USE_I18N = True
+# USE_I18N = True
 
-USE_L10N = True
+# USE_L10N = True
 
-USE_TZ = True
+# USE_TZ = True
 
 # Jazzmin admin panel settings
 JAZZMIN_SETTINGS = {

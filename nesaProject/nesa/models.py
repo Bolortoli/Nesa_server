@@ -1,6 +1,6 @@
 from django.db import models
 import datetime
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator, FileExtensionValidator
 
 
 # Active servers
@@ -39,11 +39,15 @@ def current_month():
     return datetime.date.today().month
 # Reward
 class Reward(models.Model):
+    # Server name
     serName=models.OneToOneField(ActiveServers, on_delete=models.CASCADE)
     pic=models.ImageField(verbose_name="Шагналын зураг", upload_to="rewards")
     year=models.IntegerField(default=current_year(), validators=[MinValueValidator(current_year()), MaxValueValidator(current_year() + 10)])
-    month=models.IntegerField(default=current_month(), validators=[MinValueValidator(1), MaxValueValidator(12)])
+    month=models.IntegerField(default=current_month() + 1, validators=[MinValueValidator(1), MaxValueValidator(12)])
 
+    class Meta:
+        verbose_name_plural="Шагнал- Жагсаалт"
+        verbose_name="Шагнал"
 
 # Global page settings
 class Settings(models.Model):
@@ -60,6 +64,33 @@ class Settings(models.Model):
     # Web logo
     logo=models.ImageField(upload_to="settings", verbose_name="Сайтын лого", default="")
 
+    # PROMOTIONS
+    # Box-1
+    box1_title=models.CharField(max_length=255,verbose_name="Box 1-Гарчиг", blank=True)
+    box1_text=models.CharField(max_length=255, verbose_name="Box 1-Текст", blank=True)
+    box1_pic=models.ImageField(upload_to="settings", verbose_name="Box 1-Зураг", default="", blank=True)
+
+    # Box-2
+    box2_title=models.CharField(max_length=255, verbose_name="Box 2-Гарчиг", blank=True)
+    box2_text=models.CharField(max_length=255, verbose_name="Box 2-Текст", blank=True)
+    box2_pic=models.ImageField(upload_to="settings", verbose_name="Box 2-Зураг", default="", blank=True)
+
+    # Box-3
+    box3_title=models.CharField(max_length=255, verbose_name="Box 3-Гарчиг", blank=True)
+    box3_text=models.CharField(max_length=255, verbose_name="Box 3-Текст", blank=True)
+    box3_pic=models.ImageField(upload_to="settings", verbose_name="Box 3-Зураг", default="", blank=True)
+    
+    # Box-4
+    box4_title=models.CharField(max_length=255, verbose_name="Box 4-Гарчиг", blank=True)
+    box4_text=models.CharField(max_length=255, verbose_name="Box 4-Текст", blank=True)
+    box4_pic=models.ImageField(upload_to="settings", verbose_name="Box 4-Зураг", default="", blank=True)
+    
+    # Phone number
+    phone_no=models.CharField(max_length=255, verbose_name="Холбоо барих утасны дугаар", default="")
+
+    # Guide video
+    guide_vid=models.FileField(upload_to="settings/videos",verbose_name="Заавар бичлэг",
+                                validators=[FileExtensionValidator(allowed_extensions=['mp4', 'avi', 'wmv', 'qt', 'mov'])], blank=True, default=None)
     def __str__(self):
         return self.title
 

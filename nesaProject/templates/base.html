@@ -56,23 +56,23 @@
                                 
                             </div>
                             <div class="inner-social-icons">
-                                <a class="social-icons" href="#">
+                                <a class="social-icons" href="{{ global_settings.facebook }}">
                                     <span class="iconify" data-icon="fa-brands:facebook-square" data-inline="false"></span>
                                 </a>
-                                <a class="social-icons" href="#">
+                                <a class="social-icons" href="{{ global_settings.twitter }}">
                                     <span class="iconify" data-icon="fa-brands:twitter-square" data-inline="false"></span>
                                 </a>
-                                <a class="social-icons" href="#">
-                                    <span class="iconify" data-icon="fa-brands:youtube" data-inline="false"></span>
+                                <a class="social-icons" href="{{ global_settings.gmail }}">
+                                    <span class="iconify" data-icon="fa-brands:google" data-inline="false"></span>
                                 </a>
-                                <a class="social-icons" href="#">
-                                    <span class="iconify" data-icon="fa-brands:instagram" data-inline="false"></span>
+                                <a class="social-icons" href="{{ global_settings.steam">
+                                    <span class="iconify" data-icon="fa-brands:steam" data-inline="false"></span>
                                 </a>
-                                <a class="social-icons" href="#">
+                                <a class="social-icons" href="{{ global_settings.twitch }}">
                                     <span class="iconify" data-icon="fa-brands:twitch" data-inline="false"></span>
                                 </a>
-                                <a class="social-icons" href="#">
-                                    <span class="iconify" data-icon="fa-brands:steam-square" data-inline="false"></span>
+                                <a class="social-icons" href="{{ global_settings.youtube }}">
+                                    <span class="iconify" data-icon="fa-brands:youtube" data-inline="false"></span>
                                 </a>
                             </div>
                         </div>
@@ -98,7 +98,7 @@
                 <div class="inner-header-center" style="background-image: url('{% static "/images/back1.jpg"%}');">
                     <div class="header-logo-wrapper">
                         <a class="logo-clicker" href="{% url "home" %}">
-                        <img class="header-logo"src="{% static "/images/Nesa.png" %}" alt="logo" width="85" height="85">
+                        <img class="header-logo"src="{{ global_settings.logo.url }}" alt="logo" width="85" height="85">
                         </a>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
             </div>
             <div class="mobile-logo">
                     <a href="#">
-                        <img src="{% static "/images/log.png" %}" alt="mobile-logo" width="45" height="45">
+                        <img src="{{ global_settings.logo.url }}" alt="mobile-logo" width="45" height="45">
                     </a>
             </div>
         </div>
@@ -169,7 +169,8 @@
                     <div class="nk-widget">
                         <h4 class="nk-widget-title"><span class="text-main-1">Холбоо</span> Барих</h4>
                         <div class="nk-widget-content">
-                            <form action="php/ajax-contact-form.php" class="nk-form nk-form-ajax">
+                            <form action="" class="nk-form nk-form-ajax" method="post">
+                                {% csrf_token %}
                                 <div class="row vertical-gap sm-gap">
                                     <div class="col-md-6">
                                         <input type="email" class="form-control required" name="email" placeholder="Email *">
@@ -182,7 +183,7 @@
                                     </div>
                                 </div>
                                 <div class="nk-gap"></div>
-                                <textarea class="form-control required" name="message" rows="5" placeholder="Message *"></textarea>
+                                <textarea class="form-control required" name="text" rows="5" placeholder="Message *"></textarea>
                                 <div class="nk-gap-1"></div>
                                 <button class="nk-btn nk-btn-rounded nk-btn-color-white">
                                     <span>Илгээх</span>
@@ -233,7 +234,7 @@
                     <div class="nk-widget">
                         <h4 class="nk-widget-title"><span class="text-main-1">Холбоо барих</span> Утас</h4>
                         <div class="nk-widget-content">
-                            <div class="nk-phone-list"><img src="{% static "/images/po.png" %}"><span> +97688034798</span></div>
+                            <div class="nk-phone-list"><img src="{% static "/images/phone-logo.png" %}"><span> {{ global_settings.phone_no }}</span></div>
                         </div>
                     </div>
                 </div>
@@ -244,17 +245,17 @@
         <div class="nk-copyright">
             <div class="container">
                 <div class="nk-copyright-left">
-                    <img src="{% static "/images/foot.png" %}" alt="footer logo">
+                    <img src="{{ global_settings.logo.url }}" alt="footer logo" width="110" height="75">
                 </div>
                 <div class="nk-copyright-right">
                     <ul class="nk-social-links-2">
                         
-                        <li><a class="nk-social-twitch" href="#"><span class="fab fa-twitch"></span></a></li>
-                        <li><a class="nk-social-steam" href="#"><span class="fab fa-steam"></span></a></li>
-                        <li><a class="nk-social-facebook" href="#"><span class="fab fa-facebook"></span></a></li>
-                        <li><a class="nk-social-google-plus" href="#"><span class="fab fa-google-plus"></span></a></li>
-                        <li><a class="nk-social-twitter" href="https://twitter.com/nkdevv" target="_blank"><span class="fab fa-twitter"></span></a></li>
-                        <li><a class="nk-social-instagram" href="#"><span class="fab fa-instagram"></span></a></li>
+                        <li><a class="nk-social-twitch" href="{{ global_settings.twitch }}"><span class="fab fa-twitch"></span></a></li>
+                        <li><a class="nk-social-steam" href="{{ global_settings.steam }}"><span class="fab fa-steam"></span></a></li>
+                        <li><a class="nk-social-facebook" href="{{ global_settings.facebook }}"><span class="fab fa-facebook"></span></a></li>
+                        <li><a class="nk-social-google" href="{{ global_settings.gmail }}"><span class="fab fa-google"></span></a></li>
+                        <li><a class="nk-social-twitter" href="{{ global_settings.twitter }}" target="_blank"><span class="fab fa-twitter"></span></a></li>
+                        <li><a class="nk-social-youtube" href="{{ global_settings.youtube }}"><span class="fab fa-youtube"></span></a></li>
     
                         <!-- Additional Social Buttons
                             <li><a class="nk-social-behance" href="#"><span class="fab fa-behance"></span></a></li>
