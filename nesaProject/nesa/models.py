@@ -3,10 +3,24 @@ import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator, FileExtensionValidator
 
 
-# Active servers
+class ServerCategory(models.Model):
+    name=models.CharField(max_length=254, verbose_name="Server-ийн төрөл")
+    pic=models.ImageField(upload_to='servers/category', verbose_name="Server-ийн төрлийн зураг")
+
+    def __str__(self):
+        return self.name
+
 class ActiveServers(models.Model):
+
+    SERVER_CHOICES = [
+        ('PREMIUM', 'Premium'),
+        ('NON PREMIUM', 'Non premium')
+    ]
+
     name=models.CharField(max_length=254, verbose_name="Server-ийн нэр")
     pic=models.ImageField(verbose_name="Server-ийн зураг", upload_to="servers")
+    category=models.ForeignKey(ServerCategory, verbose_name="Category", on_delete=models.CASCADE) 
+    server_type=models.CharField(verbose_name="Төлбөртэй эсэх", choices=SERVER_CHOICES, max_length=50)
 
     def __str__(self):
         return self.name
@@ -15,7 +29,6 @@ class ActiveServers(models.Model):
         verbose_name_plural="Идэвхтэй server - Жагсаалт"
         verbose_name="Идэвхтэй server"
 
-# Contact us 
 class ContactUs(models.Model):
     fullName=models.CharField(max_length=254,verbose_name="Бүтэн Нэр")
     email=models.EmailField(verbose_name="Эмайл Хаяг")
@@ -37,7 +50,7 @@ def current_year():
 
 def current_month():
     return datetime.date.today().month
-# Reward
+
 class Reward(models.Model):
     # Server name
     serName=models.OneToOneField(ActiveServers, on_delete=models.CASCADE)
@@ -49,7 +62,7 @@ class Reward(models.Model):
         verbose_name_plural="Шагнал- Жагсаалт"
         verbose_name="Шагнал"
 
-# Global page settings
+# Web global settings
 class Settings(models.Model):
     title=models.CharField(max_length=250,default='Сайтын Тохиргоо',editable=False)
 
@@ -64,7 +77,7 @@ class Settings(models.Model):
     # Web logo
     logo=models.ImageField(upload_to="settings", verbose_name="Сайтын лого", default="")
 
-    # PROMOTIONS
+    # PROMOTIONS in home page
     # Box-1
     box1_title=models.CharField(max_length=255,verbose_name="Box 1-Гарчиг", blank=True)
     box1_text=models.CharField(max_length=255, verbose_name="Box 1-Текст", blank=True)
@@ -94,7 +107,6 @@ class Settings(models.Model):
     def __str__(self):
         return self.title
 
-    class Meta:
-        verbose_name_plural="Вэб Сайтын Тохиргоо"
+    class Meta: 
         verbose_name="Вэб Сайтын Тохиргоо"
     
