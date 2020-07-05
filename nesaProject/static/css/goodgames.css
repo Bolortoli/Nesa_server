@@ -114,7 +114,9 @@ a {
     transition: .15s color;
 }
 
-
+.pline{
+    color: mintcream;
+}
 ::-moz-selection {
     color: #fff;
     background-color: #303e47;
