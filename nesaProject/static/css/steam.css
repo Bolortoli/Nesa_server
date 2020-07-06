@@ -8,7 +8,7 @@
     position: absolute;
     cursor: pointer;
     overflow: auto;
-    border-radius: 0px;
+    border-radius: 10px;
     width: 70%;
     margin-left: 40px auto 0;
   }

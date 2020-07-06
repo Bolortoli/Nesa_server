@@ -110,97 +110,41 @@
 
 <div class="nk-blog-post nk-blog-post-border-bottom">
     <a href="blog-article.html" class="nk-post-img">
-        <img src="{% static "/images/allmap.png"%}" alt="Grab your sword and fight the Horde">
+        <img src="{{ single_premium_server.pic.url }}" alt="Grab your sword and fight the Horde">
         
         <span class="nk-post-categories">
          
         </span>
     </a>
     <div class="nk-gap-1"></div>
-    <h2 class="nk-post-title h4"><a href="{% url 'news-blog-single' %}">premium server</a></h2>
+    <h2 class="nk-post-title h4"><a href="{% url 'news-blog-single' %}">{{ single_premium_server.name }}</a></h2>
     <div class="nk-post-date mt-10 mb-10">
         <span class="fa fa-calendar"></span> Sep 5, 2018
-        <span class="fa fa-comments"></span> <a href="#">7 comments</a>
+        <!-- <span class="fa fa-comments"></span> <a href="#">7 comments</a> -->
     </div>
     <div class="nk-post-text">
-        <p>Мэдээний description</p>
+        <p>Энэхүү CS GO төлбөртэй server нь {{ single_premium_server.category.name }} төрлийн server юм.</p>
     </div>
 </div>
 
 
-
-<div class="nk-blog-post nk-blog-post-border-bottom">
-    <div class="nk-team">
-        <div class="nk-team-logo">
-            <img src="{% static "/images/headshot.png"%}" alt="">
-        </div>
-        <div class="nk-team-cont">
-            <h3 class="h5 mb-20"><span class="text-main-1">DeathMatch</span> nesa.mn:27014</h3>
-            <h4 class="h6 mb-5">ADMIN:</h4>
-            <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
-            <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
-        </div>
-    </div>
-</div>
-
-<div class="nk-blog-post nk-blog-post-border-bottom">
-    <div class="nk-team">
-        <div class="nk-team-logo">
-            <img src="{% static "/images/aim.png"%}" alt="">
-        </div>
-        <div class="nk-team-cont">
-            <h3 class="h5 mb-20"><span class="text-main-1">DangerZone</span> nesa.mn:27015</h3>
-            <h4 class="h6 mb-5">ADMIN:</h4>
-            <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
-            <div class="nk-team-photo" style="background-image: url('{% static "/images/nuke.jpg"%}');background-size: 100%;""></div>
+{% for server in servers %}
+    {% if server.is_premium %}
+    <div class="nk-blog-post nk-blog-post-border-bottom">
+        <div class="nk-team">
+            <div class="nk-team-logo">
+                <img src="{{ server.category.pic.url }}" alt="">
+            </div>
+            <div class="nk-team-cont">
+                <h3 class="h5 mb-20"><span class="text-main-1">{{ server.category.name }}</span> {{ server.name }}</h3>
+                <h4 class="h6 mb-5">ADMIN:</h4>
+                <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
+                <div class="nk-team-photo" style="background-image: url('{{ server.pic.url }}');background-size: 100%;""></div>
+            </div>
         </div>
     </div>
-</div>
-
-<div class="nk-blog-post nk-blog-post-border-bottom">
-    <div class="nk-team">
-        <div class="nk-team-logo">
-            <img src="{% static "/images/serge.png"%}" alt="">
-        </div>
-        <div class="nk-team-cont">
-            <h3 class="h5 mb-20"><span class="text-main-1">Premium</span> nesa.mn:27016</h3>
-            <h4 class="h6 mb-5">ADMIN:</h4>
-            <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
-            <div class="nk-team-photo" style="background-image: url('{% static "/images/dust.jpg"%}');background-size: 100%;""></div>
-        </div>
-    </div>
-</div>
-
-
-<div class="nk-blog-post nk-blog-post-border-bottom">
-    <div class="nk-team">
-        <div class="nk-team-logo">
-            <img src="{% static "/images/target.png"%}" alt="">
-        </div>
-        <div class="nk-team-cont">
-            <h3 class="h5 mb-20"><span class="text-main-1">NonPremium</span> nesa.mn:27017</h3>
-            <h4 class="h6 mb-5">ADMIN:</h4>
-            <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
-            <div class="nk-team-photo" style="background-image: url('{% static "/images/mirage.jpg"%}');"></div>
-        </div>
-    </div>
-</div>
-
-<div class="nk-blog-post nk-blog-post-border-bottom">
-    <div class="nk-team">
-        <div class="nk-team-logo">
-            <img src="{% static "/images/medal.png"%}" alt="">
-        </div>
-        <div class="nk-team-cont">
-            <h3 class="h5 mb-20"><span class="text-main-1">rank</span> nesa.mn:27018</h3>
-            <h4 class="h6 mb-5">ADMIN:</h4>
-            <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
-            <div class="nk-team-photo" style="background-image: url('{% static "/images/nuke.jpg"%}');background-size: 100%;""></div>
-        </div>
-    </div>
-</div>
-
-
+    {% endif %}
+{% endfor %}
 
                         <!-- END: Action Tab -->
                         <div class="nk-gap"></div>
@@ -212,95 +156,41 @@
 
 <div class="nk-blog-post nk-blog-post-border-bottom">
     <a href="blog-article.html" class="nk-post-img">
-        <img src="{% static "/images/allmap.png"%}" alt="Smell magic in the air. Or maybe barbecue">
-        
+        <img src="{{ single_non_premium_server.pic.url }}" alt="Smell magic in the air. Or maybe barbecue"> 
         <span class="nk-post-categories">
-          
         </span>
-        
     </a>
     <div class="nk-gap-1"></div>
-    <h2 class="nk-post-title h4"><a href="{% url 'news-blog-single' %}">Мэдээний гарчиг</a></h2>
+    <h2 class="nk-post-title h4"><a href="{% url 'news-blog-single' %}">{{ single_non_premium_server.name }}</a></h2>
     <div class="nk-post-date mt-10 mb-10">
         <span class="fa fa-calendar"></span> Sep 18, 2018
-        <span class="fa fa-comments"></span> <a href="#">4 comments</a>
+        <!-- <span class="fa fa-comments"></span> <a href="#">4 comments</a> -->
     </div>
     <div class="nk-post-text">
-        <p>Мэдээний description</p>
+        <p>{{ single_non_premium_server.name }} server blabla</p>
     </div>
 </div>
 
 
-
-<div class="nk-blog-post nk-blog-post-border-bottom">
+{% for server in servers %}
+    {% if not server.is_premium %}
     <div class="nk-blog-post nk-blog-post-border-bottom">
         <div class="nk-team">
             <div class="nk-team-logo">
-                <img src="{% static "/images/target.png"%}" alt="">
+                <img src="{{ server.category.pic.url }}" alt="">
             </div>
             <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">LAN E-Sport Public NoPrime | !ws !agents..</span> nesa.mn:27015</h3>
+                <h3 class="h5 mb-20"><span class="text-main-1">{{ server.category.name }}</span> {{ server.name }}</h3>
                 <h4 class="h6 mb-5">ADMIN:</h4>
-                <span>Neko, Zeno, Buya</span>
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
+                <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;">
+                    <!-- <a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a> -->
+                </span>
+                <div class="nk-team-photo" style="background-image: url('{{ server.pic.url }}');background-size: 100%;""></div>
             </div>
         </div>
     </div>
-    <div class="nk-blog-post nk-blog-post-border-bottom">
-        <div class="nk-team">
-            <div class="nk-team-logo">
-                <img src="{% static "/images/target.png"%}" alt="">
-            </div>
-            <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">LAN E-Sport Public NoPrime | !ws !agents..</span> nesa.mn:27016</h3>
-                <h4 class="h6 mb-5">ADMIN:</h4>
-                <span>Neko, Zeno, Buya</span>
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
-            </div>
-        </div>
-    </div>
-    <div class="nk-blog-post nk-blog-post-border-bottom">
-        <div class="nk-team">
-            <div class="nk-team-logo">
-                <img src="{% static "/images/target.png"%}" alt="">
-            </div>
-            <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">LAN E-Sport Public NoPrime | !ws !agents..</span> nesa.mn:27017</h3>
-                <h4 class="h6 mb-5">ADMIN:</h4>
-                <span>Neko, Zeno, Buya</span>
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
-            </div>
-        </div>
-    </div>
-    <div class="nk-blog-post nk-blog-post-border-bottom">
-        <div class="nk-team">
-            <div class="nk-team-logo">
-                <img src="{% static "/images/target.png"%}" alt="">
-            </div>
-            <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">LAN E-Sport Public NoPrime | !ws !agents..</span> nesa.mn:27018</h3>
-                <h4 class="h6 mb-5">ADMIN:</h4>
-                <span>Neko, Zeno, Buya</span>
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
-            </div>
-        </div>
-    </div>
-    <div class="nk-blog-post nk-blog-post-border-bottom">
-        <div class="nk-team">
-            <div class="nk-team-logo">
-                <img src="{% static "/images/target.png"%}" alt="">
-            </div>
-            <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">LAN E-Sport Public NoPrime | !ws !agents..</span> nesa.mn:27019</h3>
-                <h4 class="h6 mb-5">ADMIN:</h4>
-                <span>Neko, Zeno, Buya</span>   
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+    {% endif %}
+{% endfor %}
 
                         <!-- END: MMO Tab -->
                         <div class="nk-gap"></div>
@@ -330,143 +220,28 @@
     </div>
 </div>
 
-
-
-<div class="nk-blog-post nk-blog-post-border-bottom">
+{% for server in servers %}
     <div class="nk-blog-post nk-blog-post-border-bottom">
         <div class="nk-team">
             <div class="nk-team-logo">
-                <img src="{% static "/images/headshot.png"%}" alt="">
+                <img src="{{ server.category.pic.url }}" alt="">
             </div>
             <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">DeathMatch</span> nesa.mn:27014</h3>
+                <h3 class="h5 mb-20"><span class="text-main-1">{{ server.category.name }}</span> {{ server.name }}</h3>
                 <h4 class="h6 mb-5">ADMIN:</h4>
-                <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
-            </div>
-        </div>
-    </div>
-    <div class="nk-blog-post nk-blog-post-border-bottom">
-        <div class="nk-team">
-            <div class="nk-team-logo">
-                <img src="{% static "/images/aim.png"%}" alt="">
-            </div>
-            <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">DeathMatch</span> nesa.mn:27015</h3>
-                <h4 class="h6 mb-5">ADMIN:</h4>
-                <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
-            </div>
-        </div>
-    </div>
-    <div class="nk-blog-post nk-blog-post-border-bottom">
-        <div class="nk-team">
-            <div class="nk-team-logo">
-                <img src="{% static "/images/serge.png"%}" alt="">
-            </div>
-            <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">DeathMatch</span> nesa.mn:27016</h3>
-                <h4 class="h6 mb-5">ADMIN:</h4>
-                <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
-            </div>
-        </div>
-    </div>
-    <div class="nk-blog-post nk-blog-post-border-bottom">
-        <div class="nk-team">
-            <div class="nk-team-logo">
-                <img src="{% static "/images/medal.png"%}" alt="">
-            </div>
-            <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">DeathMatch</span> nesa.mn:27017</h3>
-                <h4 class="h6 mb-5">ADMIN:</h4>
-                <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
-            </div>
-        </div>
-    </div>
-    <div class="nk-blog-post nk-blog-post-border-bottom">
-        <div class="nk-team">
-            <div class="nk-team-logo">
-                <img src="{% static "/images/target.png"%}" alt="">
-            </div>
-            <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">DeathMatch</span> nesa.mn:27018</h3>
-                <h4 class="h6 mb-5">ADMIN:</h4>
-                <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
-            </div>
-        </div>
-    </div>
-    <div class="nk-blog-post nk-blog-post-border-bottom">
-        <div class="nk-team">
-            <div class="nk-team-logo">
-                <img src="{% static "/images/headshot.png"%}" alt="">
-            </div>
-            <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">DeathMatch</span> nesa.mn:27019</h3>
-                <h4 class="h6 mb-5">ADMIN:</h4>
+                {% if not server.is_premium %}
                 <span>Neko, Zeno, Buya</span>
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
-            </div>
-        </div>
-    </div>
-    <div class="nk-blog-post nk-blog-post-border-bottom">
-        <div class="nk-team">
-            <div class="nk-team-logo">
-                <img src="{% static "/images/target.png"%}" alt="">
-            </div>
-            <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">DeathMatch</span> nesa.mn:27020</h3>
-                <h4 class="h6 mb-5">ADMIN:</h4>
+                {% else %}
                 <span>Neko, Zeno, Buya</span>
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
+                <span style="margin-left: 55%;">
+                    <a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a>
+                </span>
+                {% endif %}
+                <div class="nk-team-photo" style="background-image: url('{{ server.pic.url }}');background-size: 100%;""></div>
             </div>
         </div>
     </div>
-    <div class="nk-blog-post nk-blog-post-border-bottom">
-        <div class="nk-team">
-            <div class="nk-team-logo">
-                <img src="{% static "/images/medal.png"%}" alt="">
-            </div>
-            <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">DeathMatch</span> nesa.mn:27021</h3>
-                <h4 class="h6 mb-5">ADMIN:</h4>
-                <span>Neko, Zeno, Buya</span>
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="nk-blog-post nk-blog-post-border-bottom">
-        <div class="nk-team">
-            <div class="nk-team-logo">
-                <img src="{% static "/images/headshot.png"%}" alt="">
-            </div>
-            <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">DeathMatch</span> nesa.mn:27022</h3>
-                <h4 class="h6 mb-5">ADMIN:</h4>
-                <span>Neko, Zeno, Buya</span>
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
-            </div>
-        </div>
-    </div>
-    <div class="nk-blog-post nk-blog-post-border-bottom">
-        <div class="nk-team">
-            <div class="nk-team-logo">
-                <img src="{% static "/images/aim.png"%}" alt="">
-            </div>
-            <div class="nk-team-cont">
-                <h3 class="h5 mb-20"><span class="text-main-1">DeathMatch</span> nesa.mn:27023</h3>
-                <h4 class="h6 mb-5">ADMIN:</h4>
-                <span>Neko, Zeno, Buya</span>
-                <div class="nk-team-photo" style="background-image: url('{% static "/images/train.jpg"%}');background-size: 100%;""></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+{% endfor %}
 
                         <!-- END: Strategy Tab -->
                         <div class="nk-gap"></div>
@@ -475,9 +250,6 @@
                         <div class="nk-gap"></div>
                         <!-- START: Adventure Tab -->
                         
-
-
-
                         <!-- END: Adventure Tab -->
                         
                         <!-- START: Racing Tab -->
@@ -485,11 +257,6 @@
                         <!-- END: Racing Tab -->
                       
                         <!-- START: Indie Tab -->
-                        
-
-
-
-
 
                         <!-- END: Indie Tab -->
                         <div class="nk-gap"></div>
@@ -502,15 +269,7 @@
             <!-- START: Posts Grid -->
             <div class="nk-blog-grid">
                 <div class="row">
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                </div>
+              </div>
 
                 <!-- START: Pagination -->
                 

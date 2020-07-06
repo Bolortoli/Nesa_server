@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ContactUs, ActiveServers, Reward, Settings
+from .models import ContactUs, ActiveServers, Reward, Settings, ServerCategory
 
 
 class ContactUsAdmin(admin.ModelAdmin):
@@ -16,6 +16,7 @@ admin.site.register(ContactUs, ContactUsAdmin)
 # class ActiveServersAdmin(admin.ModelAdmin):
 #     list_display = ['name','address']
 #     list_editable = ['address','city','state']
+admin.site.register(ServerCategory)
 admin.site.register(ActiveServers)
 admin.site.register(Reward)
 admin.site.register(Settings)

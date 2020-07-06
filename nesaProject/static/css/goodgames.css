@@ -168,6 +168,18 @@ a {
     clear: both;
 }
 
+.card-img{
+    background-image: url('/images/back1.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+}
+  
+ .block:hover {
+    background-color: #C0C0C0;
+    color: black;
+  }
+
 .bg-image,
 .bg-video {
     position: absolute;
@@ -6965,7 +6977,7 @@ img.rounded {
     bottom: 0;
     left: 0;
     color: #fff;
-    background-color: rgba(221, 22, 59, 0.75);
+    background-color: #0d0d0f;
     opacity: 0;
     -webkit-transition: .2s opacity;
     -o-transition: .2s opacity;
@@ -6995,7 +7007,7 @@ img.rounded {
 .nk-gallery-item-box:hover .nk-gallery-item-overlay, .nk-gallery-item-box.hover .nk-gallery-item-overlay,
 .nk-gallery-item-group:hover .nk-gallery-item-overlay,
 .nk-gallery-item-group.hover .nk-gallery-item-overlay {
-    opacity: 1;
+    opacity: 0.8;
 }
 
 .nk-gallery-item-box:hover .nk-gallery-item-overlay > span, .nk-gallery-item-box.hover .nk-gallery-item-overlay > span,
