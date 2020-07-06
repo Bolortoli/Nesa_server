@@ -114,7 +114,9 @@ a {
     transition: .15s color;
 }
 
-
+.pline{
+    color: mintcream;
+}
 ::-moz-selection {
     color: #fff;
     background-color: #303e47;
@@ -174,7 +176,9 @@ a {
     background-attachment: fixed; 
     background-size: 100% 100%;
 }
-  
+.my{
+    zoom: 90%;
+    }  
  .block:hover {
     background-color: #C0C0C0;
     color: black;

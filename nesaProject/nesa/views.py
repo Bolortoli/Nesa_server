@@ -46,3 +46,6 @@ def newsBlogSingle(req):
 
 def rewardsBlogGrid(req):
     return render(req,'rewards-blog-grid.html')
+
+def logindex(req):
+    return render(req,'logindex.html')
