@@ -448,24 +448,19 @@
 
 
 
-        <a data-toggle="modal" href="#tallModal" class="btn btn-primary">Wide, Tall Content</a>
-
-
-
-
         <div id="tallModal" class="modal modal-wide fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Modal title</h4>
+                        <h4 class="modal-title">Бүртгүүлэх</h4>
                     </div>
-                    <div class="modal-body">
-                        <p>One fine body&hellip;</p>
-                    </div>
+                    <form>
+                        <input type="text" id="name" class="form-control required" name="email" placeholder="Email *">
+                        <input type="text" id="email" class="form-control required" name="name" placeholder="Нэр *">                
+                        <input type="text" id="phone" class="form-control required" name="phone" placeholder="Утас *">
+                    </form>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button id="submit" type="button" class="btn btn-primary">Submit</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -478,13 +473,48 @@
 
 
             $(document).ready(function () {
-                $('#tallModal').modal('show');
+
+
+                $("#modalSubmitBtn").click(function(){
+                    alert("Lorem Ipsum is simply dummy text of the!");
+                });
+
+
+
+                $('#tallModal').modal({
+                    keyboard: true,
+                    show: true,
+                    backdrop: 'static'
+                });
+
             });
         </script>
 
         <!--Premium server description end -->
     </div>
 </div>
-
-
+<script>
+    $("#submit").click(function(){
+        var name = $("#name").val();
+        var name = $("#email").val();
+        var name = $("#phone").val();
+        
+        if(name == '' || email == '' || phone == ''){
+            
+            swal({
+                title: "Хоосон",
+                text: "Шалнануу",
+                icon: "warning",
+                button: "Ok"
+            });
+        }else{
+            swal({
+                title: "Амжилттай бүртгэлээ",
+                icon: "success",
+                button: "Submit",
+            });
+        }
+    })
+</script>
 {% endblock %}
+

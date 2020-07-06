@@ -1,395 +1,1123 @@
-'use strict';
-
-var CustomEvents = require('tui-code-snippet/customEvents/customEvents');
-var defineClass = require('tui-code-snippet/defineClass/defineClass');
-var extend = require('tui-code-snippet/object/extend');
-var isUndefined = require('tui-code-snippet/type/isUndefined');
-
-var View = require('./view.js');
-var util = require('./util.js');
-
-var defaultOption = {
-  totalItems: 10,
-  itemsPerPage: 10,
-  visiblePages: 10,
-  page: 1,
-  centerAlign: false,
-  firstItemClassName: 'tui-first-child',
-  lastItemClassName: 'tui-last-child',
-  usageStatistics: true
-};
-
-/**
- * Pagination class
- * @class Pagination
- * @param {string|HTMLElement|jQueryObject} container - Container element or selector.
- * In case of a string, it is considered as an id selector and find the element by id.
- * If there is no element, it is considered as a selector and find the element by querySelector().
- * Passing jQueryObject and considering an id selector at first will be deprecated in v4.0.0.
- * @param {object} options - Option object
- *     @param {number} [options.totalItems=10] Total item count
- *     @param {number} [options.itemsPerPage=10] Item count per page
- *     @param {number} [options.visiblePages=10] Display page link count
- *     @param {number} [options.page=1] Display page after pagination draw.
- *     @param {boolean}[options.centerAlign=false] Whether current page keep center or not
- *     @param {string} [options.firstItemClassName='first-child'] The class name of the first item
- *     @param {string} [options.lastItemClassName='last-child'] The class name of the last item
- *     @param {object} [options.template] A markup string set to make element. Refer to {@link https://github.com/nhn/tui.pagination/blob/master/docs/getting-started.md#how-to-use-template Getting Started: How to use template}.
- *         @param {string|function} [options.template.page] HTML template
- *         @param {string|function} [options.template.currentPage] HTML template
- *         @param {string|function} [options.template.moveButton] HTML template
- *         @param {string|function} [options.template.disabledMoveButton] HTML template
- *         @param {string|function} [options.template.moreButton] HTML template
- *     @param {boolean} [options.usageStatistics=true] Send the hostname to google analytics.
- *         If you do not want to send the hostname, this option set to false.
- * @example
- * var Pagination = tui.Pagination; // or require('tui-pagination')
+/*
+ * pagination.js 2.1.5
+ * A jQuery plugin to provide simple yet fully customisable pagination.
+ * https://github.com/superRaytin/paginationjs
  *
- * var container = document.getElementById('pagination');
- * var options = { // below default value of options
- *      totalItems: 10,
- *      itemsPerPage: 10,
- *      visiblePages: 10,
- *      page: 1,
- *      centerAlign: false,
- *      firstItemClassName: 'tui-first-child',
- *      lastItemClassName: 'tui-last-child',
- *      template: {
- *          page: '<a href="#" class="tui-page-btn">{{page}}</a>',
- *          currentPage: '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
- *          moveButton:
- *              '<a href="#" class="tui-page-btn tui-{{type}}">' +
- *                  '<span class="tui-ico-{{type}}">{{type}}</span>' +
- *              '</a>',
- *          disabledMoveButton:
- *              '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
- *                  '<span class="tui-ico-{{type}}">{{type}}</span>' +
- *              '</span>',
- *          moreButton:
- *              '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
- *                  '<span class="tui-ico-ellip">...</span>' +
- *              '</a>'
- *      }
- * };
- * var pagination = new Pagination(container, options);
+ * Homepage: http://pagination.js.org
+ *
+ * Copyright 2014-2100, superRaytin
+ * Released under the MIT license.
  */
-var Pagination = defineClass(
-  /** @lends Pagination.prototype */ {
-    init: function(container, options) {
-      /**
-       * Option object
-       * @type {object}
-       * @private
-       */
-      this._options = extend({}, defaultOption, options);
 
-      /**
-       * Current page number
-       * @type {number}
-       * @private
-       */
-      this._currentPage = 0;
+(function(global, $) {
 
-      /**
-       * View instance
-       * @type {View}
-       * @private
-       */
-      this._view = new View(container, this._options, util.bind(this._onClickHandler, this));
+  if (typeof $ === 'undefined') {
+    throwError('Pagination requires jQuery.');
+  }
 
-      this._paginate();
+  var pluginName = 'pagination';
 
-      if (this._options.usageStatistics) {
-        util.sendHostName();
+  var pluginHookMethod = 'addHook';
+
+  var eventPrefix = '__pagination-';
+
+  // Conflict, use backup
+  if ($.fn.pagination) {
+    pluginName = 'pagination2';
+  }
+
+  $.fn[pluginName] = function(options) {
+
+    if (typeof options === 'undefined') {
+      return this;
+    }
+
+    var container = $(this);
+
+    var attributes = $.extend({}, $.fn[pluginName].defaults, options);
+
+    var pagination = {
+
+      initialize: function() {
+        var self = this;
+
+        // Cache attributes of current instance
+        if (!container.data('pagination')) {
+          container.data('pagination', {});
+        }
+
+        if (self.callHook('beforeInit') === false) return;
+
+        // Pagination has been initialized, destroy it
+        if (container.data('pagination').initialized) {
+          $('.paginationjs', container).remove();
+        }
+
+        // Whether to disable Pagination at the initialization
+        self.disabled = !!attributes.disabled;
+
+        // Model will be passed to the callback function
+        var model = self.model = {
+          pageRange: attributes.pageRange,
+          pageSize: attributes.pageSize
+        };
+
+        // dataSource`s type is unknown, parse it to find true data
+        self.parseDataSource(attributes.dataSource, function(dataSource) {
+
+          // Currently in asynchronous mode
+          self.isAsync = Helpers.isString(dataSource);
+          if (Helpers.isArray(dataSource)) {
+            model.totalNumber = attributes.totalNumber = dataSource.length;
+          }
+
+          // Currently in asynchronous mode and a totalNumberLocator is specified
+          self.isDynamicTotalNumber = self.isAsync && attributes.totalNumberLocator;
+
+          var el = self.render(true);
+
+          // Add extra className to the pagination element
+            if (attributes.className) {
+            el.addClass(attributes.className);
+          }
+
+          model.el = el;
+
+          // Append/prepend pagination element to the container
+          container[attributes.position === 'bottom' ? 'append' : 'prepend'](el);
+
+          // Bind events
+          self.observer();
+
+          // Pagination is currently initialized
+          container.data('pagination').initialized = true;
+
+          // Will be invoked after initialized
+          self.callHook('afterInit', el);
+        });
+      },
+
+      render: function(isBoot) {
+        var self = this;
+        var model = self.model;
+        var el = model.el || $('<div class="paginationjs"></div>');
+        var isForced = isBoot !== true;
+
+        self.callHook('beforeRender', isForced);
+
+        var currentPage = model.pageNumber || attributes.pageNumber;
+        var pageRange = attributes.pageRange || 0;
+        var totalPage = self.getTotalPage();
+
+        var rangeStart = currentPage - pageRange;
+        var rangeEnd = currentPage + pageRange;
+
+        if (rangeEnd > totalPage) {
+          rangeEnd = totalPage;
+          rangeStart = totalPage - pageRange * 2;
+          rangeStart = rangeStart < 1 ? 1 : rangeStart;
+        }
+
+        if (rangeStart <= 1) {
+          rangeStart = 1;
+          rangeEnd = Math.min(pageRange * 2 + 1, totalPage);
+        }
+
+        el.html(self.generateHTML({
+          currentPage: currentPage,
+          pageRange: pageRange,
+          rangeStart: rangeStart,
+          rangeEnd: rangeEnd
+        }));
+
+        // There is only one page
+        if (attributes.hideWhenLessThanOnePage) {
+          el[totalPage <= 1 ? 'hide' : 'show']();
+        }
+
+        self.callHook('afterRender', isForced);
+
+        return el;
+      },
+
+      // Generate HTML of the pages
+      generatePageNumbersHTML: function(args) {
+        var self = this;
+        var currentPage = args.currentPage;
+        var totalPage = self.getTotalPage();
+        var rangeStart = args.rangeStart;
+        var rangeEnd = args.rangeEnd;
+        var html = '';
+        var i;
+
+        var pageLink = attributes.pageLink;
+        var ellipsisText = attributes.ellipsisText;
+
+        var classPrefix = attributes.classPrefix;
+        var activeClassName = attributes.activeClassName;
+        var disableClassName = attributes.disableClassName;
+
+        // Disable page range, display all the pages
+        if (attributes.pageRange === null) {
+          for (i = 1; i <= totalPage; i++) {
+            if (i == currentPage) {
+              html += '<li class="' + classPrefix + '-page J-paginationjs-page ' + activeClassName + '" data-num="' + i + '"><a>' + i + '<\/a><\/li>';
+            } else {
+              html += '<li class="' + classPrefix + '-page J-paginationjs-page" data-num="' + i + '"><a href="' + pageLink + '">' + i + '<\/a><\/li>';
+            }
+          }
+          return html;
+        }
+
+        if (rangeStart <= 3) {
+          for (i = 1; i < rangeStart; i++) {
+            if (i == currentPage) {
+              html += '<li class="' + classPrefix + '-page J-paginationjs-page ' + activeClassName + '" data-num="' + i + '"><a>' + i + '<\/a><\/li>';
+            } else {
+              html += '<li class="' + classPrefix + '-page J-paginationjs-page" data-num="' + i + '"><a href="' + pageLink + '">' + i + '<\/a><\/li>';
+            }
+          }
+        } else {
+          if (attributes.showFirstOnEllipsisShow) {
+            html += '<li class="' + classPrefix + '-page ' + classPrefix + '-first J-paginationjs-page" data-num="1"><a href="' + pageLink + '">1<\/a><\/li>';
+          }
+          html += '<li class="' + classPrefix + '-ellipsis ' + disableClassName + '"><a>' + ellipsisText + '<\/a><\/li>';
+        }
+
+        for (i = rangeStart; i <= rangeEnd; i++) {
+          if (i == currentPage) {
+            html += '<li class="' + classPrefix + '-page J-paginationjs-page ' + activeClassName + '" data-num="' + i + '"><a>' + i + '<\/a><\/li>';
+          } else {
+            html += '<li class="' + classPrefix + '-page J-paginationjs-page" data-num="' + i + '"><a href="' + pageLink + '">' + i + '<\/a><\/li>';
+          }
+        }
+
+        if (rangeEnd >= totalPage - 2) {
+          for (i = rangeEnd + 1; i <= totalPage; i++) {
+            html += '<li class="' + classPrefix + '-page J-paginationjs-page" data-num="' + i + '"><a href="' + pageLink + '">' + i + '<\/a><\/li>';
+          }
+        } else {
+          html += '<li class="' + classPrefix + '-ellipsis ' + disableClassName + '"><a>' + ellipsisText + '<\/a><\/li>';
+
+          if (attributes.showLastOnEllipsisShow) {
+            html += '<li class="' + classPrefix + '-page ' + classPrefix + '-last J-paginationjs-page" data-num="' + totalPage + '"><a href="' + pageLink + '">' + totalPage + '<\/a><\/li>';
+          }
+        }
+
+        return html;
+      },
+
+      // Generate HTML content from the template
+      generateHTML: function(args) {
+        var self = this;
+        var currentPage = args.currentPage;
+        var totalPage = self.getTotalPage();
+
+        var totalNumber = self.getTotalNumber();
+
+        var showPrevious = attributes.showPrevious;
+        var showNext = attributes.showNext;
+        var showPageNumbers = attributes.showPageNumbers;
+        var showNavigator = attributes.showNavigator;
+        var showGoInput = attributes.showGoInput;
+        var showGoButton = attributes.showGoButton;
+
+        var pageLink = attributes.pageLink;
+        var prevText = attributes.prevText;
+        var nextText = attributes.nextText;
+        var goButtonText = attributes.goButtonText;
+
+        var classPrefix = attributes.classPrefix;
+        var disableClassName = attributes.disableClassName;
+        var ulClassName = attributes.ulClassName;
+
+        var html = '';
+        var goInput = '<input type="text" class="J-paginationjs-go-pagenumber">';
+        var goButton = '<input type="button" class="J-paginationjs-go-button" value="' + goButtonText + '">';
+        var formattedString;
+
+        var formatNavigator = $.isFunction(attributes.formatNavigator) ? attributes.formatNavigator(currentPage, totalPage, totalNumber) : attributes.formatNavigator;
+        var formatGoInput = $.isFunction(attributes.formatGoInput) ? attributes.formatGoInput(goInput, currentPage, totalPage, totalNumber) : attributes.formatGoInput;
+        var formatGoButton = $.isFunction(attributes.formatGoButton) ? attributes.formatGoButton(goButton, currentPage, totalPage, totalNumber) : attributes.formatGoButton;
+
+        var autoHidePrevious = $.isFunction(attributes.autoHidePrevious) ? attributes.autoHidePrevious() : attributes.autoHidePrevious;
+        var autoHideNext = $.isFunction(attributes.autoHideNext) ? attributes.autoHideNext() : attributes.autoHideNext;
+
+        var header = $.isFunction(attributes.header) ? attributes.header(currentPage, totalPage, totalNumber) : attributes.header;
+        var footer = $.isFunction(attributes.footer) ? attributes.footer(currentPage, totalPage, totalNumber) : attributes.footer;
+
+        // Whether to display header
+        if (header) {
+          formattedString = self.replaceVariables(header, {
+            currentPage: currentPage,
+            totalPage: totalPage,
+            totalNumber: totalNumber
+          });
+          html += formattedString;
+        }
+
+        if (showPrevious || showPageNumbers || showNext) {
+          html += '<div class="paginationjs-pages">';
+
+          if (ulClassName) {
+            html += '<ul class="' + ulClassName + '">';
+          } else {
+            html += '<ul>';
+          }
+
+          // Whether to display the Previous button
+          if (showPrevious) {
+            if (currentPage <= 1) {
+              if (!autoHidePrevious) {
+                html += '<li class="' + classPrefix + '-prev ' + disableClassName + '"><a>' + prevText + '<\/a><\/li>';
+              }
+            } else {
+              html += '<li class="' + classPrefix + '-prev J-paginationjs-previous" data-num="' + (currentPage - 1) + '" title="Previous page"><a href="' + pageLink + '">' + prevText + '<\/a><\/li>';
+            }
+          }
+
+          // Whether to display the pages
+          if (showPageNumbers) {
+            html += self.generatePageNumbersHTML(args);
+          }
+
+          // Whether to display the Next button
+          if (showNext) {
+            if (currentPage >= totalPage) {
+              if (!autoHideNext) {
+                html += '<li class="' + classPrefix + '-next ' + disableClassName + '"><a>' + nextText + '<\/a><\/li>';
+              }
+            } else {
+              html += '<li class="' + classPrefix + '-next J-paginationjs-next" data-num="' + (currentPage + 1) + '" title="Next page"><a href="' + pageLink + '">' + nextText + '<\/a><\/li>';
+            }
+          }
+          html += '<\/ul><\/div>';
+        }
+
+        // Whether to display the navigator
+        if (showNavigator) {
+          if (formatNavigator) {
+            formattedString = self.replaceVariables(formatNavigator, {
+              currentPage: currentPage,
+              totalPage: totalPage,
+              totalNumber: totalNumber
+            });
+            html += '<div class="' + classPrefix + '-nav J-paginationjs-nav">' + formattedString + '<\/div>';
+          }
+        }
+
+        // Whether to display the Go input
+        if (showGoInput) {
+          if (formatGoInput) {
+            formattedString = self.replaceVariables(formatGoInput, {
+              currentPage: currentPage,
+              totalPage: totalPage,
+              totalNumber: totalNumber,
+              input: goInput
+            });
+            html += '<div class="' + classPrefix + '-go-input">' + formattedString + '</div>';
+          }
+        }
+
+        // Whether to display the Go button
+        if (showGoButton) {
+          if (formatGoButton) {
+            formattedString = self.replaceVariables(formatGoButton, {
+              currentPage: currentPage,
+              totalPage: totalPage,
+              totalNumber: totalNumber,
+              button: goButton
+            });
+            html += '<div class="' + classPrefix + '-go-button">' + formattedString + '</div>';
+          }
+        }
+
+        // Whether to display footer
+        if (footer) {
+          formattedString = self.replaceVariables(footer, {
+            currentPage: currentPage,
+            totalPage: totalPage,
+            totalNumber: totalNumber
+          });
+          html += formattedString;
+        }
+
+        return html;
+      },
+
+      // Find totalNumber from the remote response
+      // Only available in asynchronous mode
+      findTotalNumberFromRemoteResponse: function(response) {
+        var self = this;
+        self.model.totalNumber = attributes.totalNumberLocator(response);
+      },
+
+      // Go to the specified page
+      go: function(number, callback) {
+        var self = this;
+        var model = self.model;
+
+        if (self.disabled) return;
+
+        var pageNumber = number;
+        pageNumber = parseInt(pageNumber);
+
+        // Page number is out of bounds
+        if (!pageNumber || pageNumber < 1) return;
+
+        var pageSize = attributes.pageSize;
+        var totalNumber = self.getTotalNumber();
+        var totalPage = self.getTotalPage();
+
+        // Page number is out of bounds
+        if (totalNumber > 0) {
+          if (pageNumber > totalPage) return;
+        }
+
+        // Pick data fragment in synchronous mode
+        if (!self.isAsync) {
+          render(self.getDataFragment(pageNumber));
+          return;
+        }
+
+        var postData = {};
+        var alias = attributes.alias || {};
+        postData[alias.pageSize ? alias.pageSize : 'pageSize'] = pageSize;
+        postData[alias.pageNumber ? alias.pageNumber : 'pageNumber'] = pageNumber;
+
+        var ajaxParams = $.isFunction(attributes.ajax) ? attributes.ajax() : attributes.ajax;
+        var formatAjaxParams = {
+          type: 'get',
+          cache: false,
+          data: {},
+          contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+          dataType: 'json',
+          async: true
+        };
+
+        $.extend(true, formatAjaxParams, ajaxParams);
+        $.extend(formatAjaxParams.data, postData);
+
+        formatAjaxParams.url = attributes.dataSource;
+        formatAjaxParams.success = function(response) {
+          if (self.isDynamicTotalNumber) {
+            self.findTotalNumberFromRemoteResponse(response);
+          } else {
+            self.model.totalNumber = attributes.totalNumber;
+          }
+
+          var finalData = self.filterDataByLocator(response);
+          render(finalData);
+        };
+        formatAjaxParams.error = function(jqXHR, textStatus, errorThrown) {
+          attributes.formatAjaxError && attributes.formatAjaxError(jqXHR, textStatus, errorThrown);
+          self.enable();
+        };
+
+        self.disable();
+
+        $.ajax(formatAjaxParams);
+
+        function render(data) {
+          // Will be invoked before paging
+          if (self.callHook('beforePaging', pageNumber) === false) return false;
+
+          // Pagination direction
+          model.direction = typeof model.pageNumber === 'undefined' ? 0 : (pageNumber > model.pageNumber ? 1 : -1);
+
+          model.pageNumber = pageNumber;
+
+          self.render();
+
+          if (self.disabled && self.isAsync) {
+            // enable pagination
+            self.enable();
+          }
+
+          // cache model data
+          container.data('pagination').model = model;
+
+          // format result data before callback invoked
+          if (attributes.formatResult) {
+            var cloneData = $.extend(true, [], data);
+            if (!Helpers.isArray(data = attributes.formatResult(cloneData))) {
+              data = cloneData;
+            }
+          }
+
+          container.data('pagination').currentPageData = data;
+
+          // invoke callback
+          self.doCallback(data, callback);
+
+          self.callHook('afterPaging', pageNumber);
+
+          // pageNumber now is the first page
+          if (pageNumber == 1) {
+            self.callHook('afterIsFirstPage');
+          }
+
+          // pageNumber now is the last page
+          if (pageNumber == self.getTotalPage()) {
+            self.callHook('afterIsLastPage');
+          }
+        }
+      },
+
+      doCallback: function(data, customCallback) {
+        var self = this;
+        var model = self.model;
+
+        if ($.isFunction(customCallback)) {
+          customCallback(data, model);
+        } else if ($.isFunction(attributes.callback)) {
+          attributes.callback(data, model);
+        }
+      },
+
+      destroy: function() {
+        // Before destroy
+        if (this.callHook('beforeDestroy') === false) return;
+
+        this.model.el.remove();
+        container.off();
+
+        // Remove style element
+        $('#paginationjs-style').remove();
+
+        // After destroyed
+        this.callHook('afterDestroy');
+      },
+
+      previous: function(callback) {
+        this.go(this.model.pageNumber - 1, callback);
+      },
+
+      next: function(callback) {
+        this.go(this.model.pageNumber + 1, callback);
+      },
+
+      disable: function() {
+        var self = this;
+        var source = self.isAsync ? 'async' : 'sync';
+
+        // Before disabled
+        if (self.callHook('beforeDisable', source) === false) return;
+
+        self.disabled = true;
+        self.model.disabled = true;
+
+        // After disabled
+        self.callHook('afterDisable', source);
+      },
+
+      enable: function() {
+        var self = this;
+        var source = self.isAsync ? 'async' : 'sync';
+
+        // Before enabled
+        if (self.callHook('beforeEnable', source) === false) return;
+
+        self.disabled = false;
+        self.model.disabled = false;
+
+        // After enabled
+        self.callHook('afterEnable', source);
+      },
+
+      refresh: function(callback) {
+        this.go(this.model.pageNumber, callback);
+      },
+
+      show: function() {
+        var self = this;
+
+        if (self.model.el.is(':visible')) return;
+
+        self.model.el.show();
+      },
+
+      hide: function() {
+        var self = this;
+
+        if (!self.model.el.is(':visible')) return;
+
+        self.model.el.hide();
+      },
+
+      // Parse variables in the template
+      replaceVariables: function(template, variables) {
+        var formattedString;
+
+        for (var key in variables) {
+          var value = variables[key];
+          var regexp = new RegExp('<%=\\s*' + key + '\\s*%>', 'img');
+
+          formattedString = (formattedString || template).replace(regexp, value);
+        }
+
+        return formattedString;
+      },
+
+      // Get data fragment
+      getDataFragment: function(number) {
+        var pageSize = attributes.pageSize;
+        var dataSource = attributes.dataSource;
+        var totalNumber = this.getTotalNumber();
+
+        var start = pageSize * (number - 1) + 1;
+        var end = Math.min(number * pageSize, totalNumber);
+
+        return dataSource.slice(start - 1, end);
+      },
+
+      // Get total number
+      getTotalNumber: function() {
+        return this.model.totalNumber || attributes.totalNumber || 0;
+      },
+
+      // Get total page
+      getTotalPage: function() {
+        return Math.ceil(this.getTotalNumber() / attributes.pageSize);
+      },
+
+      // Get locator
+      getLocator: function(locator) {
+        var result;
+
+        if (typeof locator === 'string') {
+          result = locator;
+        } else if ($.isFunction(locator)) {
+          result = locator();
+        } else {
+          throwError('"locator" is incorrect. (String | Function)');
+        }
+
+        return result;
+      },
+
+      // Filter data by "locator"
+      filterDataByLocator: function(dataSource) {
+        var locator = this.getLocator(attributes.locator);
+        var filteredData;
+
+        // Datasource is an Object, use "locator" to locate the true data
+        if (Helpers.isObject(dataSource)) {
+          try {
+            $.each(locator.split('.'), function(index, item) {
+              filteredData = (filteredData ? filteredData : dataSource)[item];
+            });
+          }
+          catch (e) {
+          }
+
+          if (!filteredData) {
+            throwError('dataSource.' + locator + ' is undefined.');
+          } else if (!Helpers.isArray(filteredData)) {
+            throwError('dataSource.' + locator + ' must be an Array.');
+          }
+        }
+
+        return filteredData || dataSource;
+      },
+
+      // Parse dataSource
+      parseDataSource: function(dataSource, callback) {
+        var self = this;
+
+        if (Helpers.isObject(dataSource)) {
+          callback(attributes.dataSource = self.filterDataByLocator(dataSource));
+        } else if (Helpers.isArray(dataSource)) {
+          callback(attributes.dataSource = dataSource);
+        } else if ($.isFunction(dataSource)) {
+          attributes.dataSource(function(data) {
+            if (!Helpers.isArray(data)) {
+              throwError('The parameter of "done" Function should be an Array.');
+            }
+            self.parseDataSource.call(self, data, callback);
+          });
+        } else if (typeof dataSource === 'string') {
+          if (/^https?|file:/.test(dataSource)) {
+            attributes.ajaxDataType = 'jsonp';
+          }
+          callback(dataSource);
+        } else {
+          throwError('Unexpected type of "dataSource".');
+        }
+      },
+
+      callHook: function(hook) {
+        var paginationData = container.data('pagination');
+        var result;
+
+        var args = Array.prototype.slice.apply(arguments);
+        args.shift();
+
+        if (attributes[hook] && $.isFunction(attributes[hook])) {
+          if (attributes[hook].apply(global, args) === false) {
+            result = false;
+          }
+        }
+
+        if (paginationData.hooks && paginationData.hooks[hook]) {
+          $.each(paginationData.hooks[hook], function(index, item) {
+            if (item.apply(global, args) === false) {
+              result = false;
+            }
+          });
+        }
+
+        return result !== false;
+      },
+
+      observer: function() {
+        var self = this;
+        var el = self.model.el;
+
+        // Go to specified page number
+        container.on(eventPrefix + 'go', function(event, pageNumber, done) {
+          pageNumber = parseInt($.trim(pageNumber));
+
+          if (!pageNumber) return;
+
+          if (!$.isNumeric(pageNumber)) {
+            throwError('"pageNumber" is incorrect. (Number)');
+          }
+
+          self.go(pageNumber, done);
+        });
+
+        // Page number button click
+        el.delegate('.J-paginationjs-page', 'click', function(event) {
+          var current = $(event.currentTarget);
+          var pageNumber = $.trim(current.attr('data-num'));
+
+          if (!pageNumber || current.hasClass(attributes.disableClassName) || current.hasClass(attributes.activeClassName)) return;
+
+          // Before page button clicked
+          if (self.callHook('beforePageOnClick', event, pageNumber) === false) return false;
+
+          self.go(pageNumber);
+
+          // After page button clicked
+          self.callHook('afterPageOnClick', event, pageNumber);
+
+          if (!attributes.pageLink) return false;
+        });
+
+        // Previous button click
+        el.delegate('.J-paginationjs-previous', 'click', function(event) {
+          var current = $(event.currentTarget);
+          var pageNumber = $.trim(current.attr('data-num'));
+
+          if (!pageNumber || current.hasClass(attributes.disableClassName)) return;
+
+          // Before previous clicked
+          if (self.callHook('beforePreviousOnClick', event, pageNumber) === false) return false;
+
+          self.go(pageNumber);
+
+          // After previous clicked
+          self.callHook('afterPreviousOnClick', event, pageNumber);
+
+          if (!attributes.pageLink) return false;
+        });
+
+        // Next button click
+        el.delegate('.J-paginationjs-next', 'click', function(event) {
+          var current = $(event.currentTarget);
+          var pageNumber = $.trim(current.attr('data-num'));
+
+          if (!pageNumber || current.hasClass(attributes.disableClassName)) return;
+
+          // Before next clicked
+          if (self.callHook('beforeNextOnClick', event, pageNumber) === false) return false;
+
+          self.go(pageNumber);
+
+          // After next clicked
+          self.callHook('afterNextOnClick', event, pageNumber);
+
+          if (!attributes.pageLink) return false;
+        });
+
+        // Go button click
+        el.delegate('.J-paginationjs-go-button', 'click', function(event) {
+          var pageNumber = $('.J-paginationjs-go-pagenumber', el).val();
+
+          // Before Go button clicked
+          if (self.callHook('beforeGoButtonOnClick', event, pageNumber) === false) return false;
+
+          container.trigger(eventPrefix + 'go', pageNumber);
+
+          // After Go button clicked
+          self.callHook('afterGoButtonOnClick', event, pageNumber);
+        });
+
+        // go input enter
+        el.delegate('.J-paginationjs-go-pagenumber', 'keyup', function(event) {
+          if (event.which === 13) {
+            var pageNumber = $(event.currentTarget).val();
+
+            // Before Go input enter
+            if (self.callHook('beforeGoInputOnEnter', event, pageNumber) === false) return false;
+
+            container.trigger(eventPrefix + 'go', pageNumber);
+
+            // Regains focus
+            $('.J-paginationjs-go-pagenumber', el).focus();
+
+            // After Go input enter
+            self.callHook('afterGoInputOnEnter', event, pageNumber);
+          }
+        });
+
+        // Previous page
+        container.on(eventPrefix + 'previous', function(event, done) {
+          self.previous(done);
+        });
+
+        // Next page
+        container.on(eventPrefix + 'next', function(event, done) {
+          self.next(done);
+        });
+
+        // Disable
+        container.on(eventPrefix + 'disable', function() {
+          self.disable();
+        });
+
+        // Enable
+        container.on(eventPrefix + 'enable', function() {
+          self.enable();
+        });
+
+        // Refresh
+        container.on(eventPrefix + 'refresh', function(event, done) {
+          self.refresh(done);
+        });
+
+        // Show
+        container.on(eventPrefix + 'show', function() {
+          self.show();
+        });
+
+        // Hide
+        container.on(eventPrefix + 'hide', function() {
+          self.hide();
+        });
+
+        // Destroy
+        container.on(eventPrefix + 'destroy', function() {
+          self.destroy();
+        });
+
+        // Whether to load the default page
+        var validTotalPage = Math.max(self.getTotalPage(), 1)
+        var defaultPageNumber = attributes.pageNumber;
+        // Default pageNumber should be 1 when totalNumber is dynamic
+        if (self.isDynamicTotalNumber) {
+          defaultPageNumber = 1;
+        }
+        if (attributes.triggerPagingOnInit) {
+          container.trigger(eventPrefix + 'go', Math.min(defaultPageNumber, validTotalPage));
+        }
       }
-    },
+    };
 
-    /**
-     * Set current page
-     * @param {number} page - Current page
-     * @private
-     */
-    _setCurrentPage: function(page) {
-      this._currentPage = page || this._options.page;
-    },
+    // Pagination has been initialized
+    if (container.data('pagination') && container.data('pagination').initialized === true) {
+      // Handle events
+      if ($.isNumeric(options)) {
+        // eg: container.pagination(5)
+        container.trigger.call(this, eventPrefix + 'go', options, arguments[1]);
+        return this;
+      } else if (typeof options === 'string') {
+        var args = Array.prototype.slice.apply(arguments);
+        args[0] = eventPrefix + args[0];
 
-    /**
-     * Get last page number
-     * @returns {number} Last page number
-     * @private
-     */
-    _getLastPage: function() {
-      var lastPage = Math.ceil(this._options.totalItems / this._options.itemsPerPage);
-
-      return !lastPage ? 1 : lastPage;
-    },
-
-    /**
-     * Index of list in total lists
-     * @param {number} pageNumber - Page number
-     * @returns {number} Page index or number
-     * @private
-     */
-    _getPageIndex: function(pageNumber) {
-      var left, pageIndex;
-
-      if (this._options.centerAlign) {
-        left = Math.floor(this._options.visiblePages / 2);
-        pageIndex = pageNumber - left;
-        pageIndex = Math.max(pageIndex, 1);
-        pageIndex = Math.min(pageIndex, this._getLastPage() - this._options.visiblePages + 1);
-
-        return pageIndex;
-      }
-
-      return Math.ceil(pageNumber / this._options.visiblePages);
-    },
-
-    /**
-     * Get relative page
-     * @param {string} moveType - Move type ('prev' or 'next')
-     * @returns {number} Relative page number
-     * @private
-     */
-    _getRelativePage: function(moveType) {
-      var isPrevMove = moveType === 'prev';
-      var currentPage = this.getCurrentPage();
-
-      return isPrevMove ? currentPage - 1 : currentPage + 1;
-    },
-
-    /**
-     * Get more page index
-     * @param {string} moveType - Move type ('prev' or 'next')
-     * @returns {number} Page index
-     * @private
-     */
-    _getMorePageIndex: function(moveType) {
-      var currentPageIndex = this._getPageIndex(this.getCurrentPage());
-      var pageCount = this._options.visiblePages;
-      var isPrevMove = moveType === 'prev';
-      var pageIndex;
-
-      if (this._options.centerAlign) {
-        pageIndex = isPrevMove ? currentPageIndex - 1 : currentPageIndex + pageCount;
+        switch (options) {
+          case 'previous':
+          case 'next':
+          case 'go':
+          case 'disable':
+          case 'enable':
+          case 'refresh':
+          case 'show':
+          case 'hide':
+          case 'destroy':
+            container.trigger.apply(this, args);
+            break;
+          // Get selected page number
+          case 'getSelectedPageNum':
+            if (container.data('pagination').model) {
+              return container.data('pagination').model.pageNumber;
+            } else {
+              return container.data('pagination').attributes.pageNumber;
+            }
+          // Get total page
+          case 'getTotalPage':
+            return Math.ceil(container.data('pagination').model.totalNumber / container.data('pagination').model.pageSize);
+          // Get data of selected page
+          case 'getSelectedPageData':
+            return container.data('pagination').currentPageData;
+          // Whether pagination has been disabled
+          case 'isDisabled':
+            return container.data('pagination').model.disabled === true;
+          default:
+            throwError('Unknown action: ' + options);
+        }
+        return this;
       } else {
-        pageIndex = isPrevMove
-          ? (currentPageIndex - 1) * pageCount
-          : currentPageIndex * pageCount + 1;
+        // Uninstall the old instance before initializing a new one
+        uninstallPlugin(container);
       }
+    } else {
+      if (!Helpers.isObject(options)) throwError('Illegal options');
+    }
 
-      return pageIndex;
-    },
-    /* eslint-enable complexity */
+    // Check parameters
+    parameterChecker(attributes);
 
-    /**
-     * Get available page number from over number
-     * If total page is 23, but input number is 30 => return 23
-     * @param {number} page - Page number
-     * @returns {number} Replaced pgae number
-     * @private
-     */
-    _convertToValidPage: function(page) {
-      var lastPageNumber = this._getLastPage();
-      page = Math.max(page, 1);
-      page = Math.min(page, lastPageNumber);
+    pagination.initialize();
 
-      return page;
-    },
+    return this;
+  };
 
-    /**
-     * Create require view set, notify view to update
-     * @param {number} page - Page number
-     * @private
-     */
-    _paginate: function(page) {
-      var viewData = this._makeViewData(page || this._options.page);
-      this._setCurrentPage(page);
-      this._view.update(viewData);
-    },
+  // Instance defaults
+  $.fn[pluginName].defaults = {
 
-    /**
-     * Create and get view data
-     * @param {number} page - Page number
-     * @returns {object} view data
-     * @private
-     */
-    _makeViewData: function(page) {
-      var viewData = {};
-      var lastPage = this._getLastPage();
-      var currentPageIndex = this._getPageIndex(page);
-      var lastPageListIndex = this._getPageIndex(lastPage);
-      var edges = this._getEdge(page);
+    // Data source
+    // Array | String | Function | Object
+    //dataSource: '',
 
-      viewData.leftPageNumber = edges.left;
-      viewData.rightPageNumber = edges.right;
+    // String | Function
+    //locator: 'data',
 
-      viewData.prevMore = currentPageIndex > 1;
-      viewData.nextMore = currentPageIndex < lastPageListIndex;
+    // Find totalNumber from remote response, the totalNumber will be ignored when totalNumberLocator is specified
+    // Function
+    //totalNumberLocator: function() {},
 
-      viewData.page = page;
-      viewData.currentPageIndex = page;
-      viewData.lastPage = lastPage;
-      viewData.lastPageListIndex = lastPage;
+    // Total entries
+    totalNumber: 0,
 
-      return viewData;
-    },
+    // Default page
+    pageNumber: 1,
 
-    /**
-     * Get each edge page
-     * @param {object} page - Page number
-     * @returns {{left: number, right: number}} Edge page numbers
-     * @private
-     */
-    _getEdge: function(page) {
-      var leftPageNumber, rightPageNumber, left;
-      var lastPage = this._getLastPage();
-      var visiblePages = this._options.visiblePages;
-      var currentPageIndex = this._getPageIndex(page);
+    // entries of per page
+    pageSize: 10,
 
-      if (this._options.centerAlign) {
-        left = Math.floor(visiblePages / 2);
-        leftPageNumber = Math.max(page - left, 1);
-        rightPageNumber = leftPageNumber + visiblePages - 1;
+    // Page range (pages on both sides of the current page)
+    pageRange: 2,
 
-        if (rightPageNumber > lastPage) {
-          leftPageNumber = Math.max(lastPage - visiblePages + 1, 1);
-          rightPageNumber = lastPage;
+    // Whether to display the 'Previous' button
+    showPrevious: true,
+
+    // Whether to display the 'Next' button
+    showNext: true,
+
+    // Whether to display the page buttons
+    showPageNumbers: true,
+
+    showNavigator: false,
+
+    // Whether to display the 'Go' input
+    showGoInput: false,
+
+    // Whether to display the 'Go' button
+    showGoButton: false,
+
+    // Page link
+    pageLink: '',
+
+    // 'Previous' text
+    prevText: '&laquo;',
+
+    // 'Next' text
+    nextText: '&raquo;',
+
+    // Ellipsis text
+    ellipsisText: '...',
+
+    // 'Go' button text
+    goButtonText: 'Go',
+
+    // Additional className for Pagination element
+    //className: '',
+
+    classPrefix: 'paginationjs',
+
+    // Default active class
+    activeClassName: 'active',
+
+    // Default disable class
+    disableClassName: 'disabled',
+
+    //ulClassName: '',
+
+    // Whether to insert inline style
+    inlineStyle: true,
+
+    formatNavigator: '<%= currentPage %> / <%= totalPage %>',
+
+    formatGoInput: '<%= input %>',
+
+    formatGoButton: '<%= button %>',
+
+    // Pagination element's position in the container
+    position: 'bottom',
+
+    // Auto hide previous button when current page is the first page
+    autoHidePrevious: false,
+
+    // Auto hide next button when current page is the last page
+    autoHideNext: false,
+
+    //header: '',
+
+    //footer: '',
+
+    // Aliases for custom pagination parameters
+    //alias: {},
+
+    // Whether to trigger pagination at initialization
+    triggerPagingOnInit: true,
+
+    // Whether to hide pagination when less than one page
+    hideWhenLessThanOnePage: false,
+
+    showFirstOnEllipsisShow: true,
+
+    showLastOnEllipsisShow: true,
+
+    // Pagination callback
+    callback: function() {}
+  };
+
+  // Hook register
+  $.fn[pluginHookMethod] = function(hook, callback) {
+    if (arguments.length < 2) {
+      throwError('Missing argument.');
+    }
+
+    if (!$.isFunction(callback)) {
+      throwError('callback must be a function.');
+    }
+
+    var container = $(this);
+    var paginationData = container.data('pagination');
+
+    if (!paginationData) {
+      container.data('pagination', {});
+      paginationData = container.data('pagination');
+    }
+
+    !paginationData.hooks && (paginationData.hooks = {});
+
+    //paginationData.hooks[hook] = callback;
+    paginationData.hooks[hook] = paginationData.hooks[hook] || [];
+    paginationData.hooks[hook].push(callback);
+
+  };
+
+  // Static method
+  $[pluginName] = function(selector, options) {
+    if (arguments.length < 2) {
+      throwError('Requires two parameters.');
+    }
+
+    var container;
+
+    // 'selector' is a jQuery object
+    if (typeof selector !== 'string' && selector instanceof jQuery) {
+      container = selector;
+    } else {
+      container = $(selector);
+    }
+
+    if (!container.length) return;
+
+    container.pagination(options);
+
+    return container;
+  };
+
+  // ============================================================
+  // helpers
+  // ============================================================
+
+  var Helpers = {};
+
+  // Throw error
+  function throwError(content) {
+    throw new Error('Pagination: ' + content);
+  }
+
+  // Check parameters
+  function parameterChecker(args) {
+    if (!args.dataSource) {
+      throwError('"dataSource" is required.');
+    }
+
+    if (typeof args.dataSource === 'string') {
+      if (args.totalNumberLocator === undefined) {
+        if (args.totalNumber === undefined) {
+          throwError('"totalNumber" is required.');
+        } else if (!$.isNumeric(args.totalNumber)) {
+          throwError('"totalNumber" is incorrect. (Number)');
         }
       } else {
-        leftPageNumber = (currentPageIndex - 1) * visiblePages + 1;
-        rightPageNumber = currentPageIndex * visiblePages;
-        rightPageNumber = Math.min(rightPageNumber, lastPage);
+        if (!$.isFunction(args.totalNumberLocator)) {
+          throwError('"totalNumberLocator" should be a Function.');
+        }
       }
-
-      return {
-        left: leftPageNumber,
-        right: rightPageNumber
-      };
-    },
-
-    /**
-     * Pagelist click event hadnler
-     * @param {?string} buttonType - Button type
-     * @param {?number} page - Page number
-     * @private
-     */
-    /* eslint-disable complexity */
-    _onClickHandler: function(buttonType, page) {
-      switch (buttonType) {
-        case 'first':
-          page = 1;
-          break;
-        case 'prev':
-          page = this._getRelativePage('prev');
-          break;
-        case 'next':
-          page = this._getRelativePage('next');
-          break;
-        case 'prevMore':
-          page = this._getMorePageIndex('prev');
-          break;
-        case 'nextMore':
-          page = this._getMorePageIndex('next');
-          break;
-        case 'last':
-          page = this._getLastPage();
-          break;
-        default:
-          if (!page) {
-            return;
-          }
+    } else if (Helpers.isObject(args.dataSource)) {
+      if (typeof args.locator === 'undefined') {
+        throwError('"dataSource" is an Object, please specify "locator".');
+      } else if (typeof args.locator !== 'string' && !$.isFunction(args.locator)) {
+        throwError('' + args.locator + ' is incorrect. (String | Function)');
       }
+    }
 
-      this.movePageTo(page);
-    },
-    /* eslint-enable complexity */
-
-    /**
-     * Reset pagination
-     * @param {*} totalItems - Redraw page item count
-     * @example
-     * pagination.reset();
-     * pagination.reset(100);
-     */
-    reset: function(totalItems) {
-      if (isUndefined(totalItems)) {
-        totalItems = this._options.totalItems;
-      }
-
-      this._options.totalItems = totalItems;
-      this._paginate(1);
-    },
-
-    /**
-     * Move to specific page, redraw list.
-     * Before move fire beforeMove event, After move fire afterMove event.
-     * @param {Number} targetPage - Target page
-     * @example
-     * pagination.movePageTo(10);
-     */
-    movePageTo: function(targetPage) {
-      targetPage = this._convertToValidPage(targetPage);
-
-      /**
-       * @event Pagination#beforeMove
-       * @type {object} evt - Custom event object
-       * @property {number} page - Moved page
-       * @example
-       * paganation.on('beforeMove', function(evt) {
-       *     var currentPage = evt.page;
-       *
-       *     if (currentPage === 10) {
-       *         return false;
-       *         // return true;
-       *     }
-       * });
-       */
-      if (!this.invoke('beforeMove', { page: targetPage })) {
-        return;
-      }
-
-      this._paginate(targetPage);
-
-      /**
-       * @event Pagination#afterMove
-       * @type {object} evt - Custom event object
-       * @property {number} page - Moved page
-       * @example
-       * paganation.on('afterMove', function(evt) {
-       *      var currentPage = evt.page;
-       *      console.log(currentPage);
-       * });
-       */
-      this.fire('afterMove', { page: targetPage });
-    },
-
-    /**
-     * Set total count of items
-     * @param {number} itemCount - Total item count
-     */
-    setTotalItems: function(itemCount) {
-      this._options.totalItems = itemCount;
-    },
-
-    /**
-     * Set count of items per page
-     * @param {number} itemCount - Item count
-     */
-    setItemsPerPage: function(itemCount) {
-      this._options.itemsPerPage = itemCount;
-    },
-
-    /**
-     * Get current page
-     * @returns {number} Current page
-     */
-    getCurrentPage: function() {
-      return this._currentPage || this._options.page;
+    if (args.formatResult !== undefined && !$.isFunction(args.formatResult)) {
+      throwError('"formatResult" should be a Function.');
     }
   }
-);
 
-CustomEvents.mixin(Pagination);
+  // uninstall plugin
+  function uninstallPlugin(target) {
+    var events = ['go', 'previous', 'next', 'disable', 'enable', 'refresh', 'show', 'hide', 'destroy'];
 
-module.exports = Pagination;
+    // off events of old instance
+    $.each(events, function(index, value) {
+      target.off(eventPrefix + value);
+    });
+
+    // reset pagination data
+    target.data('pagination', {});
+
+    // remove old
+    $('.paginationjs', target).remove();
+  }
+
+  // Object type detection
+  function getObjectType(object, tmp) {
+    return ( (tmp = typeof(object)) == "object" ? object == null && "null" || Object.prototype.toString.call(object).slice(8, -1) : tmp ).toLowerCase();
+  }
+
+  $.each(['Object', 'Array', 'String'], function(index, name) {
+    Helpers['is' + name] = function(object) {
+      return getObjectType(object) === name.toLowerCase();
+    };
+  });
+
+  /*
+   * export via AMD or CommonJS
+   * */
+  if (typeof define === 'function' && define.amd) {
+    define(function() {
+      return $;
+    });
+  }
+
+})(this, window.jQuery);
