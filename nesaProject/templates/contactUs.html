@@ -35,15 +35,15 @@
     <!-- END: Breadcrumbs -->
    
 </div>
-<div class="nk-gap-2"></div>
-<div class="row vertical-gap">
-    <div class="col-lg-4">
-        <div class="nk-feature-1">
-            <div class="nk-feature-icon">
-                <img src="{% static "/images/phone-logo.png" %}" alt="">
+
+<section class="contacts-top about-top">
+    <div class="container">
+        <div class="row about-top-cover">
+            <div class="col-12 col-lg-6 about-img">
+                <img src="{% static "/images/lo.png"%}" alt="img">
             </div>
             <div class="col-12 col-lg-6 about-info">
-                <h2 class="title-left">Server-ийн Тухай</h2>
+                <h2 class="title-left">Server-ийн мэдээлэл</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmmpor incididunt ut labore et dolore magna aliqua. Ut <a href="#">enim ad minim</a> veniam, quis nostrud.</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                 <ul class="nk-social-links-2 nk-social-links-cols-4">
@@ -79,21 +79,67 @@
                     <li><a class="nk-social-wordpress" href="#"><span class="fab fa-wordpress"></span></a></li>
                     -->
                 </ul>
-                
             </div>
         </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="nk-feature-1">
-            <div class="nk-feature-icon">
-                <img src="{% static "/images/pin.png" %}" alt="">
-            </div>
-            <div class="nk-feature-cont">
-                <h3 class="nk-feature-title"><a href="#">Байршил Lan-Esport</a></h3>
-                <h4 class="nk-feature-title text-main-1"><a href="#">Chingeltei 6 khoroo 915a</a></h4>
+        <!--============= ABOUT-TOP-BLOCK =============-->
+        <div class="about-top-block">
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <div class="about-block">
+                        <div class="about-block-icon">
+                            <i class="fas fa-shield-alt" style="font-size: 3.3em; color:#45a7ef;"></i>
+                        </div>
+                        <div class="about-block-info">
+                            <h5 class="title">Хамгаалалт</h5>
+                            <div class="about-info-text">Lorem ipsum dolor sit amet, consectetur </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="about-block">
+                        <div class="about-block-icon">
+                            <svg width="47" height="49" viewBox="0 0 47 49" fill="#45A7EF" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M40.2634 18.6324V16.7485C40.2634 12.2397 38.6678 8.05 35.7752 4.94118C32.8105 1.75 28.734 0 24.2869 0H22.7325C18.2855 0 14.209 1.75 11.2443 4.94118C8.35164 8.05 6.75605 12.2397 6.75605 16.7485V18.6324C3.24576 18.8691 0.456055 21.7926 0.456055 25.3647V28.3088C0.456055 32.025 3.48253 35.0515 7.1987 35.0515H10.9972C11.6766 35.0515 12.2325 34.4956 12.2325 33.8162V19.8471C12.2325 19.1676 11.6766 18.6118 10.9972 18.6118H9.22664V16.7485C9.22664 8.60588 15.0325 2.47059 22.7222 2.47059H24.2766C31.9766 2.47059 37.7722 8.60588 37.7722 16.7485V18.6118H36.0016C35.3222 18.6118 34.7663 19.1676 34.7663 19.8471V33.8059C34.7663 34.4853 35.3222 35.0412 36.0016 35.0412H37.731C37.2266 41.4853 32.7899 42.9779 30.7311 43.3176C30.1649 41.5779 28.5281 40.3221 26.6031 40.3221H23.5149C21.1266 40.3221 19.1811 42.2676 19.1811 44.6559C19.1811 47.0441 21.1266 49 23.5149 49H26.6134C28.6105 49 30.2884 47.6412 30.7928 45.8088C31.8016 45.6647 33.3972 45.3044 34.9825 44.3779C37.2163 43.0706 39.8619 40.4044 40.2119 35.0309C43.7428 34.8147 46.5428 31.8809 46.5428 28.2985V25.3544C46.5531 21.7926 43.7737 18.8588 40.2634 18.6324ZM9.78252 32.5706H7.21929C4.86194 32.5706 2.94723 30.6559 2.94723 28.2985V25.3544C2.94723 22.9971 4.86194 21.0824 7.21929 21.0824H9.78252V32.5706ZM26.6134 46.5294H23.5149C22.4855 46.5294 21.6516 45.6956 21.6516 44.6662C21.6516 43.6368 22.4855 42.8029 23.5149 42.8029H26.6134C27.6428 42.8029 28.4766 43.6368 28.4766 44.6662C28.4766 45.6956 27.6428 46.5294 26.6134 46.5294ZM44.0825 28.2985C44.0825 30.6559 42.1678 32.5706 39.8105 32.5706H37.2472V21.0824H39.8105C42.1678 21.0824 44.0825 22.9971 44.0825 25.3544V28.2985Z"/>
+                            </svg>
+                        </div>
+                        <div class="about-block-info">
+                            <h5 class="title">24/7 Туслах</h5>
+                            <div class="about-info-text">tel: 99999999<br>tel: 88888888</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="about-block">
+                        <div class="about-block-icon">
+                            <svg width="50" height="50" viewBox="0 0 50 50" fill="#45A7EF" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.0005 5.00061H4.16699V6.66731H15.0005V5.00061Z"/>
+                                <path d="M15.0005 8.33386H4.16699V10.0006H15.0005V8.33386Z"/>
+                                <path d="M11.6671 11.6672H4.16699V13.3339H11.6671V11.6672Z"/>
+                                <path d="M11.6671 15.0004H4.16699V16.6671H11.6671V15.0004Z"/>
+                                <path d="M49.9984 48.334H-0.000976562V50.0007H49.9984V48.334Z"/>
+                                <path d="M48.2445 7.12736L44.9112 0.460778C44.7057 0.0489077 44.2054 -0.118382 43.7935 0.0871364C43.7933 0.0872406 43.7931 0.0873448 43.7929 0.0874489L37.1263 3.42074C36.7144 3.62647 36.5472 4.12719 36.753 4.53906C36.9587 4.95093 37.4594 5.11812 37.8713 4.91239L42.6996 2.49992L41.3821 6.26154C35.5912 22.7538 20.6759 34.3241 3.26172 35.8329L3.40338 37.4995C21.4737 35.9341 36.9503 23.9262 42.9562 6.81153L44.3012 2.96825L46.7529 7.87235C46.9586 8.28422 47.4593 8.45141 47.8712 8.24568C48.2831 8.03996 48.4502 7.53934 48.2445 7.12736Z"/>
+                                <path d="M10.0008 40.0002H4.16733C3.70712 40.0002 3.33398 40.3733 3.33398 40.8335V45.8336C3.33398 46.2938 3.70712 46.667 4.16733 46.667H10.0008C10.461 46.667 10.8341 46.2938 10.8341 45.8336V40.8335C10.8341 40.3733 10.461 40.0002 10.0008 40.0002ZM9.16741 45.0003H5.00068V41.6669H9.16741V45.0003Z"/>
+                                <path d="M19.1658 37.5006H13.3324C12.8722 37.5006 12.499 37.8737 12.499 38.334V45.8341C12.499 46.2943 12.8722 46.6674 13.3324 46.6674H19.1658C19.626 46.6674 19.9992 46.2943 19.9992 45.8341V38.334C19.9992 37.8737 19.626 37.5006 19.1658 37.5006ZM18.3325 45.0007H14.1657V39.1673H18.3325V45.0007Z"/>
+                                <path d="M28.3328 33.3339H22.4994C22.0391 33.3339 21.666 33.707 21.666 34.1672V45.8341C21.666 46.2943 22.0391 46.6674 22.4994 46.6674H28.3328C28.793 46.6674 29.1661 46.2943 29.1661 45.8341V34.1672C29.1661 33.707 28.793 33.3339 28.3328 33.3339ZM27.4994 45.0007H23.3327V35.0006H27.4994V45.0007Z"/>
+                                <path d="M37.4998 27.5004H31.6664C31.2061 27.5004 30.833 27.8736 30.833 28.3338V45.8341C30.833 46.2943 31.2061 46.6674 31.6664 46.6674H37.4998C37.96 46.6674 38.3331 46.2943 38.3331 45.8341V28.3338C38.3331 27.8736 37.96 27.5004 37.4998 27.5004ZM36.6664 45.0007H32.4997V29.1671H36.6664V45.0007Z"/>
+                                <path d="M46.6668 15.8336H40.8333C40.3731 15.8336 40 16.2067 40 16.6669V45.834C40 46.2943 40.3731 46.6674 40.8333 46.6674H46.6668C47.127 46.6674 47.5001 46.2943 47.5001 45.834V16.6669C47.5001 16.2067 47.127 15.8336 46.6668 15.8336ZM45.8334 45.0007H41.6667V17.5003H45.8334V45.0007Z"/>
+                            </svg>
+                        </div>
+                        <div class="about-block-info">
+                            <h5 class="title">Үйл ажилгаа</h5>
+                            <div class="about-info-text">5 жил <br>ажилаж байна</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <!--=========== ABOUT-TOP-BLOCK END ===========-->
     </div>
-</div>
+</section>
+<!--========== CONTACTS-TOP END ==========-->
+
+<!--============= S-CONTACTS =============-->
+
+<!--=========== S-CONTACTS END ===========-->
 
 {% endblock %}
