@@ -43,7 +43,7 @@
     <link rel="stylesheet" href="{% static "/css/filter.css" %} ">
     <link rel="stylesheet" href="{% static "/css/date.css" %} ">
     <link rel="stylesheet" href="{% static "/css/steam.css" %} ">
-    <link rel="stylesheet" href="{% static "/css/contact.css"%}">
+    <link rel="stylesheet" href="{% static "/css/contact.css" %} ">
     <link href="https://fonts.googleapis.com/css?family=Rubik:700" rel="stylesheet" property="stylesheet"
         type="text/css" media="all">
 </head>
@@ -173,13 +173,11 @@
         </ul>
     </div>
 </header>
-
 {% block content %}
-            <img class="nk-page-background-bottom" src="{% static "/images/bg-bot.jpg"%}" alt="" style="opacity:0.2;">
-
 
 {% endblock %}
 <footer class="nk-footer">
+    <img class="nk-page-background-bottom" src="{% static "/images/bg-bot.jpg"%}" alt="" style="opacity:0.2;">
 
     <div class="container">
         <div class="nk-gap-3"></div>
@@ -257,8 +255,7 @@
                 <div class="nk-widget">
                     <h4 class="nk-widget-title"><span class="text-main-1">Холбоо барих</span> Утас</h4>
                     <div class="nk-widget-content">
-                        <div class="nk-phone-list"><img src="{% static "/images/phone-logo.png" %}"><span>
-                                {{ global_settings.phone_no }}</span></div>
+                        <div class="nk-phone-list"><img src="{% static "/images/phone-logo.png" %}"><span>{{ global_settings.phone_no }}</span></div>
                     </div>
                 </div>
             </div>
@@ -419,6 +416,11 @@
 <script src="{% static "js/goodgames.min.js" %}"></script>
 <script src="{% static "js/goodgames-init.js" %}"></script>
 <!-- END: Scripts -->
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 
 </html>

@@ -398,9 +398,76 @@
         <div class="nk-gap-1"></div>
         <!-- START: Features -->
 
+
+
+
+        <div id="tallModal" class="modal modal-wide fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Бүртгүүлэх</h4>
+                    </div>
+                    <form>
+                        <input type="text" id="name" class="form-control required" name="email" placeholder="Email *">
+                        <input type="text" id="email" class="form-control required" name="name" placeholder="Нэр *">                
+                        <input type="text" id="phone" class="form-control required" name="phone" placeholder="Утас *">
+                    </form>
+                    <div class="modal-footer">
+                        <button id="submit" type="button" class="btn btn-primary">Submit</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+
+        <script type="text/javascript">
+            // when .modal-wide opened, set content-body height based on browser height; 200 is appx height of modal padding, modal title and button bar
+
+
+            $(document).ready(function () {
+
+
+                $("#modalSubmitBtn").click(function(){
+                    alert("Lorem Ipsum is simply dummy text of the!");
+                });
+
+
+
+                $('#tallModal').modal({
+                    keyboard: true,
+                    show: true,
+                    backdrop: 'static'
+                });
+
+            });
+        </script>
+
         <!--Premium server description end -->
     </div>
 </div>
-</div>
-
+<script>
+    $("#submit").click(function(){
+        var name = $("#name").val();
+        var name = $("#email").val();
+        var name = $("#phone").val();
+        
+        if(name == '' || email == '' || phone == ''){
+            
+            swal({
+                title: "Хоосон",
+                text: "Шалгануу",
+                icon: "warning",
+                button: "Ok"
+            });
+        }else{
+            swal({
+                title: "Амжилттай бүртгэлээ",
+                icon: "success",
+                button: "Submit",
+            });
+        }
+    })
+</script>
 {% endblock %}
+
