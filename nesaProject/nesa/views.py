@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import ContactUs, ActiveServers
+from .models import ContactUs, ActiveServers, Reward
+import datetime
 
 # Create your views here.
 def index(req):
@@ -12,14 +13,16 @@ def contactUs(req):
         item.save()
     return render(req, 'contactUs.html')
 
+# Get single premium server object
 def premium_obj(obj_list):
     for obj in obj_list:
-        if obj.is_premium:
+        if obj.is_premium():
             return obj 
-        
+
+# Get single premium server object
 def non_premium_obj(obj_list):
     for obj in obj_list:
-        if obj.is_premium is False:
+        if obj.is_premium() is not True:
             return obj 
         
 
@@ -27,11 +30,15 @@ def rewardsBlogArchive(req):
     obj_list = ActiveServers.objects.all()
     single_prem_srv = premium_obj(obj_list=obj_list)
     single_non_prem_srv = non_premium_obj(obj_list=obj_list)
+    current_month = datetime.date.today().month
+    current_year = datetime.date.today().year
 
     context = {
         'servers': obj_list,
         'single_premium_server': single_prem_srv,
-        'single_non_premium_server': single_non_prem_srv
+        'single_non_premium_server': single_non_prem_srv,
+        'current_month': current_month,
+        'current_year': current_year,
     }
     return render(req, 'rewards-blog-archive.html', context)   
 
@@ -39,7 +46,12 @@ def newsBlogArchive(req):
     return render(req, 'news-blog-archive.html')
 
 def rewardsBlogSingle(req):
-    return render(req, 'rewards-blog-single.html')
+    obj_list = Reward.objects.all()[5]
+
+    context = {
+        'obj': obj_list,
+    }
+    return render(req, 'rewards-blog-single.html', context)
 
 def newsBlogSingle(req):
     return render(req, 'news-blog-single.html')        

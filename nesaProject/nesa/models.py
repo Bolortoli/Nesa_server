@@ -1,6 +1,9 @@
 from django.db import models
 import datetime
+import math
+import itertools
 from django.core.validators import MaxValueValidator, MinValueValidator, FileExtensionValidator
+from django.utils.text import slugify
 
 
 class ServerCategory(models.Model):
@@ -43,10 +46,6 @@ def current_month():
 class Reward(models.Model):
     # Server name
     title=models.CharField(max_length=255, verbose_name="Шагналын гарчиг", default='')
-
-    def get_title(self):
-        return self.title
-
     serName=models.ForeignKey(ActiveServers, on_delete=models.CASCADE)
     pic=models.ImageField(verbose_name="Шагналын зураг", upload_to="rewards")
     year=models.IntegerField(default=current_year(), validators=[MinValueValidator(current_year()), MaxValueValidator(current_year() + 10)])    
@@ -54,15 +53,33 @@ class Reward(models.Model):
     published_date=models.DateField(verbose_name="Огноо", auto_now_add=True, editable=False)
     sponsor_name=models.CharField(max_length=255, verbose_name=" Ивээн тэтгэгч", default='')
     desc=models.TextField(verbose_name="Мэдээний тайлбар", default='')
-    slug=models.SlugField(max_length=250, unique=True, verbose_name="Slug", editable=False)
-    
+    slug=models.CharField(max_length=250, unique=True, editable=False, default='')
 
     def __str__(self):
         return self.serName.name + '-ын шагнал'
 
+    def save(self, *args, **kwargs):
+        new_slug = slugify("%s %d %d" % (self.serName.name, self.year, self.month))
+        slug_count = 1
+        if Reward.objects.filter(slug = new_slug).exists():
+            new_slug = slugify("%s %d" % (new_slug, slug_count))            
+            for slug_addition_count in itertools.count(slug_count):
+                if not Reward.objects.filter(slug = new_slug).exists(): 
+                    break
+                else: 
+                    # Remove last '-' and digit to make a new slug without make a new variable
+                    new_slug = new_slug[:-((int(math.log10(slug_addition_count))) + 2)]
+                    new_slug = slugify("%s %d" % (new_slug, slug_addition_count))
+        self.slug = new_slug
+        super().save(*args, **kwargs)
+
     class Meta:
         verbose_name_plural="Шагнал- Жагсаалт"
         verbose_name="Шагнал" 
+        
+
+    # def get_absolute_slug(self):
+    #     return reverse()
 
 
 class ContactUs(models.Model):
