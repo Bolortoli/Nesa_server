@@ -30,7 +30,7 @@
     <br>
     <br>
     <ul class="nk-breadcrumbs">
-        <h3 class="nk-decorated-h-2"><span><span  class="text-main-1"><a href="{% url 'rewards-blog-archive' %}">nesa.mn:27015</a></span> 6-р сар</span></h3></h3>
+        <h3 class="nk-decorated-h-2"><span><span  class="text-main-1"><a href="{% url 'rewards-blog-archive' %}">{{ obj.serName }}</a></span> {{ obj.month }}-р сар</span></h3></h3>
     </ul>
 </div>
 <div class="nk-gap-1"></div>
@@ -47,15 +47,15 @@
                 <!-- START: Post Text -->
                 <div class="nk-post-text mt-0">
                     <div class="nk-post-img">
-                        <img src="{% static "/images/Nesa.png" %}" alt="" class="nk-news-box-item-full-img">
+                        <img src="{{ obj.pic.url }}" alt="" class="nk-news-box-item-full-img">
                         <span class="nk-post-categories">
-                            <span class="bg-main-2" style="margin-left: 500px;">Ивээн тэтгэгч PC MALL</span>
+                            <span class="bg-main-2" style="margin-left: 500px;">{{obj.sponsor_name }}</span>
                         </span>
                     </div>
                     
                     
                     <div class="nk-gap-1"></div>
-                    <h1 class="nk-post-title h4">Шагнал RTX 2070 Super</h1>
+                    <h1 class="nk-post-title h4">{{ obj.title }}</h1>
                     
                     <div class="nk-post-by">
                         
@@ -66,22 +66,7 @@
                         
                     </div>
                     <div class="nk-gap"></div>
-                    <p>CSGO Major тэмцээний тухай!
-
-                        Хамгийн анхны CS:GO Major тэмцээн нь 2013 онд Швед улсад "DreamHack Winter 2013" нэртэйгээр зохион байгуулагдаж байсан бөгөөд одоогоор 10 Major тэмцээн зохиогдсон байна. 8 дахь Major болох "MLG Major Championship: Columbus" тэмцээнээс эхлэн шагналын сан өмнөхөөсөө 4 дахин өсөж 1.000.000$-т хүрсэн.
-                        
-                        Major тэмцээнд нийт 16 баг оролцдог бөгөөд өмнөх Major тэмцээний шөвгийн 8-д үлдсэн багууд дараагийн Major тэмцээнд шууд оролцох эрхээ авдаг. Үлдсэн 8 багийн зайнд багууд дараах шат дарааллаар өрсөлддөг юм.
-                        
-                        Бүсийн шалгаруулалт -> Minor LAN шалгаруулалт -> Үндсэн LAN шалгаруулалт -> CSGO MAJOR (Энэ жилийн хоёр дахь Major тэмцээн буюу PGL Major Kraków 2017 тэмцээн дээр жишээ авъя)
-                        
-                        ~ Бүсийн шалгаруулалт: Aзи бүсийн багууд тус тусын бүсийн шалгаруулалтандаа өрсөлдөж байгаа бөгөөд The MongolZ багийн маань хувьд энэхүү шатаа давчихсан байгаа буюу "ЗҮҮН АЗИ" бүсээс шалгарчихаад байгаа юм.
-                        
-                        ~ Minor LAN шалгаруулалтанд тус бүрийн бүсээс шалгарсан багууд 6 сарын 1-4-ний хооронд Хятад улсад өрсөлдөх ба энэхүү шалгаруулалтаас 2 баг шалгаран үндсэн шалгаруулалтанд оролцох эрхээ авах юм.
-                        
-                        ~ Үндсэн LAN шалгаруулалтанд мөн 16 баг оролцдог ба өмнөх Major тэмцээний 8-16-р байранд орсон 8 баг шууд оролцох эрхээ авдаг. PGL Major Kraków 2017 тэмцээний үндсэн LAN шалгаруулалт нь 6 сарын 29-өөс 7 сарын 2-ны хооронд Польш улсад зохион байгуулагдах ба энэхүү тэмцээнээс 8 баг шалгаран Major тэмцээнд оролцох эрхээ авцгаах юм.
-                        
-                        (Зураг: Анхны Major тэмцээний аварга fnatic - flusha, JW, schneider, pronax, Devilwalk)</p>
-
+                    <p> {{ obj.desc }}
 <div class="nk-gap"></div>
 <blockquote class="nk-blockquote"> 
     <div class="nk-blockquote-author"><span>Zeno</span></div>
@@ -157,43 +142,13 @@
 
 
                 <div class="nk-widget nk-widget-highlighted">
-                    <h4 class="nk-widget-title"><span><span class="text-main-1">Server</span> Жагсаалт</span></h4>
+                    <h4 class="nk-widget-title"><span><span class="text-main-1">Төлбөртэй Server</span> Жагсаалт</span></h4>
                     <div class="nk-widget-content">
-                        
+                            {% for server in paid_server_list %}
                             <div class="nk-widget-post">
-                                <h3 class="nk-post-title"><a href="{% url 'rewards-blog-archive' %}" style="margin-left: -35px;">nesa.mn:27015</a></h3>
+                                <h3 class="nk-post-title"><a href="{% url 'rewards-blog-archive' %}" style="margin-left: -35px;">{{server.name}}</a></h3>
                             </div>
-                        
-                            <div class="nk-widget-post">
-                                <h3 class="nk-post-title" style="margin-left: -35px;"><a>nesa.mn:27016</a></h3>
-                                
-                            </div>
-                        
-                            <div class="nk-widget-post">
-                                
-                                <h3 class="nk-post-title"style="margin-left: -35px;"><a>nesa.mn:27017</a></h3>
-                               
-                            </div>
-                            <div class="nk-widget-post">
-                               
-                                <h3 class="nk-post-title"style="margin-left: -35px;"><a>nesa.mn:27018</a></h3>
-                                
-                            </div>
-                            <div class="nk-widget-post">
-                               
-                                <h3 class="nk-post-title"style="margin-left: -35px;"><a>nesa.mn:27019</a></h3>
-                                
-                            </div>
-                            <div class="nk-widget-post">
-                               
-                                <h3 class="nk-post-title"style="margin-left: -35px;"><a>nesa.mn:27020</a></h3>
-                                
-                            </div>
-                            <div class="nk-widget-post">
-                               
-                                <h3 class="nk-post-title"style="margin-left: -35px;"><a>nesa.mn:27021</a></h3>
-                                
-                            </div>
+                            {% endfor%}
                         
                     </div>
                 </div>

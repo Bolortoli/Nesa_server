@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import ContactUs, ActiveServers, Reward
 import datetime
+from django.utils.text import slugify
+
 
 # Create your views here.
 def index(req):
@@ -45,11 +47,24 @@ def rewardsBlogArchive(req):
 def newsBlogArchive(req):
     return render(req, 'news-blog-archive.html')
 
-def rewardsBlogSingle(req):
-    obj_list = Reward.objects.all()[5]
+def rewardsBlogSingle(req, server, year=datetime.date.today().year, month=datetime.date.today().month):
+    # eslug=server+'-'+year+'-'+month
+    # obj_list = Reward.objects.filter(slug=eslug )
+
+    # TEST CASE
+
+    # server = 'nesamn27019'
+    # year = 2020
+    # month = 8
+
+    eslug=slugify(server)+'-'+str(year)+'-'+str(month)
+    obj_list = Reward.objects.get(slug=eslug)
+
+    paid_server_list = ActiveServers.objects.filter(server_type="Premium")
 
     context = {
         'obj': obj_list,
+        'paid_server_list': paid_server_list,
     }
     return render(req, 'rewards-blog-single.html', context)
 

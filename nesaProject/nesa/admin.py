@@ -18,5 +18,10 @@ admin.site.register(ContactUs, ContactUsAdmin)
 #     list_editable = ['address','city','state']
 admin.site.register(ServerCategory)
 admin.site.register(ActiveServers)
-admin.site.register(Reward)
+
+class RewardsUsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'serName', 'year', 'month', 'slug'] 
+    # list_display_links = None
+
+admin.site.register(Reward, RewardsUsAdmin)
 admin.site.register(Settings)

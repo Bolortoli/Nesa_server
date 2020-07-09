@@ -92,7 +92,7 @@
                         </span>
                         </a>
                         <div class="nk-gap-1"></div>
-                        <h2 class="nk-post-title h4"><a href="{% url 'news-blog-single' %}">{{ single_premium_server.name }}</a></h2>
+                        <h2 class="nk-post-title h4"><a href="#">{{ single_premium_server.name }}</a></h2>
                         <div class="nk-post-date mt-10 mb-10">
                            <span class="fa fa-calendar"></span> Sep 5, 2018
                            <!-- <span class="fa fa-comments"></span> <a href="#">7 comments</a> -->
@@ -112,7 +112,7 @@
                            <div class="nk-team-cont">
                               <h3 class="h5 mb-20"><span class="text-main-1">{{ server.category.name }}</span> {{ server.name }}</h3>
                               <h4 class="h6 mb-5">ADMIN:</h4>
-                              <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
+                              <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' server=server.name year=current_year month=current_month %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
                               <div class="nk-team-photo" style="background-image: url('{{ server.pic.url }}');background-size: 100%;""></div>
                            </div>
                         </div>
@@ -153,7 +153,7 @@
                               <h4 class="h6 mb-5">ADMIN:</h4>
                               <span>Neko, Zeno, Buya</span>
                               <span style="margin-left: 55%;">
-                                 <!-- <a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a> -->
+                                 <!-- <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a> -->
                               </span>
                               <div class="nk-team-photo" style="background-image: url('{{ server.pic.url }}');background-size: 100%;""></div>
                            </div>
@@ -197,7 +197,7 @@
                               {% else %}
                               <span>Neko, Zeno, Buya</span>
                               <span style="margin-left: 55%;">
-                              <a href="{% url 'rewards-blog-single' %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a>
+                              <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a>
                               </span>
                               {% endif %}
                               <div class="nk-team-photo" style="background-image: url('{{ server.pic.url }}');background-size: 100%;""></div>

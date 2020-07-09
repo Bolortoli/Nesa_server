@@ -25,6 +25,9 @@ class ActiveServers(models.Model):
     category=models.ForeignKey(ServerCategory, verbose_name="Category", on_delete=models.CASCADE, default='') 
     server_type=models.CharField(verbose_name="Төлбөртэй эсэх", choices=SERVER_CHOICES, max_length=50, default=SERVER_CHOICES[0])
 
+    def get_title_as_slug(self):
+        return slugify(self.name)
+
     def __str__(self):
         return self.name
 
