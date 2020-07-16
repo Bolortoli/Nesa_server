@@ -20,7 +20,7 @@ class ActiveServers(models.Model):
         ('Non Premium', 'Non premium')
     ]
 
-    name=models.CharField(max_length=254, verbose_name="Server-ийн нэр")
+    name=models.CharField(max_length=254, verbose_name="Server-ийн нэр", unique=True)
     pic=models.ImageField(verbose_name="Server-ийн зураг", upload_to="servers")
     category=models.ForeignKey(ServerCategory, verbose_name="Category", on_delete=models.CASCADE, default='') 
     server_type=models.CharField(verbose_name="Төлбөртэй эсэх", choices=SERVER_CHOICES, max_length=50, default=SERVER_CHOICES[0])
@@ -117,22 +117,22 @@ class Settings(models.Model):
 
     # PROMOTIONS in home page
     # Box-1
-    box1_title=models.CharField(max_length=255,verbose_name="Box 1-Гарчиг", blank=True)
-    box1_text=models.CharField(max_length=255, verbose_name="Box 1-Текст", blank=True)
+    box1_title=models.TextField(max_length=255,verbose_name="Box 1-Гарчиг", blank=True)
+    box1_text=models.TextField(max_length=255, verbose_name="Box 1-Текст", blank=True)
     # box1_pic=models.ImageField(upload_to="settings", verbose_name="Box 1-Зураг", default="", blank=True)
 
     # Box-2
-    box2_title=models.CharField(max_length=255, verbose_name="Box 2-Гарчиг", blank=True)
-    box2_text=models.CharField(max_length=255, verbose_name="Box 2-Текст", blank=True)
+    box2_title=models.TextField(max_length=255, verbose_name="Box 2-Гарчиг", blank=True)
+    box2_text=models.TextField(max_length=255, verbose_name="Box 2-Текст", blank=True)
     # box2_pic=models.ImageField(upload_to="settings", verbose_name="Box 2-Зураг", default="", blank=True)
 
     # Box-3
-    box3_title=models.CharField(max_length=255, verbose_name="Box 3-Гарчиг", blank=True)
-    box3_text=models.CharField(max_length=255, verbose_name="Box 3-Текст", blank=True)
+    box3_title=models.TextField(max_length=255, verbose_name="Box 3-Гарчиг", blank=True)
+    box3_text=models.TextField(max_length=255, verbose_name="Box 3-Текст", blank=True)
     #box3_pic=models.ImageField(upload_to="settings", verbose_name="Box 3-Зураг", default="", blank=True)
     
     # Box-4
-    box4_title=models.CharField(max_length=255, verbose_name="Box 4-Гарчиг", blank=True)
+    box4_title=models.TextField(max_length=255, verbose_name="Box 4-Гарчиг", blank=True)
     # box4_text=models.CharField(max_length=255, verbose_name="Box 4-Текст", blank=True)
     # box4_pic=models.ImageField(upload_to="settings", verbose_name="Box 4-Зураг", default="", blank=True)
     

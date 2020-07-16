@@ -102,7 +102,6 @@
                         </div>
                      </div>
                      {% for server in servers %}
-                     
                      {% if server.is_premium %}
                      <div class="nk-blog-post nk-blog-post-border-bottom">
                         <div class="nk-team">
@@ -112,7 +111,7 @@
                            <div class="nk-team-cont">
                               <h3 class="h5 mb-20"><span class="text-main-1">{{ server.category.name }}</span> {{ server.name }}</h3>
                               <h4 class="h6 mb-5">ADMIN:</h4>
-                              <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' server=server.name year=current_year month=current_month %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
+                              <span>Neko, Zeno, Buya</span><span style="margin-left: 55%;"><a href="{% url 'rewards-blog-single' server=server.name %}" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Шагнал</a></span>
                               <div class="nk-team-photo" style="background-image: url('{{ server.pic.url }}');background-size: 100%;""></div>
                            </div>
                         </div>
@@ -258,6 +257,7 @@
             <div class="nk-widget nk-widget-highlighted">
                <h4 class="nk-widget-title"><span><span class="text-main-1">Дараагийн</span> Тэмцээн</span></h4>
                <div class="nk-widget-content">
+                  {% for event in upcoming_events %}
                   <div class="nk-widget-match">
                      <a href="#">
                      <span class="nk-widget-match-left">
@@ -266,7 +266,7 @@
                      <img src="{% static "/images/rtx.png"%}" alt="">
                      </span>
                      </span>
-                     <span class="nk-widget-match-date">CS:GO - Apr 28, 2018 8:00 pm</span>
+                     <span class="nk-widget-match-date">CS:GO - Apr 28, 2018 8:00 pm {{ event.title }}</span>
                      </span>
                      <span class="nk-widget-match-right">
                      <span class="nk-match-score">
@@ -275,40 +275,7 @@
                      </span>
                      </a>
                   </div>
-                  <div class="nk-widget-match">
-                     <a href="#">
-                     <span class="nk-widget-match-left">
-                     <span class="nk-widget-match-teams">
-                     <span class="nk-widget-match-team-logo">
-                     <img src="{% static "/images/rtx.png"%}" alt="">
-                     </span>
-                     </span>
-                     <span class="nk-widget-match-date">CS:GO - Apr 24, 2018 7:20 pm</span>
-                     </span>
-                     <span class="nk-widget-match-right">
-                     <span class="nk-match-score">
-                     Upcoming
-                     </span>
-                     </span>
-                     </a>
-                  </div>
-                  <div class="nk-widget-match">
-                     <a href="#">
-                     <span class="nk-widget-match-left">
-                     <span class="nk-widget-match-teams">
-                     <span class="nk-widget-match-team-logo">
-                     <img src="{% static "/images/rtx.png"%}" alt="">
-                     </span>
-                     </span>
-                     <span class="nk-widget-match-date">CS:GO - Apr 12, 2018 6:40 pm</span>
-                     </span>
-                     <span class="nk-widget-match-right">
-                     <span class="nk-match-score bg-dark-1">
-                     Upcoming
-                     </span>
-                     </span>
-                     </a>
-                  </div>
+                  {% endfor %}
                </div>
             </div>
             <!-- END: Sidebar -->

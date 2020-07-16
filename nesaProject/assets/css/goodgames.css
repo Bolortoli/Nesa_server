@@ -114,11 +114,9 @@ a {
     transition: .15s color;
 }
 
-a:focus,
-a:hover {
-    color: #dd163b;
+.pline{
+    color: mintcream;
 }
-
 ::-moz-selection {
     color: #fff;
     background-color: #303e47;
@@ -149,7 +147,9 @@ a:hover {
     top: auto;
     bottom: 0;
 }
-
+.ew{
+    width: 95%;
+}
 .nk-page-background-fixed {
     position: fixed;
     height: 100%;
@@ -169,6 +169,20 @@ a:hover {
     display: block;
     clear: both;
 }
+
+.card-img{
+    background-image: url('/images/back1.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+}
+.my{
+    zoom: 90%;
+    }  
+ .block:hover {
+    background-color: #C0C0C0;
+    color: black;
+  }
 
 .bg-image,
 .bg-video {
@@ -211,6 +225,9 @@ a:hover {
     z-index: -1;
 }
 
+.txt-1{
+    margin-left: 4%;
+}
 .bg-image-row > div,
 .bg-video-row > div,
 .bg-map-row > div {
@@ -950,7 +967,7 @@ h6,
 }
 
 .bg-main-2 {
-    background-color: #a714b9 !important;
+    background-color: #dd163b !important;
 }
 
 .bg-main-3 {
@@ -3006,6 +3023,12 @@ img.rounded {
 /*
  * Responsive embeds
  */
+ .responsive {
+    width: 100%;
+    max-height: 90%;
+    height: auto;
+  }
+
 .responsive-embed {
     position: relative;
     display: block;
@@ -4003,6 +4026,8 @@ img.rounded {
  -------------------------------------------------------------------*/
 .nk-widget {
     overflow: hidden;
+    margin-top: 0px;
+    
 }
 
 .nk-widget ~ .nk-widget {
@@ -4040,7 +4065,9 @@ img.rounded {
     background-color: #fff;
     z-index: -1;
 }
-
+.qr{
+    padding: 36px 23px;
+}
 .nk-widget-highlighted .nk-widget-content {
     padding: 20px 23px;
     background-color: #232930;
@@ -4396,10 +4423,10 @@ img.rounded {
 }
 
 .nk-widget-match .nk-widget-match-teams .nk-widget-match-team-logo img {
-    width: 47px;
+    width: 91px;
     height: auto;
     border: 1px solid #232930;
-}
+} 
 
 .nk-widget-match .nk-widget-match-teams .nk-widget-match-vs + .nk-widget-match-team-logo {
     text-align: right;
@@ -4929,6 +4956,7 @@ img.rounded {
 }
 
 .nk-social-links-2 {
+    margin-top: 30px;
     margin-right: -4px;
     margin-left: -4px;
 }
@@ -5124,10 +5152,13 @@ img.rounded {
     color: #fff;
     text-decoration: none;
 }
-
+.po{
+    width: 100%;
+}
 .nk-btn.nk-btn-outline {
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-left: 0%;
 }
 
 .nk-btn-xs {
@@ -5385,8 +5416,8 @@ img.rounded {
 }
 
 .nk-btn-color-success {
-    background-color: #38a220;
-    border-color: #266f16;
+    background-color: #7dbb00;
+    border-color: #7dbb00;
     border-style: solid;
 }
 
@@ -5396,12 +5427,14 @@ img.rounded {
 }
 
 .nk-btn-color-success:active, .nk-btn-color-success.active {
-    background-color: #55d737;
+    background-color: #297718;
     border-color: #6edd55;
 }
 
 .nk-btn-color-success.nk-btn-outline {
-    color: #38a220;
+    color: #7dbb00;
+    position: relative;
+    z-index: 10;
 }
 
 .nk-btn-color-success.nk-btn-outline:hover, .nk-btn-color-success.nk-btn-outline.hover {
@@ -5441,8 +5474,8 @@ img.rounded {
 }
 
 .nk-btn-color-warning {
-    background-color: #ef9e2b;
-    border-color: #cd7f0f;
+    background-color: red;
+    border-color:red;
     border-style: solid;
 }
 
@@ -5457,7 +5490,7 @@ img.rounded {
 }
 
 .nk-btn-color-warning.nk-btn-outline {
-    color: #ef9e2b;
+    color: red;
 }
 
 .nk-btn-color-warning.nk-btn-outline:hover, .nk-btn-color-warning.nk-btn-outline.hover {
@@ -6261,7 +6294,7 @@ img.rounded {
 /* Titles */
 .nk-feature-title {
     margin-bottom: .5rem;
-    font-size: 1.25rem;
+    font-size: 0.8rem;
 }
 
 .nk-feature-title a {
@@ -6948,7 +6981,7 @@ img.rounded {
     bottom: 0;
     left: 0;
     color: #fff;
-    background-color: rgba(221, 22, 59, 0.75);
+    background-color: #0d0d0f;
     opacity: 0;
     -webkit-transition: .2s opacity;
     -o-transition: .2s opacity;
@@ -6978,7 +7011,7 @@ img.rounded {
 .nk-gallery-item-box:hover .nk-gallery-item-overlay, .nk-gallery-item-box.hover .nk-gallery-item-overlay,
 .nk-gallery-item-group:hover .nk-gallery-item-overlay,
 .nk-gallery-item-group.hover .nk-gallery-item-overlay {
-    opacity: 1;
+    opacity: 0.8;
 }
 
 .nk-gallery-item-box:hover .nk-gallery-item-overlay > span, .nk-gallery-item-box.hover .nk-gallery-item-overlay > span,
@@ -7032,9 +7065,9 @@ img.rounded {
     position: relative;
     display: block;
     width: 100%;
-    padding-top: 56.25%;
+    padding-top: 83.25%;
     cursor: pointer;
-    background-position: 50% 50%;
+    background-position: 65% 50%;
     background-size: cover;
 }
 
@@ -8061,10 +8094,10 @@ div.nk-error {
 
 .nk-post-categories span,
 .nk-post-categories a {
-    padding: 2px 19px;
+    padding: 0px 10px;
     color: #fff;
     background-color: #293139;
-    border-radius: 4px;
+    border-radius: 0px;
 }
 
 .nk-post-categories span + span,
@@ -8167,6 +8200,11 @@ div.nk-error {
 
 .nk-post-text > p:last-child {
     margin-bottom: 0;
+    overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
 }
 
 /* FullWidth Posts */
@@ -8230,7 +8268,7 @@ div.nk-error {
 }
 
 .nk-news-box {
-    height: 425px;
+    height: 525px;
     overflow: hidden;
     background-color: #232930;
     border: 1px solid #293139;
@@ -8374,8 +8412,9 @@ div.nk-error {
 }
 
 .nk-news-box .nk-news-box-each-info .nk-news-box-item-image img {
-    width: 100%;
+    width: 55%;
     height: auto;
+    
 }
 
 .nk-news-box .nk-news-box-each-info .nk-news-box-item-image[style*="background"] {
