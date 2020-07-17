@@ -52,6 +52,7 @@
                 <div class="nk-blog-list">
 
                         <!-- START: Post -->
+                        {% for news in news_list %}
                         <div class="nk-blog-post">
                             <div class="row vertical-gap">
                                 <div class="col-md-5 col-lg-6">
@@ -67,133 +68,18 @@
                                     <h2 class="nk-post-title h4"><a href="{% url "news-blog-single" %}">Мэдээний гарчиг</a></h2>
 
                                     <div class="nk-post-text">
-                                        <p>Мэдээний description</p>
+                                        <p>{{ news.desc }}</p>
                                     </div>
 
                                     <div class="nk-post-by">
-                                       <a href="#">Нийтлэгч нэр</a> 2018/9-р сарын 18-нд
+                                       <a href="#">Нийтлэгч нэр</a> {{ news.created }}
                                     </div>
                                     <br>
                                     <a href="/news-blog-single/" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Дэлгэрэнгүй</a>
                                 </div>
                             </div>
                         </div>
-                        <!-- END: Post -->
-                    
-                        <!-- START: Post -->
-                        <div class="nk-blog-post">
-                            <div class="row vertical-gap">
-                                <div class="col-md-5 col-lg-6">
-                                    <a href="{% url "news-blog-single" %}" class="nk-post-img">
-                                        <img src="{% static "/images/show.png"%}" alt="">
-                                        <span class="nk-post-categories">
-                                            <span class="bg-main-3">Тоглогчдын Мэдээлэл</span>
-                                        </span>
-                                        <span class="nk-post-comments-count">0</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-7 col-lg-6">
-                                    <h2 class="nk-post-title h4"><a href="{% url "news-blog-single" %}">Мэдээний гарчиг</a></h2>
-
-                                    <div class="nk-post-text">
-                                        <p>Мэдээний description</p>
-                                    </div>
-
-                                    <div class="nk-post-by">
-                                       <a href="#">Нийтлэгч нэр</a> 2018/9-р сарын 18-нд
-                                    </div>
-                                    <br>
-                                    <a href="/news-blog-single/" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Дэлгэрэнгүй</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END: Post -->
-                    
-                        <!-- START: Post -->
-                        <div class="nk-blog-post">
-                            <div class="row vertical-gap">
-                                <div class="col-md-5 col-lg-6">
-                                    <a href="/news-blog-single/" class="nk-post-img">
-                                        <img src="{% static "/images/show.png "%}" alt="">
-                                        <span class="nk-post-categories">
-                                            <span class="bg-main-6">Server-ийн тухай</span>
-                                        </span>
-                                        <span class="nk-post-comments-count">0</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-7 col-lg-6">
-                                    <h2 class="nk-post-title h4"><a href="{% url "news-blog-single" %}">Мэдээний гарчиг</a></h2>
-
-                                    <div class="nk-post-text">
-                                        <p>Мэдээний description</p>
-                                    </div>
-
-                                    <div class="nk-post-by">
-                                       <a href="#">Нийтлэгч нэр</a> 2018/9-р сарын 18-нд
-                                    </div>
-                                    <br>
-                                    <a href="/news-blog-single/" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Дэлгэрэнгүй</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END: Post -->
-                    
-                        <!-- START: Post -->
-                        <div class="nk-blog-post">
-                            <div class="row vertical-gap">
-                                <div class="col-md-5 col-lg-6">
-                                    <a href="/news-blog-single/" class="nk-post-img">
-                                        <img src="{% static "/images/show.png "%}" alt="">
-                                        <span class="nk-post-categories">
-                                            <span class="bg-main-2">CS:GO Сонин хачин</span>
-                                        </span>
-                                        <span class="nk-post-comments-count">0</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-7 col-lg-6">
-                                    <h2 class="nk-post-title h4"><a href="{% url "news-blog-single" %}">Мэдээний гарчиг</a></h2>
-
-                                    <div class="nk-post-text">
-                                        <p>Мэдээний description</p>
-                                    </div>
-
-                                    <div class="nk-post-by">
-                                       <a href="#">Нийтлэгч нэр</a> 2018/9-р сарын 18-нд
-                                    </div>
-                                    <br>
-                                    <a href="/news-blog-single/" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Дэлгэрэнгүй</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END: Post -->
-                    
-                        <!-- START: Post -->
-                        <div class="nk-blog-post">
-                            <div class="row vertical-gap">
-                                <div class="col-md-5 col-lg-6">
-                                    <a href="/news-blog-single/" class="nk-post-img">
-                                        <img src="{% static "/images/show.png "%}" alt="">
-                                        <span class="nk-post-categories">
-                                            <span class="bg-main-3">Тоглогчдын Мэдээлэл</span>
-                                        </span>
-                                        <span class="nk-post-comments-count">0</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-7 col-lg-6">
-                                    <h2 class="nk-post-title h4"><a href="{% url "news-blog-single" %}">Мэдээний гарчиг</a></h2>
-
-                                    <div class="nk-post-text">
-                                        <p>Мэдээний description</p>
-                                    </div>
-
-                                    <div class="nk-post-by">
-                                       <a href="#">Нийтлэгч нэр</a> 2018/9-р сарын 18-нд
-                                    </div>
-                                    <br>
-                                    <a href="/news-blog-single/" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Дэлгэрэнгүй</a>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                         <!-- END: Post -->
                     
 

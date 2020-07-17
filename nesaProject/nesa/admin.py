@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ContactUs, ActiveServers, Reward, Settings, ServerCategory
+from .models import *
 from django.db import models
 from django.forms import Textarea, TextInput
 
@@ -42,3 +42,8 @@ class SettingsAdmin(admin.ModelAdmin):
         return False
 admin.site.register(Settings, SettingsAdmin)
 
+class NewsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'category', 'slug']
+
+admin.site.register(News, NewsAdmin)
+admin.site.register(NewsCategory)

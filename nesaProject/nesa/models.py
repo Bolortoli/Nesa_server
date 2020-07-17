@@ -1,9 +1,11 @@
 from django.db import models
 import datetime
 import math
+import uuid
 import itertools
 from django.core.validators import MaxValueValidator, MinValueValidator, FileExtensionValidator
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 
 class ServerCategory(models.Model):
@@ -148,3 +150,23 @@ class Settings(models.Model):
     class Meta: 
         verbose_name="Вэб Сайтын Тохиргоо"
     
+
+class NewsCategory(models.Model):
+    name=models.CharField(verbose_name='Нэр', max_length=255, default="")
+
+    def __str__(self):
+        return self.name
+
+class News(models.Model):
+    id=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title=models.CharField(verbose_name='Нэр', max_length=255, default="")
+    desc=models.TextField(verbose_name='Мэдээ', default="")
+    pic=models.ImageField(upload_to="news", verbose_name="Зураг", default="", blank=True)
+    created=models.DateTimeField(auto_now_add=True, editable=False)
+    slug=models.CharField(verbose_name='slug', max_length=255, default="", editable=False)
+    category=models.ForeignKey(NewsCategory, verbose_name="Category", on_delete=models.CASCADE, default='')
+
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify("%s %s" % (self.category.name, str(self.id)))
+        super().save(*args, **kwargs)

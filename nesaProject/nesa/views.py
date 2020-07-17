@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import ContactUs, ActiveServers, Reward
+from .models import *
 import datetime
 from django.utils.text import slugify
 
@@ -35,20 +35,24 @@ def rewardsBlogArchive(req):
     obj_list = ActiveServers.objects.all()
     single_prem_srv = premium_obj(obj_list=obj_list)
     single_non_prem_srv = non_premium_obj(obj_list=obj_list)
-    current_month = datetime.date.today().month
-    current_year = datetime.date.today().year
+    upcoming_events = get_upcoming_events()
 
     context = {
         'servers': obj_list,
         'single_premium_server': single_prem_srv,
         'single_non_premium_server': single_non_prem_srv,
-        'current_month': current_month,
-        'current_year': current_year,
+        'upcoming_events': upcoming_events
     }
     return render(req, 'rewards-blog-archive.html', context)   
 
 def newsBlogArchive(req):
-    return render(req, 'news-blog-archive.html')
+    news_list = News.objects.all()
+
+    context = {
+        'news_list': news_list
+    }
+
+    return render(req, 'news-blog-archive.html', context)
 
 def rewardsBlogSingle_by_slug(req, slug):
     
@@ -61,33 +65,6 @@ def rewardsBlogSingle_by_slug(req, slug):
             'upcoming_events': upcoming_events,
             'ex': True
         }
-    return render(req, 'rewards-blog-single.html', context)
-
-
-def rewardsBlogSingle(req, server, year=None, month=None):
-    # TEST CASE
-
-    # server = 'nesamn27019'
-    # year = 2020
-    # month = 8
-
-    if year is None and month is None:
-        year = datetime.date.today().year
-        month = datetime.date.today().month + 1
- 
-    upcoming_events = Reward.objects.all().order_by('-year', '-month')[:UPCOMING_REWARDS_COUNT] if Reward.objects.count() >= UPCOMING_REWARDS_COUNT else Reward.objects.all()          
-    paid_server_list = ActiveServers.objects.filter(server_type="Premium")
-
-    eslug=slugify(server)+'-'+str(year)+'-'+str(month)
-    obj_list = Reward.objects.get(slug=eslug)
-
-
-    context = {
-        'obj': obj_list,
-        'paid_server_list': paid_server_list,
-        'upcoming_events': upcoming_events,
-        'ex': True
-    }
     return render(req, 'rewards-blog-single.html', context)
 
 
@@ -114,7 +91,7 @@ def rewardsBlogSingle_by_server(req, server):
         reward_object = Reward.objects.filter(serName__name=server)
 
         # Check if table has only one record
-        if reward_object.count() == 1:
+        if reward_object.count() == ONLY_ONE_REWARD_IN_QUERY:
             reward_object = reward_object.first()
             upcoming_events = get_upcoming_events(reward_object.slug)
 
@@ -150,11 +127,8 @@ def newsBlogSingle(req):
     return render(req, 'news-blog-single.html')        
 
 def rewardsBlogGrid(req):
-    UPCOMING_REWARDS_COUNT = 3
-
-    
     rewards = Reward.objects.all()
-    upcoming_events = Reward.objects.all().order_by('-year', '-month')[:UPCOMING_REWARDS_COUNT] if Reward.objects.count() >= UPCOMING_REWARDS_COUNT else Reward.objects.all()          
+    upcoming_events = get_upcoming_events()   
 
     context = {
         'rewards': rewards,
