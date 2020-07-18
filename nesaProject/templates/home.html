@@ -22,44 +22,16 @@
     <div class="container">
         <!-- START: Image Slider -->
         <div class="nk-image-slider" data-autoplay="8000">
+            {% for reward in reward_list %}
             <div class="nk-image-slider-item">
-                <img src="static/images/show.png" alt="" class="nk-image-slider-img"
-                    data-thumb="static/images/show.png">
+                <img src="{{ reward.pic.url }}" alt="" class="nk-image-slider-img"
+                    data-thumb="{{ reward.pic.url }}">
                 <div class="nk-image-slider-content">
-                    <h3 class="h4">NESA.MN 6-р сарын Тэмцээн</h3>
-                    <p class="text-white">RTX-2080 Шагналтай серверийн Тэмцээн.</p>
+                    <h3 class="h4">{{ reward.title }}</h3>
+                    <p class="text-white">{{ reward.desc }}</p>
                 </div>
             </div>
-            <div class="nk-image-slider-item">
-                <img src="static/images/def.jpg" alt="" class="nk-image-slider-img" data-thumb="static/images/def.jpg">
-                <div class="nk-image-slider-content">
-                    <h3 class="h4">NESA.MN 6-р сарын Тэмцээн</h3>
-                    <p class="text-white">RTX-2080 Шагналтай серверийн Тэмцээн.</p>
-                </div>
-            </div>
-            <div class="nk-image-slider-item">
-                <img src="static/images/cbs.jpg" alt="" class="nk-image-slider-img" data-thumb="static/images/cbs.jpg">
-                <div class="nk-image-slider-content">
-                    <h3 class="h4">NESA.MN 6-р сарын Тэмцээн</h3>
-                    <p class="text-white">RTX-2080 Шагналтай серверийн Тэмцээн.</p>
-                </div>
-            </div>
-            <div class="nk-image-slider-item">
-                <img src="static/images/show.png" alt="" class="nk-image-slider-img"
-                    data-thumb="static/images/show.png">
-                <div class="nk-image-slider-content">
-                    <h3 class="h4">NESA.MN 6-р сарын Тэмцээн</h3>
-                    <p class="text-white">RTX-2080 Шагналтай серверийн Тэмцээн.</p>
-                </div>
-            </div>
-            <div class="nk-image-slider-item">
-                <img src="static/images/iem.jpg" alt="" class="nk-image-slider-img" data-thumb="static/images/iem.jpg">
-                <div class="nk-image-slider-content">
-                    <h3 class="h4">NESA.MN 6-р сарын Тэмцээн</h3>
-                    <p class="text-white">RTX-2080 Шагналтай серверийн Тэмцээн.</p>
-                    <p class="text-white">RTX-2080 Шагналтай серверийн Тэмцээн.</p>
-                </div>
-            </div>
+            {% endfor %}
         </div>
 
         <!-- START: feature -->
@@ -112,137 +84,28 @@
                 <div class="nano">
                     <div class="nano-content">
 
-
+                        {% for reward in reward_list %}
                         <div class="nk-news-box-item nk-news-box-item-active">
                             <div class="nk-news-box-item-img">
-                                <img src="{% static "/images/rtx.png"%}" alt="">
+                                <img src="{{ reward.pic.url }}" alt="">
                             </div>
-                            <img src="{% static "/images/rtx.png"%}" alt="" class="nk-news-box-item-full-img">
-                            <h3 class="nk-news-box-item-title">Мэдээний гарчиг</h3>
+                            <img src="{{ reward.pic.url }}" alt="" class="nk-news-box-item-full-img">
+                            <h3 class="nk-news-box-item-title">{{ reward.title }}</h3>
 
                             <span class="nk-news-box-item-categories">
-                                <span class="bg-main-4">Ивээн тэтгэгч</span>
+                                <span class="bg-main-4">{{ reward.sponsor_name}}</span>
                             </span>
 
                             <div class="nk-news-box-item-text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley</p>
+                                <p>
+                                    {{ reward.desc }}
+                                </p>
                             </div>
-                            <a href="blog-article.html" class="nk-news-box-item-url">Унших</a>
-                            <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Sep 18, 2018
-                            </div>
-                        </div>
-
-
-                        <div class="nk-news-box-item">
-                            <div class="nk-news-box-item-img">
-                                <img src="{% static "/images/rtx.png"%}" alt="">
-                            </div>
-                            <img src="{% static "/images/rtx.png"%}" alt="" class="nk-news-box-item-full-img">
-                            <h3 class="nk-news-box-item-title">Мэдээний гарчиг</h3>
-
-                            <span class="nk-news-box-item-categories">
-                                <span class="bg-main-1">Ивээн тэтгэгч</span>
-                            </span>
-
-                            <div class="nk-news-box-item-text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley</p>
-                            </div>
-                            <a href="blog-article.html" class="nk-news-box-item-url">Унших</a>
-                            <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Sep 5, 2018
+                            <a href="{% url 'rewards-blog-single' slug=reward.slug %}" class="nk-news-box-item-url">Унших</a>
+                            <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> {{ reward.published_date }}
                             </div>
                         </div>
-
-
-                        <div class="nk-news-box-item">
-                            <div class="nk-news-box-item-img">
-                                <img src="{% static "/images/rtx.png"%}" alt="">
-                            </div>
-                            <img src="{% static "/images/rtx.png"%}" alt="" class="nk-news-box-item-full-img">
-                            <h3 class="nk-news-box-item-title">Мэдээний гарчиг</h3>
-
-                            <span class="nk-news-box-item-categories">
-                                <span class="bg-main-2">Ивээн тэтгэгч</span>
-                            </span>
-
-                            <div class="nk-news-box-item-text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley</p>
-                            </div>
-                            <a href="blog-article.html" class="nk-news-box-item-url">Унших</a>
-                            <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Aug 27, 2018
-                            </div>
-                        </div>
-
-
-                        <div class="nk-news-box-item">
-                            <div class="nk-news-box-item-img">
-                                <img src="{% static "/images/rtx.png"%}" alt="">
-                            </div>
-                            <img src="{% static "/images/rtx.png"%}" alt="" class="nk-news-box-item-full-img">
-                            <h3 class="nk-news-box-item-title">Мэдээний гарчиг</h3>
-
-                            <span class="nk-news-box-item-categories">
-                                <span class="bg-main-3">Ивээн тэтгэгч</span>
-                            </span>
-
-                            <div class="nk-news-box-item-text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley</p>
-                            </div>
-                            <a href="blog-article.html" class="nk-news-box-item-url">Унших</a>
-                            <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Aug 14, 2018
-                            </div>
-                        </div>
-
-
-                        <div class="nk-news-box-item">
-                            <div class="nk-news-box-item-img">
-                                <img src="{% static "/images/rtx.png"%}" alt="">
-                            </div>
-                            <img src="{% static "/images/rtx.png"%}" alt="" class="nk-news-box-item-full-img">
-                            <h3 class="nk-news-box-item-title">Мэдээний гарчиг</h3>
-
-                            <span class="nk-news-box-item-categories">
-                                <span class="bg-main-5">Ивээн тэтгэгч</span>
-                            </span>
-
-                            <div class="nk-news-box-item-text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley</p>
-                            </div>
-                            <a href="blog-article.html" class="nk-news-box-item-url">Унших</a>
-                            <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Jul 23, 2018
-                            </div>
-                        </div>
-
-
-                        <div class="nk-news-box-item">
-                            <div class="nk-news-box-item-img">
-                                <img src="{% static "/images/rtx.png"%}" alt="">
-                            </div>
-                            <img src="{% static "/images/rtx.png"%}" alt="" class="nk-news-box-item-full-img">
-                            <h3 class="nk-news-box-item-title">Мэдээний гарчиг</h3>
-
-                            <span class="nk-news-box-item-categories">
-                                <span class="bg-main-5">Ивээн тэтгэгч</span>
-                            </span>
-
-                            <div class="nk-news-box-item-text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley</p>
-                            </div>
-                            <a href="blog-article.html" class="nk-news-box-item-url">Унших</a>
-                            <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Jul 3, 2018
-                            </div>
-                        </div>
+                        {% endfor %}
 
                     </div>
                 </div>

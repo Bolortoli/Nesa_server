@@ -131,7 +131,7 @@
                         </span>
                         </a>
                         <div class="nk-gap-1"></div>
-                        <h2 class="nk-post-title h4"><a href="{% url 'news-blog-single' %}">{{ single_non_premium_server.name }}</a></h2>
+                        <h2 class="nk-post-title h4"><a href="#">{{ single_non_premium_server.name }}</a></h2>
                         <div class="nk-post-date mt-10 mb-10">
                            <span class="fa fa-calendar"></span> Sep 18, 2018
                            <!-- <span class="fa fa-comments"></span> <a href="#">4 comments</a> -->
@@ -173,7 +173,7 @@
                         </span>
                         </a>
                         <div class="nk-gap-1"></div>
-                        <h2 class="nk-post-title h4"><a href="{% url 'news-blog-single' %}">{{ single_premium_server.name }}</a></h2>
+                        <h2 class="nk-post-title h4"><a href="{% url 'rewards-blog-single' server=single_premium_server.name %}">{{ single_premium_server.name }}</a></h2>
                         <div class="nk-post-date mt-10 mb-10">
                            <span class="fa fa-calendar"></span> Sep 5, 2018
                            <!-- <span class="fa fa-comments"></span> <a href="#">7 comments</a> -->
@@ -259,7 +259,7 @@
                <div class="nk-widget-content">
                   {% for event in upcoming_events %}
                   <div class="nk-widget-match">
-                     <a href="#">
+                     <a href="{{ event.slug }}">
                      <span class="nk-widget-match-left">
                      <span class="nk-widget-match-teams">
                      <span class="nk-widget-match-team-logo">

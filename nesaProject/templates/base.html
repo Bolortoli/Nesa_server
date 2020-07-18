@@ -48,7 +48,7 @@
         type="text/css" media="all">
 </head>
 <header class="desktop-header">
-            <img class="nk-page-background-top" src="{% static "/images/bg-top-4.png"%}" alt="" style=""" style="height: 34%;">
+            <img class="nk-page-background-top" src="{% static "/images/bg-top-4.png"%}" alt="" style="" style="height: 34%;">
 
     <div class="page-header">
         <div class="inner-header">
@@ -219,36 +219,21 @@
                     <h4 class="nk-widget-title"><span class="text-main-1">Онцлох</span> Posts</h4>
                     <div class="nk-widget-content">
                         <div class="row vertical-gap sm-gap">
-
+                            {% for news in featured_news %}
                             <div class="col-lg-6">
                                 <div class="nk-widget-post-2">
-                                    <a href="{% url 'news-blog-archive' %}" class="nk-post-image">
-                                        <img src="{% static "/images/ty.jpg"%}" alt="">
+                                    <a href="{% url 'news-blog-single' slug=news.slug %}" class="nk-post-image">
+                                        <img src="{{ news.pic.url }}" alt="">
                                     </a>
-                                    <div class="nk-post-title"><a href="{% url 'news-blog-archive' %}">2020 оны зуны RMR
-                                            онооны тэмцээний тов зарлагдлаа.</a>
+                                    <div class="nk-post-title"><a href="{% url 'news-blog-single' slug=news.slug %}">{{ news.title }}</a>
                                     </div>
                                     <div class="nk-post-date">
-                                        <span class="fa fa-calendar"></span> 2018 оны 9-р сарын 18 нд
+                                        <span class="fa fa-calendar"></span> {{ news.created}}
                                         <span class="fa fa-comments"></span> <a href="#">4</a>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-lg-6">
-                                <div class="nk-widget-post-2">
-                                    <a href="{% url 'news-blog-archive' %}" class="nk-post-image">
-                                        <img src="{% static "/images/ty.jpg"%}" alt="">
-                                    </a>
-                                    <div class="nk-post-title"><a href="{% url 'news-blog-archive' %}">2020 оны зуны RMR
-                                            онооны тэмцээний тов зарлагдлаа.</a></div>
-                                    <div class="nk-post-date">
-                                        <span class="fa fa-calendar"></span> 2018 оны 9-р сарын 18 нд
-                                        <span class="fa fa-comments"></span> <a href="#">7</a>
-                                    </div>
-                                </div>
-                            </div>
-
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

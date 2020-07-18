@@ -18,7 +18,7 @@ urlpatterns = [
     # path('rewards/', views.rewardsBlogSingle, name='rewards-blog-single'),
     path('rewards-blog-grid/', views.rewardsBlogGrid, name='rewards-blog-grid'),
     path('news-blog-archive/', views.newsBlogArchive, name='news-blog-archive'),
-    path('news-blog-single/', views.newsBlogSingle, name='news-blog-single'),
+    path('news/<str:slug>/', views.newsBlogSingle, name='news-blog-single'),
 ]
 
 

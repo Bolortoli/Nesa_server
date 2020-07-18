@@ -56,26 +56,26 @@
                         <div class="nk-blog-post">
                             <div class="row vertical-gap">
                                 <div class="col-md-5 col-lg-6">
-                                    <a href="{% url "news-blog-single" %}" class="nk-post-img">
-                                        <img src="{% static "/images/show.png"%}" alt="">
+                                    <a href="{% url 'news-blog-single' slug=news.slug %}" class="nk-post-img">
+                                        <img src="{{ news.pic.url }}" alt="">
                                         <span class="nk-post-categories">
-                                            <span class="bg-main-2">CS:GO Сонин хачин</span>
+                                            <span class="bg-main-2">{{ news.category.name }}</span>
                                         </span>
                                         <span class="nk-post-comments-count">13</span>
                                     </a>
                                 </div>
                                 <div class="col-md-7 col-lg-6">
-                                    <h2 class="nk-post-title h4"><a href="{% url "news-blog-single" %}">Мэдээний гарчиг</a></h2>
+                                    <h2 class="nk-post-title h4"><a href="{% url 'news-blog-single' slug=news.slug %}">{{ news.title }}</a></h2>
 
                                     <div class="nk-post-text">
                                         <p>{{ news.desc }}</p>
                                     </div>
 
                                     <div class="nk-post-by">
-                                       <a href="#">Нийтлэгч нэр</a> {{ news.created }}
+                                       {{ news.created }}
                                     </div>
                                     <br>
-                                    <a href="/news-blog-single/" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Дэлгэрэнгүй</a>
+                                    <a href="{% url 'news-blog-single' slug=news.slug %}" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Дэлгэрэнгүй</a>
                                 </div>
                             </div>
                         </div>
@@ -123,9 +123,9 @@
                     <h4 class="nk-widget-title"><span><span class="text-main-1">Мэдээний</span> Төрөл</span></h4>
                     <div class="nk-widget-content">
                         <ul class="nk-widget-categories">
-                            <li><a href="#">CS:GO Сонин хачин</a></li>
-                            <li><a href="#">Тоглогчдын Мэдээлэл</a></li>
-                            <li><a href="#">Server-ийн тухай</a></li>
+                            {% for category in categories %}
+                            <li><a href="#">{{ category.name }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>

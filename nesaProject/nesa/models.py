@@ -6,6 +6,7 @@ import itertools
 from django.core.validators import MaxValueValidator, MinValueValidator, FileExtensionValidator
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from random import randint
 
 
 class ServerCategory(models.Model):
@@ -158,15 +159,21 @@ class NewsCategory(models.Model):
         return self.name
 
 class News(models.Model):
-    id=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id=models.CharField(verbose_name='slug', max_length=255, default="", editable=False, unique=True, primary_key=True)
     title=models.CharField(verbose_name='Нэр', max_length=255, default="")
     desc=models.TextField(verbose_name='Мэдээ', default="")
-    pic=models.ImageField(upload_to="news", verbose_name="Зураг", default="", blank=True)
+    pic=models.ImageField(upload_to="news", verbose_name="Зураг", default="")
     created=models.DateTimeField(auto_now_add=True, editable=False)
     slug=models.CharField(verbose_name='slug', max_length=255, default="", editable=False)
     category=models.ForeignKey(NewsCategory, verbose_name="Category", on_delete=models.CASCADE, default='')
 
-
     def save(self, *args, **kwargs):
+
+        random_number = randint(1000, 999999999)
+        while News.objects.filter(id=random_number).exists():
+            random_number = randint(1000, 9999999)
+        self.id = random_number
+
         self.slug = slugify("%s %s" % (self.category.name, str(self.id)))
         super().save(*args, **kwargs)
+
