@@ -106,8 +106,10 @@ body.nk-page-boxed {
     max-width: 1200px;
     margin: 0 auto;
 }
-
-a {
+.logout-anchor {
+    color: white;
+}
+a:not(.logout-anchor) {
     color: #dd163b;
     -webkit-transition: .15s color;
     -o-transition: .15s color;

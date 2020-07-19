@@ -17,13 +17,15 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
-
+    
 
 urlpatterns = [
     re_path(r'^jet/', include('jet.urls', 'jet')),
     re_path(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')), 
     re_path(r'^admin/', admin.site.urls),
-    path('', include('nesa.urls'))
+    re_path('', include('nesa.urls')),
+    re_path(r'^', include(('social_django.urls', 'social'), namespace='social'), name='social'),
+    re_path(r'^', include(('nesa.urls', 'auth'), namespace='auth'), name='auth'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

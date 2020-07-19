@@ -87,7 +87,7 @@
                     <nav class="nav-bar-left">
                         <ul>
                             <li class="hover-effect-tuku">
-                                <a href="{% url "home" %}" class=" border-b">НҮҮР</a>
+                                <a href="{% url "index" %}" class=" border-b">НҮҮР</a>
                             </li>
                             <li class="hover-effect-tuku">
                                 <a href="" class=" border-b">МЭДЭЭЛЭЛ</a>
@@ -104,7 +104,7 @@
             <div class="header-center">
                 <div class="inner-header-center" style="background-image: url('{% static "/images/back1.png"%}');">
                     <div class="header-logo-wrapper">
-                        <a class="logo-clicker" href="{% url "home" %}">
+                        <a class="logo-clicker" href="{% url "index" %}">
                             <img class="header-logo" src="{{ global_settings.logo.url }}" alt="logo" width="85"
                                 height="85">
                         </a>
@@ -115,9 +115,10 @@
                 <div class="header-right-inner">
                     <div class="header-right-inner-line"></div>
                     <div class="header-title">
-                        <div class="header-title-container">
+                        <div class="header-title-container" style="z-index:10;">
+                            {% if not user.is_authenticated %}
                             <div class="nk-post-text">
-                                <a href="#" class="steambutton"><span>НЭВТРЭХ</span>
+                                <a href="{% url "social:begin" "steam" %}" class="steambutton"><span>НЭВТРЭХ</span>
                                     <div class="icon">
                                         <i class="fa fa-steam-square"></i>
 
@@ -125,6 +126,15 @@
                                 </a>
 
                             </div>
+                            {% else %}
+                            <div class="nk-post-text" >
+                                <span>Hello {{ user.personaname }}</span>
+                                <img src="{{ user.avatar }}">
+                                
+                                <a class="logout-anchor" href="{% url "auth:logout" %}">Logout</a>
+                            
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                     <nav class="nav-bar-right">
@@ -156,7 +166,7 @@
     </div>
     <div class="mobile-nav">
         <ul id="mobileNavInner" class="mobile-nav-inner">
-            <li><a href="{% url "home" %}">НҮҮР</a></li>
+            <li><a href="{% url "index" %}">НҮҮР</a></li>
             <li><a href="#">МЭДЭЭЛЭЛ</a>
                 <ul>
                     <li><a href="{% url "rewards-blog-archive" %}">SERVER</a></li>
@@ -174,6 +184,7 @@
     </div>
 </header>
 {% block content %}
+
 
 {% endblock %}
 <footer class="nk-footer">
@@ -400,6 +411,7 @@
 <!-- GoodGames -->
 <script src="{% static "js/goodgames.min.js" %}"></script>
 <script src="{% static "js/goodgames-init.js" %}"></script>
+<script src="{% static "js/goodgames.js" %}"></script>
 <!-- END: Scripts -->
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -1,13 +1,16 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 from jet.dashboard.dashboard_modules import google_analytics_views
+from django.contrib.auth.decorators import login_required
+from nesa.views import IndexView, LogoutView
+
 # from django.utils.translation import ugettext_lazy as _
 # from jet.dashboard.dashboard import Dashboard, AppIndexDashboard
 # from jet.dashboard.dashboard_modules import google_analytics
 
 
 urlpatterns = [
-    path('', views.index, name='home'),
+    path('', views.index, name='index'),
     path('logindex', views.logindex, name='logindex'),
     path('contactus/', views.contactUs, name='contactUs'),
     path('rewards-blog-archive/', views.rewardsBlogArchive, name='rewards-blog-archive'),
@@ -19,6 +22,8 @@ urlpatterns = [
     path('rewards-blog-grid/', views.rewardsBlogGrid, name='rewards-blog-grid'),
     path('news-blog-archive/', views.newsBlogArchive, name='news-blog-archive'),
     path('news/<str:slug>/', views.newsBlogSingle, name='news-blog-single'),
+    re_path(r'^$', IndexView.as_view(), name='index'),
+    re_path(r'^logout', login_required(LogoutView.as_view(), login_url='/'), name='logout')
 ]
 
 

@@ -2,6 +2,10 @@ from django.shortcuts import render
 from .models import *
 import datetime
 from django.utils.text import slugify
+from django.views import View
+from django.contrib.auth import logout
+from django.shortcuts import render, redirect
+from django.views.generic.base import TemplateView
 
 UPCOMING_REWARDS_COUNT = 3
 ONLY_ONE_REWARD_IN_QUERY = 1
@@ -15,6 +19,9 @@ def index(req):
         'reward_list': reward_list,
         'news_list': news_list
     }
+    # if req.method == 'POST':
+    #     item = SteamUser(e_mail=req.POST['user_email'],phone=req.POST['user_phone'])
+    #     item.save() 
 
     return render(req, 'home.html', context)               
 
@@ -174,4 +181,22 @@ def contact_request(request):
         item = ContactUs(fullName=request.POST['name'],email=request.POST['email']
             ,phone=request.POST['phone'],text=request.POST['text'])
         item.save() 
+
+
+# class MyView(View):
+#     http_method_names = ['get', 'post']
+#     def post(self, request):
+#         item = ContactUs(fullName=request.POST['name'],email=request.POST['email']
+#             ,phone=request.POST['phone'],text=request.POST['text'])
+#         item.save()
+
+class IndexView(View):
+    def get(self, request):
+        return render(request, 'index.html')
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('auth:index')
 
