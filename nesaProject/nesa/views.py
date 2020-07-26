@@ -69,7 +69,6 @@ def index(req):
         contact_request(req)
 
         context = {
-            'access_token': resp_data, 
             'reward_list': reward_list,
             'news_list': news_list,
             'qlist': qlist,
@@ -260,9 +259,7 @@ def get_access_token(request):
         }, headers={
             'Content-Type' : 'application/json'
         })
-        resp_data = response.json()
-
-        request.session["access_token"] = resp_data["access_token"]
+        request.session["access_token"] = response.json()["access_token"]
 
 def register_user(request):
     if not User.objects.filter(steamuser=request.user).exists():
