@@ -11,14 +11,19 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _ 
 from django.utils import timezone
-
+import jsonfield
+from datetime import datetime as dt
 
 class ServerCategory(models.Model):
     name=models.CharField(max_length=254, verbose_name="Server-ийн төрөл")
-    pic=models.ImageField(upload_to='servers/category', verbose_name="Server-ийн төрлийн зураг")
+    pic=models.ImageField(upload_to='servers/category', verbose_name="Server-ийн категорийн зураг")
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        verbose_name_plural="Серверийн категори"
+        verbose_name="Төрөл"
 
 class ActiveServers(models.Model):
 
@@ -120,7 +125,7 @@ class Settings(models.Model):
     twitch=models.URLField(max_length=200,default='',blank=True,verbose_name="Twitch хаяг ")
     
     # Web logo
-    logo=models.ImageField(upload_to="settings", verbose_name="Сайтын лого", default="")
+    logo=models.ImageField(upload_to="settings", verbose_name="Сайтын лого", default="", blank=True)
 
     # PROMOTIONS in home page
     # Box-1
@@ -144,7 +149,7 @@ class Settings(models.Model):
     # box4_pic=models.ImageField(upload_to="settings", verbose_name="Box 4-Зураг", default="", blank=True)
     
     # Phone number
-    phone_no=models.CharField(max_length=255, verbose_name="Холбоо барих утасны дугаар", default="")
+    phone_no=models.CharField(max_length=255, verbose_name="Холбоо барих утасны дугаар", default="", blank=True)
 
     # Guide video
     guide_vid=models.FileField(upload_to="settings/videos",verbose_name="Заавар бичлэг",
@@ -154,6 +159,7 @@ class Settings(models.Model):
 
     class Meta: 
         verbose_name="Вэб Сайтын Тохиргоо"
+        verbose_name_plural="Тохиргоо"
     
 
 class NewsCategory(models.Model):
@@ -161,6 +167,10 @@ class NewsCategory(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta: 
+        verbose_name="Мэдээний категори"
+        verbose_name_plural="Категори"
 
 class News(models.Model):
     id=models.CharField(verbose_name='slug', max_length=255, default="", editable=False, unique=True, primary_key=True)
@@ -181,6 +191,9 @@ class News(models.Model):
         self.slug = slugify("%s %s" % (self.category.name, str(self.id)))
         super().save(*args, **kwargs)
 
+    class Meta: 
+        verbose_name="Мэдээ"
+        verbose_name_plural="Мэдээ"
 
 
 
@@ -233,8 +246,8 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    e_mail=models.CharField(default="", max_length=255, verbose_name="Нэр", blank=True)
-    phone=models.CharField(default="", max_length=255, verbose_name="Нэр", blank=True)
+    # e_mail=models.CharField(default="", max_length=255, verbose_name="Нэр", blank=True)
+    # phone=models.CharField(default="", max_length=255, verbose_name="Нэр", blank=True)
 
     objects = SteamUserManager()
 
@@ -243,3 +256,58 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
 
     def get_full_name(self):
         return self.personaname
+
+
+class User(models.Model):
+    steamuser = models.ForeignKey(SteamUser, on_delete=models.CASCADE, verbose_name="Steam хэрэглэгч")
+    email = models.CharField(verbose_name="Имэйл", max_length=255, blank=True)
+    phone_no = models.CharField(verbose_name="Утасны дугаар", max_length=255, blank=True)
+    name = models.CharField(verbose_name="Нэр", default="", max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.name = self.steamuser.personaname
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name="Хэрэглэгчид"
+        verbose_name_plural="Хэрэглэгчид"
+
+
+class PaymentHistory(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Steam хэрэглэгч")
+    data = models.TextField(verbose_name="JSON дата")
+    # data = jsonfield.JSONField()
+    registered = models.BooleanField(default=False)
+    created_date = models.DateTimeField(auto_now=True)
+    # def __str__(self):
+    #     return self.user
+
+class TempPaymentId(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Steam хэрэглэгч")
+    bill_no = models.CharField(max_length=255)
+    month = models.IntegerField(default=None)
+    name = models.CharField(verbose_name="Нэр", default="", max_length=255)
+
+
+    def save(self, *args, **kwargs):
+        self.name = self.user.steamuser.personaname
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.user.name
+
+class Whitelist(models.Model):
+    steamid = models.CharField(max_length=255, unique=True)
+    email = models.CharField(max_length=255, blank=True)
+    phone_no = models.CharField(max_length=255, blank=True)
+    expDate = models.CharField(max_length=255, blank=True)
+
+    def is_expired(self):
+        date = self.expDate.split()
+        period = date[0].split('-')
+        time = date[1].split(':')
+        return dt(year=int(period[0]), month=int(period[1]), day=int(period[2]), hour=int(time[0]), minute=int(time[1]), second=int(time[2])) < dt.now()

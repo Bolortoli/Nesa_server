@@ -115,7 +115,7 @@
                 <div class="header-right-inner">
                     <div class="header-right-inner-line"></div>
                     <div class="header-title">
-                        <div class="header-title-container" style="z-index:10;">
+                        <div class="header-title-container" style="z-index: 10;">
                             {% if not user.is_authenticated %}
                             <div class="nk-post-text">
                                 <a href="{% url "social:begin" "steam" %}" class="steambutton"><span>НЭВТРЭХ</span>
@@ -129,7 +129,7 @@
                             {% else %}
                             <div class="nk-post-text" >
                                 <span>Hello {{ user.personaname }}</span>
-                                <img src="{{ user.avatar }}">
+                                <img src="{{ user.avatar }}" style="border-radius: 50%;">
                                 
                                 <a class="logout-anchor" href="{% url "auth:logout" %}">Logout</a>
                             
@@ -150,6 +150,16 @@
         </div>
     </div>
 </header>
+
+<form action="" method="post">
+    <button class="nk-btn nk-btn-rounded nk-btn-color-white" name="prove">
+        {% csrf_token %}
+        <span>Илгээх</span>
+        <span class="icon"><i class="ion-paper-airplane"></i></span>
+    </button>
+    
+</form>
+
 <header class="mobile-header">
     <div class="mobile-header-container">
         <div class="mobile-inner-header">
@@ -215,7 +225,7 @@
                             <textarea class="form-control required" name="text" rows="5"
                                 placeholder="Message *"></textarea>
                             <div class="nk-gap-1"></div>
-                            <button class="nk-btn nk-btn-rounded nk-btn-color-white">
+                            <button class="nk-btn nk-btn-rounded nk-btn-color-white" name="form_type">
                                 <span>Илгээх</span>
                                 <span class="icon"><i class="ion-paper-airplane"></i></span>
                             </button>
@@ -309,6 +319,14 @@
         </div>
     </div>
 </footer>
+<!-- <script>
+    function clear() {
+        alert("succeeded");
+        //document.querySelectorAll(". form-control required").forEach(function(item) {
+          //  item.value = '';
+        //});
+    }
+</script> -->
 <script>
     function mobileNavMenu() {
         let mobileNav = document.getElementById("mobileNavInner");

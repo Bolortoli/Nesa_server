@@ -1,27 +1,90 @@
-from django.shortcuts import render
 from .models import *
-import datetime
+import uuid, datetime, requests, json, calendar
 from django.utils.text import slugify
 from django.views import View
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
-from django.views.generic.base import TemplateView
+# from django.views.generic.base import TemplateView
+from datetime import datetime as dt
+from datetime import timedelta  
 
 UPCOMING_REWARDS_COUNT = 3
 ONLY_ONE_REWARD_IN_QUERY = 1
 REWARDS_COUNT_IN_HOME = 5
+QR_PICS_COUNT = 3
+MERCHANT_ID = "TEST_MERCHANT"
+QPAY_CHECK_URL_POST = "https://api.qpay.mn/v1/in_store/check"
+PAYMENT_PER_MONTH = 0.99
+PAYMENT_PERIOD_DAYS_PER_MONTH = 30
+
 
 def index(req):
-    reward_list = get_rewards(count=REWARDS_COUNT_IN_HOME)
-    news_list = News.objects.all()
-    contact_request(req)
-    context = {
-        'reward_list': reward_list,
-        'news_list': news_list
-    }
-    # if req.method == 'POST':
-    #     item = SteamUser(e_mail=req.POST['user_email'],phone=req.POST['user_phone'])
-    #     item.save() 
+
+    if req.user.is_authenticated:
+
+        qpay_qr_list = []
+        qlist = []
+
+        get_access_token(req)
+
+        register_user(req)
+
+        create_temp_id(req)
+
+        register_payment(req)
+
+        payments = get_all_payments(req)
+
+        for i in range(QR_PICS_COUNT):
+            # bill = uuid.uuid4()
+            response = requests.post("https://api.qpay.mn/v1/bill/create",json={
+                "template_id": "TEST_INVOICE",
+                "merchant_id": MERCHANT_ID,
+                "branch_id": "1",
+                "pos_id": "1",
+                "receiver": {
+                    "id": "CUST_001",
+                    "register_no": "ddf",
+                    "name": "Central brnach",
+                    "email": "info@info.mn",
+                    "phone_number":"99888899",
+                    "note" : str(req.user.personaname) + '-ийн ' + str(int(i + 1)) + ' сарын төлбөр',
+                },
+                "bill_no": str(TempPaymentId.objects.get(name=req.user.personaname, month=i+1).bill_no),
+                "date": str(datetime.date.today()),
+                "description":str(req.user.personaname) + '-ийн ' + str(int(i + 1)) + ' сарын төлбөр',
+                "amount": str((int(i + 1))),
+                "btuk_code":"",     
+                "vat_flag": "0",
+            }, headers={
+                'Content-Type' : 'application/json',
+                'Authorization' : 'Bearer ' + req.session['access_token']
+            })
+            resp_data = response.json() 
+            qlist.append(QRObject(resp_data, str((int(i + 1))*1000), int(i + 1)))
+  
+        reward_list = get_rewards(count=REWARDS_COUNT_IN_HOME)
+        
+        news_list = News.objects.all()
+        contact_request(req)
+
+        context = {
+            'access_token': resp_data, 
+            'reward_list': reward_list,
+            'news_list': news_list,
+            'qlist': qlist,
+            # 'check': check,
+
+        }
+
+    else :
+        reward_list = get_rewards(count=REWARDS_COUNT_IN_HOME)
+        news_list = News.objects.all()
+        contact_request(req)
+        context = {
+            'reward_list': reward_list,
+            'news_list': news_list
+        }
 
     return render(req, 'home.html', context)               
 
@@ -124,7 +187,7 @@ def newsBlogSingle(req, slug):
         'object': single_news
     }
 
-    return render(req, 'news-blog-single.html')        
+    return render(req, 'news-blog-single.html', context)        
 
 def rewardsBlogGrid(req):
     rewards = Reward.objects.all()
@@ -141,6 +204,8 @@ def rewardsBlogGrid(req):
 
 def logindex(req):
     return render(req,'logindex.html')
+
+
 
 # FUNCTIONS
 
@@ -177,18 +242,114 @@ def non_premium_obj(obj_list):
         
 # Get contact request
 def contact_request(request):
-    if request.method == 'POST':
+    if request.POST.get("form_type") == '':
         item = ContactUs(fullName=request.POST['name'],email=request.POST['email']
             ,phone=request.POST['phone'],text=request.POST['text'])
         item.save() 
+    if request.POST.get("prove") == '':
+        register_payment(request)
+        generate_whitelist(request)
+    
+def get_access_token(request):
+    if 'access_token' not in request.session:
+        response = requests.post("https://api.qpay.mn/v1/auth/token",json={
+            "client_id": "qpay_test",
+            "client_secret": "sdZv9k9m",
+            "grant_type":"client",
+            "refresh_token":""
+        }, headers={
+            'Content-Type' : 'application/json'
+        })
+        resp_data = response.json()
+
+        request.session["access_token"] = resp_data["access_token"]
+
+def register_user(request):
+    if not User.objects.filter(steamuser=request.user).exists():
+        item = User(email="bo@gmail.com", phone_no="99111111", steamuser=request.user)
+        item.save()
+
+def create_temp_id(req):
+    if not TempPaymentId.objects.filter(name=req.user.personaname).exists():
+        for i in range(QR_PICS_COUNT):
+            TempPaymentId(month=(i+1), user=User.objects.get(steamuser=req.user), bill_no=uuid.uuid4().hex).save()      
+
+def get_all_payments(req):
+    payments = []
+    if PaymentHistory.objects.filter(user=User.objects.get(steamuser=req.user), registered=False).exists():
+        wegothistory = PaymentHistory.objects.filter(user=User.objects.get(steamuser=req.user)).order_by('created_date')
+        for i in wegothistory:
+            payments.append(i)
+    return payments
 
 
-# class MyView(View):
-#     http_method_names = ['get', 'post']
-#     def post(self, request):
-#         item = ContactUs(fullName=request.POST['name'],email=request.POST['email']
-#             ,phone=request.POST['phone'],text=request.POST['text'])
-#         item.save()
+def register_payment(req):
+
+    for i in TempPaymentId.objects.filter(name=req.user.personaname):
+
+        payload = "{\n  \"merchant_id\": \"%s\",\n  \"order_no\": \"%s\"\n}" % (MERCHANT_ID, i.bill_no)
+
+        headers = {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + req.session['access_token']
+        }
+
+        check = requests.request("POST", QPAY_CHECK_URL_POST, headers=headers, data = payload).json()
+
+        try:
+            if check['payment_info']['payment_status'] == "PAID":
+                i.bill_no = str(uuid.uuid4().hex)
+                i.save()
+                PaymentHistory(user=User.objects.get(steamuser=req.user), data=(json.dumps(check)), registered=True).save()
+        except KeyError:
+            continue
+
+
+def split_date(date):
+    period = date[0].split('-')
+    time = date[1].split(':')
+
+    return dt(year=int(period[0]), month=int(period[1]), day=int(period[2]), hour=int(time[0]), minute=int(time[1]), second=int(time[2]))
+
+
+def generate_and_save(request):
+
+    payments_unregistered = get_all_payments(request)
+    whitelist = Whitelist.objects.get(steamid=request.user.steamid)
+    for i in payments_unregistered:
+
+        json_data = json.loads(i.data)
+        paid_date = json_data["payment_info"]["transactions"][0]["transaction_date"]
+        amount = json_data["payment_info"]["transactions"][0]["transaction_amount"]
+
+        payment_month = int(float(amount)/PAYMENT_PER_MONTH)
+        print(payment_month)
+        if whitelist.expDate is None:
+            date = split_date(paid_date.split())
+        else:
+            date = split_date(paid_date.split()) if whitelist.is_expired() else split_date(whitelist.expDate.split())
+
+        exp_date = date + timedelta(days=payment_month*PAYMENT_PERIOD_DAYS_PER_MONTH)
+        whitelist.expDate = str(exp_date)
+        whitelist.save()
+        i.registered = True
+        i.save()
+
+def generate_whitelist(request):
+    p = None
+    payments_unregistered = get_all_payments(request)
+
+    if payments_unregistered:
+        if not Whitelist.objects.filter(steamid=request.user.steamid).exists():
+            Whitelist(steamid=request.user.steamid, phone_no=User.objects.get(steamuser=request.user).phone_no, email=User.objects.get(steamuser=request.user).email).save()
+            generate_and_save(request)
+        else:
+            generate_and_save(request)
+    else:
+        if not Whitelist.objects.filter(steamid=request.user.steamid).exists():
+            Whitelist(steamid=request.user.steamid, phone_no=User.objects.get(steamuser=request.user).phone_no, email=User.objects.get(steamuser=request.user).email).save()
+        
+
 
 class IndexView(View):
     def get(self, request):
@@ -200,3 +361,8 @@ class LogoutView(View):
         logout(request)
         return redirect('auth:index')
 
+class QRObject:
+    def __init__(self, resp_data, amount, month):
+        self.qpay_qr = resp_data['qPay_url']
+        self.amount = amount
+        self.month = month

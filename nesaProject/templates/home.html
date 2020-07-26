@@ -16,6 +16,11 @@
         </div>
     </div>
 </div>
+
+<!-- {{access_token}} -->
+<br>
+
+{{check}}
 <!-- END: Navbar Mobile -->
 <div class="nk-main">
     <div class="nk-gap-2"></div>
@@ -56,7 +61,7 @@
                     </div>
                     <div class="nk-feature-cont">
                         <h3 class="nk-feature-title"><a href="#">Серверийн Шагналууд</a></h3>
-                        <h4 class="nk-feature-title text-main-1"><a href="#">Шагнал</a></h4>
+                        <h4 class="nk-feature-title text-main-1"><a href="{% url 'rewards-blog-grid' %}">Шагнал</a></h4>
                     </div>
                 </div>
             </div>
@@ -67,7 +72,7 @@
                     </div>
                     <div class="nk-feature-cont">
                         <h3 class="nk-feature-title"><a href="#">Хүсэлт илгээх</a></h3>
-                        <h4 class="nk-feature-title text-main-1"><a href="#">Холбоо барих</a></h4>
+                        <h4 class="nk-feature-title text-main-1"><a href="{% url 'contactUs' %}">Холбоо барих</a></h4>
                     </div>
                 </div>
             </div>
@@ -173,94 +178,35 @@
         <!-- START: payment qrcode section-->
 
         {% if user.is_authenticated %}
+
+
+
         <div class="row vertical-gap">
             <div class="col-lg-8">
                 <div class="nk-popup-gallery">
                     <div class="row">
+                        {% for qr in qlist %}
                         <div class="col-lg-4 col-md-6">
                             <div class="nk-gallery-item-box">
 
                                 <div class="nk-feature-2">
                                     <div class="nk-feature-icon">
-                                        <a href="{% static "/images/khanbank.png" %}" class="nk-gallery-item"
+                                        <a href="https://qrtag.net/api/qr.png?url={{ qr.qpay_qr }}" class="nk-gallery-item"
                                             data-size="572x572">
                                             <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
-                                            <img src="{% static "/images/khanbank.png" %}" alt="">
+                                            <img src="https://qrtag.net/api/qr.png?url={{ qr.qpay_qr }}" alt="">
                                         </a>
                                     </div>
                                     <div class="nk-feature-cont text-center">
-                                        <h3 class="nk-feature-title"><span class="text-main-1">1 сарын </span>
+                                        <h3 class="nk-feature-title"><span class="text-main-1">{{ qr.month }} сарын </span>
                                             эрх авах</h3>
                                         <div class="nk-gap-1"></div>
-                                        1000₮
+                                        {{ qr.amount }}₮
                                     </div>
-                                </div>
-                                <div class="nk-gallery-item-description">
-                                    <h4>Called Let</h4>
-                                    Divided thing, land it evening earth winged whose great after. Were grass night.
-                                    To Air itself saw bring fly fowl. Fly years behold spirit day greater of wherein
-                                    winged and form. Seed open don't thing midst created dry every greater divided
-                                    of, be man is. Second Bring stars fourth gathering he hath face morning fill.
-                                    Living so second darkness. Moveth were male. May creepeth. Be tree fourth.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="nk-gallery-item-box">
-
-                                <div class="nk-feature-2">
-                                    <div class="nk-feature-icon">
-                                        <a href="{% static "/images/khanbank.png" %}" class="nk-gallery-item"
-                                            data-size="572x572">
-                                            <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
-                                            <img src="{% static "/images/khanbank.png" %}" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="nk-feature-cont text-center">
-                                        <h3 class="nk-feature-title"><span class="text-main-1">1 сарын </span>
-                                            эрх авах</h3>
-                                        <div class="nk-gap-1"></div>
-                                        1000₮
-                                    </div>
-                                </div>
-                                <div class="nk-gallery-item-description">
-                                    <h4>Called Let</h4>
-                                    Divided thing, land it evening earth winged whose great after. Were grass night.
-                                    To Air itself saw bring fly fowl. Fly years behold spirit day greater of wherein
-                                    winged and form. Seed open don't thing midst created dry every greater divided
-                                    of, be man is. Second Bring stars fourth gathering he hath face morning fill.
-                                    Living so second darkness. Moveth were male. May creepeth. Be tree fourth.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="nk-gallery-item-box">
-
-                                <div class="nk-feature-2">
-                                    <div class="nk-feature-icon">
-                                        <a href="{% static "/images/khanbank.png" %}" class="nk-gallery-item"
-                                            data-size="572x572">
-                                            <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
-                                            <img src="{% static "/images/khanbank.png" %}" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="nk-feature-cont text-center">
-                                        <h3 class="nk-feature-title"><span class="text-main-1">1 сарын </span>
-                                            эрх авах</h3>
-                                        <div class="nk-gap-1"></div>
-                                        1000₮
-                                    </div>
-                                </div>
-                                <div class="nk-gallery-item-description">
-                                    <h4>Called Let</h4>
-                                    Divided thing, land it evening earth winged whose great after. Were grass night.
-                                    To Air itself saw bring fly fowl. Fly years behold spirit day greater of wherein
-                                    winged and form. Seed open don't thing midst created dry every greater divided
-                                    of, be man is. Second Bring stars fourth gathering he hath face morning fill.
-                                    Living so second darkness. Moveth were male. May creepeth. Be tree fourth.
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

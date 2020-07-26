@@ -35,11 +35,11 @@ class SettingsAdmin(admin.ModelAdmin):
         models.CharField: {'widget': TextInput(attrs={'size':'20'})},
         models.TextField: {'widget': Textarea(attrs={'rows':4, 'cols':40})},
     }
-    def has_add_permission(self, request):
-        return False
+    # def has_add_permission(self, request):
+    #     return False
 
-    def has_delete_permission(self, request, obj=None):
-        return False
+    # def has_delete_permission(self, request, obj=None):
+    #     return False
 admin.site.register(Settings, SettingsAdmin)
 
 class NewsAdmin(admin.ModelAdmin):
@@ -47,3 +47,24 @@ class NewsAdmin(admin.ModelAdmin):
 
 admin.site.register(News, NewsAdmin)
 admin.site.register(NewsCategory)
+
+class PaymentHistoryAdmin(admin.ModelAdmin):
+
+    list_display = ['user', 'registered']
+    list_editable = ['registered']
+
+admin.site.register(PaymentHistory, PaymentHistoryAdmin)
+# admin.site.register(PaymentHistory)
+admin.site.register(User)
+
+class TempPaymentIdAdmin(admin.ModelAdmin):
+    list_display = ['user', 'bill_no', 'month', 'name']
+
+
+admin.site.register(TempPaymentId, TempPaymentIdAdmin)
+
+class WhitelistAdmin(admin.ModelAdmin):
+    list_display = ['steamid', 'expDate']
+    list_editable = ['expDate']
+
+admin.site.register(Whitelist, WhitelistAdmin)

@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'jet.dashboard',
+    # 'jet.dashboard',
     'jet',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'livereload',
+    # 'livereload',
     'nesa',
     'social_django',
 ]
@@ -146,22 +146,22 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-# LANGUAGE_CODE = 'mn'
+LANGUAGE_CODE = 'mn'
 
-# TIME_ZONE = 'UTC'
+TIME_ZONE = 'UTC'
 
-# USE_I18N = True
+USE_I18N = True
 
-# USE_L10N = True
+USE_L10N = True
 
-# USE_TZ = True
+USE_TZ = True
 
 # ADMIN PANEL CONFIGURATIONS
 
 # Google analytics path
 JET_MODULE_GOOGLE_ANALYTICS_CLIENT_SECRETS_FILE = os.path.join(BASE_DIR, 'client_secrets.json')
 
-JET_DEFAULT_THEME = 'light-grey'
+JET_DEFAULT_THEME = 'light-gray'
 JET_SIDE_MENU_COMPACT = True
 
 JET_THEMES = [
@@ -198,7 +198,9 @@ JET_THEMES = [
 ]
 
 
-# Provide the api-key here
+# STEAM AUTH CONFIGURATION
+
+# Provide the api-key here 
 SOCIAL_AUTH_STEAM_API_KEY = '6ADF5543BD2E54B77ADD9025AF8ED50A'
 # Fetch extra information about the user from the steam web api
 SOCIAL_AUTH_STEAM_EXTRA_DATA = ['player']
