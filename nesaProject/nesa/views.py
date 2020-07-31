@@ -24,7 +24,6 @@ def index(req):
 
     if req.user.is_authenticated:
 
-        qpay_qr_list = []
         qlist = []
 
         get_access_token(req)
@@ -255,12 +254,13 @@ def contact_request(request):
             item = ContactUs(fullName=request.POST['name'],email=request.POST['email']
                 ,phone=request.POST['phone'],text=request.POST['text'])
             item.save() 
-        if request.POST.get("prove") == '' and request.is_ajax():
+        if request.POST.get("prove") == '':
             register_payment(request)
             generate_whitelist(request)
+            create_temp_id(request)
             print("kk")
 
-            return HttpResponse("json.dumps(response_data)")
+            # return HttpResponse("json.dumps(response_data)")
     
 def get_access_token(request):
     if 'access_token' not in request.session:
@@ -305,9 +305,9 @@ def register_payment(req):
         }
 
         check = requests.request("POST", QPAY_CHECK_URL_POST, headers=headers, data = payload).json()
-
         try:
             if check['payment_info']['payment_status'] == "PAID":
+                print("checkcheck")
                 i.bill_no = str(uuid.uuid4().hex)
                 i.save()
                 PaymentHistory(user=User.objects.get(steamuser=req.user), data=(json.dumps(check)), registered=True).save()
@@ -316,6 +316,9 @@ def register_payment(req):
 
 
 def split_date(date):
+    date = date.split()
+    print("asdqwerty")
+    print(date)
     period = date[0].split('-')
     time = date[1].split(':')
 
@@ -330,13 +333,14 @@ def generate_and_save(request):
         json_data = json.loads(i.data)
         paid_date = json_data["payment_info"]["transactions"][0]["transaction_date"]
         amount = json_data["payment_info"]["transactions"][0]["transaction_amount"]
-
+        print(paid_date)
         payment_month = int(float(amount)/PAYMENT_PER_MONTH)
         # print(payment_month)
-        if whitelist.expDate is None:
-            date = split_date(paid_date.split())
+        if not whitelist.expDate:
+            date = split_date(str(paid_date))
+            print(date)
         else:
-            date = split_date(paid_date.split()) if whitelist.is_expired() else split_date(whitelist.expDate.split())
+            date = split_date(str(paid_date)) if whitelist.is_expired() else split_date(str(whitelist.expDate))
 
         exp_date = date + timedelta(days=payment_month*PAYMENT_PERIOD_DAYS_PER_MONTH)
         whitelist.expDate = str(exp_date)

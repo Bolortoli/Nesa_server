@@ -161,6 +161,7 @@
 
 
 
+<<<<<<< HEAD
 <script>
     $(document).ready(function () {
         $("#formbtn").click(function () {
@@ -178,9 +179,25 @@
                     console.log(data)
                 }
             });
+=======
+<!-- <script>
+    $(document).ready(function(){
+      $("#formbtn").click(function(){
+        $.ajax ({
+            method: 'POST',
+            url: "{% url 'index' %}",
+            headers: { "X-CSRFToken": '{{csrf_token}}'},
+            success: function(response_data) {
+                console.log(response_data)
+            },
+            error:function(data){
+                console.log('error')
+                console.log(data)
+            }
+>>>>>>> fc6089720232b40cadbef7fd97947d654ace6b3d
         });
     });
-</script>
+</script> -->
 
 
 <header class="mobile-header">
