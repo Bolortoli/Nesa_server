@@ -5416,33 +5416,33 @@ img.rounded {
 }
 
 .nk-btn-color-success {
-    background-color: #7dbb00;
-    border-color: #7dbb00;
+    background-color: #f50;
+    border-color: #f50;
     border-style: solid;
 }
 
 .nk-btn-color-success:hover, .nk-btn-color-success.hover {
-    background-color: #44c427;
-    border-color: #55d737;
+    background-color: #fff;
+    border-color: #fff;
 }
 
 .nk-btn-color-success:active, .nk-btn-color-success.active {
-    background-color: #297718;
-    border-color: #6edd55;
+    background-color: #fff;
+    border-color: #fff;
 }
 
 .nk-btn-color-success.nk-btn-outline {
-    color: #7dbb00;
+    color: #fff;
     position: relative;
     z-index: 10;
 }
 
 .nk-btn-color-success.nk-btn-outline:hover, .nk-btn-color-success.nk-btn-outline.hover {
-    color: #297718;
+    color: #fff;
 }
 
 .nk-btn-color-success.nk-btn-outline:active, .nk-btn-color-success.nk-btn-outline.active {
-    color: #1b4d0f;
+    color: #fff;
 }
 
 .nk-btn-color-info {

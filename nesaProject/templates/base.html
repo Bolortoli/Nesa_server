@@ -48,7 +48,7 @@
         type="text/css" media="all">
 </head>
 <header class="desktop-header">
-            <img class="nk-page-background-top" src="{% static "/images/bg-top-4.png"%}" alt="" style="" style="height: 34%;">
+    <img class="nk-page-background-top" src="{% static "/images/bg-top-4.png"%}" alt="" style="" style="height: 34%;">
 
     <div class="page-header">
         <div class="inner-header">
@@ -127,12 +127,12 @@
 
                             </div>
                             {% else %}
-                            <div class="nk-post-text" >
-                                <span>Hello {{ user.personaname }}</span>
+                            <div class="nk-post-text">
                                 <img src="{{ user.avatar }}" style="border-radius: 50%;">
-                                
-                                <a class="logout-anchor" href="{% url "auth:logout" %}">Logout</a>
-                            
+                                <span style="font-size:1.8vh;"> {{ user.personaname }}</span>
+                                <a href="{% url "auth:logout" %}" class="nk-btn nk-btn-outline nk-btn-color-success" style="font-size:1.5vh;">
+                                    ГАРАХ
+                                </a>
                             </div>
                             {% endif %}
                         </div>
@@ -146,37 +146,39 @@
                         </ul>
                     </nav>
                 </div>
-            </div>  
+            </div>
         </div>
     </div>
 </header>
 
-<!-- <form action="" method="post" class="nk-form nk-form-ajax">
+<form action="" method="post" class="nk-form nk-form-ajax">
     {% csrf_token %}
     <button id="formbtn" class="nk-btn nk-btn-rounded nk-btn-color-white" name="prove">
         <span>Илгээх</span>
         <span class="icon"><i class="ion-paper-airplane"></i></span>
     </button>
-</form> -->
+</form>
 
 
 
 <script>
-    $(document).ready(function(){
-      $("#formbtn").click(function(){
-        $.ajax ({
-            method: 'POST',
-            url: "{% url 'index' %}",
-            headers: { "X-CSRFToken": '{{csrf_token}}'},
-            success: function(response_data) {
-                console.log(response_data)
-            },
-            error:function(data){
-                console.log('error')
-                console.log(data)
-            }
+    $(document).ready(function () {
+        $("#formbtn").click(function () {
+            $.ajax({
+                method: 'POST',
+                url: "{% url 'index' %}",
+                headers: {
+                    "X-CSRFToken": '{{csrf_token}}'
+                },
+                success: function (response_data) {
+                    console.log(response_data)
+                },
+                error: function (data) {
+                    console.log('error')
+                    console.log(data)
+                }
+            });
         });
-      });
     });
 </script>
 
@@ -267,7 +269,8 @@
                                     <a href="{% url 'news-blog-single' slug=news.slug %}" class="nk-post-image">
                                         <img src="{{ news.pic.url }}" alt="">
                                     </a>
-                                    <div class="nk-post-title"><a href="{% url 'news-blog-single' slug=news.slug %}">{{ news.title }}</a>
+                                    <div class="nk-post-title"><a
+                                            href="{% url 'news-blog-single' slug=news.slug %}">{{ news.title }}</a>
                                     </div>
                                     <div class="nk-post-date">
                                         <span class="fa fa-calendar"></span> {{ news.created}}
@@ -282,7 +285,9 @@
                 <div class="nk-widget">
                     <h4 class="nk-widget-title"><span class="text-main-1">Холбоо барих</span> Утас</h4>
                     <div class="nk-widget-content">
-                        <div class="nk-phone-list"><img src="{% static "/images/phone-logo.png" %}"><span>{{ global_settings.phone_no }}</span></div>
+                        <div class="nk-phone-list"><img
+                                src="{% static "/images/phone-logo.png" %}"><span>{{ global_settings.phone_no }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -393,10 +398,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.compatibility.min.js.map">
 </script>
-<script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- GSAP -->
 <script src="{% static "vendor/gsap/src/minified/TweenMax.min.js" %}"></script>
@@ -457,8 +460,12 @@
 <script src="{% static "js/goodgames.js" %}"></script>
 <!-- END: Scripts -->
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+</script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 

@@ -60,7 +60,7 @@ admin.site.register(NewsCategory)
 #     list_editable = ['registered']
 
 # admin.site.register(PaymentHistory, PaymentHistoryAdmin)
-# admin.site.register(PaymentHistory)
+admin.site.register(PaymentHistory)
 admin.site.register(User)
 
 # class TempPaymentIdAdmin(admin.ModelAdmin):
