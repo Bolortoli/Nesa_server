@@ -60,14 +60,14 @@ admin.site.register(NewsCategory)
 #     list_editable = ['registered']
 
 # admin.site.register(PaymentHistory, PaymentHistoryAdmin)
-# admin.site.register(PaymentHistory)
+admin.site.register(PaymentHistory)
 admin.site.register(User)
 
-# class TempPaymentIdAdmin(admin.ModelAdmin):
-#     list_display = ['user', 'bill_no', 'month', 'name']
+class TempPaymentIdAdmin(admin.ModelAdmin):
+    list_display = ['user', 'bill_no', 'month', 'name']
 
 
-# admin.site.register(TempPaymentId, TempPaymentIdAdmin)
+admin.site.register(TempPaymentId, TempPaymentIdAdmin)
 
 class WhitelistAdmin(admin.ModelAdmin):
     list_display = ['steamid', 'expDate']

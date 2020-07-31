@@ -297,4 +297,11 @@ ADMIN_REORDER = [
                 'nesa.Settings',
             )
     },
+    {
+        'app': 'nesa', 'label': 'PaymentHistory',
+            'models': (
+                'nesa.PaymentHistory',
+                'nesa.TempPaymentId',
+            )
+    },
 ]
