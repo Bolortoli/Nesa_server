@@ -53,16 +53,16 @@
                 <!-- START: Post Text -->
                 <div class="nk-post-text mt-0">
                     <div class="nk-post-img">
-                        <img src="{% static "/images/show.png "%}" alt="Grab your sword and fight the Horde">
+                        <img src="{{ news.pic.url }}" alt="Grab your sword and fight the Horde">
                     </div>
                     <div class="nk-gap-1"></div>
-                    <h1 class="nk-post-title h4">Мэдээний гарчиг энд</h1>
+                    <h1 class="nk-post-title h4">{{ news.title }}</h1>
                     <div class="nk-post-by">
                         Нийтлэгч: &nbsp
-                        <a href="https://nkdev.info"> Witch Murder</a> 2018 он 9-р сарын 18-нд
+                        <a href="https://nkdev.info"> Witch Murder</a> {{ news.created }}
                     </div>
                     <div class="nk-gap"></div>
-                    <p>Мэдээний content энд байх болно</p>
+                    <p> {{ news.desc }}</p>
 
 <div class="nk-gap"></div>
 <blockquote class="nk-blockquote"> 
@@ -241,8 +241,8 @@ Additional Classes:
     
         <!-- START: Page Background -->
 
-    <img class="nk-page-background-top" src="{% static "/images/2.png" %}" alt="">
-    <img class="nk-page-background-bottom" src="{% static "/images/6.png" %}" alt="">
+    <!-- <img class="nk-page-background-top" src="{% static "/images/2.png" %}" alt="">
+    <img class="nk-page-background-bottom" src="{% static "/images/6.png" %}" alt=""> -->
 
 <!-- END: Page Background -->
 

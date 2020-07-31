@@ -4,9 +4,11 @@ from django.utils.text import slugify
 from django.views import View
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
+from django.http import HttpResponse, JsonResponse
 # from django.views.generic.base import TemplateView
 from datetime import datetime as dt
 from datetime import timedelta  
+from django.core.paginator import Paginator
 
 UPCOMING_REWARDS_COUNT = 3
 ONLY_ONE_REWARD_IN_QUERY = 1
@@ -33,7 +35,7 @@ def index(req):
 
         register_payment(req)
 
-        payments = get_all_payments(req)
+        payments = get_all_unregistered_payments(req)
 
         for i in range(QR_PICS_COUNT):
             # bill = uuid.uuid4()
@@ -93,9 +95,10 @@ def contactUs(req):
 
 def rewardsBlogArchive(req):
     obj_list = ActiveServers.objects.all()
+
     single_prem_srv = premium_obj(obj_list=obj_list)
     single_non_prem_srv = non_premium_obj(obj_list=obj_list)
-    upcoming_events = get_rewards()
+    upcoming_events = get_rewards(count=UPCOMING_REWARDS_COUNT)
     contact_request(req)
 
     context = {
@@ -183,19 +186,25 @@ def newsBlogSingle(req, slug):
     contact_request(req)
 
     context = {
-        'object': single_news
+        'object': single_news,
+        'news': single_news,
     }
 
     return render(req, 'news-blog-single.html', context)        
 
 def rewardsBlogGrid(req):
-    rewards = Reward.objects.all()
+    obj_list = Reward.objects.all()
+
+    paginator = Paginator(obj_list, 6)
+    page_number = req.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     upcoming_events = get_rewards(count=UPCOMING_REWARDS_COUNT)   
     latest_news = get_news(3, True)
     contact_request(req)
 
     context = {
-        'rewards': rewards,
+        'rewards': page_obj,
         'upcoming_events': upcoming_events,
         'latest_news': latest_news,
     }
@@ -241,13 +250,17 @@ def non_premium_obj(obj_list):
         
 # Get contact request
 def contact_request(request):
-    if request.POST.get("form_type") == '':
-        item = ContactUs(fullName=request.POST['name'],email=request.POST['email']
-            ,phone=request.POST['phone'],text=request.POST['text'])
-        item.save() 
-    if request.POST.get("prove") == '':
-        register_payment(request)
-        generate_whitelist(request)
+    if not request.user.is_superuser:
+        if request.POST.get("form_type") == '':
+            item = ContactUs(fullName=request.POST['name'],email=request.POST['email']
+                ,phone=request.POST['phone'],text=request.POST['text'])
+            item.save() 
+        if request.POST.get("prove") == '' and request.is_ajax():
+            register_payment(request)
+            generate_whitelist(request)
+            print("kk")
+
+            return HttpResponse("json.dumps(response_data)")
     
 def get_access_token(request):
     if 'access_token' not in request.session:
@@ -271,7 +284,7 @@ def create_temp_id(req):
         for i in range(QR_PICS_COUNT):
             TempPaymentId(month=(i+1), user=User.objects.get(steamuser=req.user), bill_no=uuid.uuid4().hex).save()      
 
-def get_all_payments(req):
+def get_all_unregistered_payments(req):
     payments = []
     if PaymentHistory.objects.filter(user=User.objects.get(steamuser=req.user), registered=False).exists():
         wegothistory = PaymentHistory.objects.filter(user=User.objects.get(steamuser=req.user)).order_by('created_date')
@@ -310,8 +323,7 @@ def split_date(date):
 
 
 def generate_and_save(request):
-
-    payments_unregistered = get_all_payments(request)
+    payments_unregistered = get_all_unregistered_payments(request)
     whitelist = Whitelist.objects.get(steamid=request.user.steamid)
     for i in payments_unregistered:
 
@@ -320,7 +332,7 @@ def generate_and_save(request):
         amount = json_data["payment_info"]["transactions"][0]["transaction_amount"]
 
         payment_month = int(float(amount)/PAYMENT_PER_MONTH)
-        print(payment_month)
+        # print(payment_month)
         if whitelist.expDate is None:
             date = split_date(paid_date.split())
         else:
@@ -334,9 +346,9 @@ def generate_and_save(request):
 
 def generate_whitelist(request):
     p = None
-    payments_unregistered = get_all_payments(request)
+    payments_unregistered = get_all_unregistered_payments(request)
 
-    if payments_unregistered:
+    if payments_unregistered: 
         if not Whitelist.objects.filter(steamid=request.user.steamid).exists():
             Whitelist(steamid=request.user.steamid, phone_no=User.objects.get(steamuser=request.user).phone_no, email=User.objects.get(steamuser=request.user).email).save()
             generate_and_save(request)

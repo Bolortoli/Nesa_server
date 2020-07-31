@@ -2,6 +2,12 @@ from django.contrib import admin
 from .models import *
 from django.db import models
 from django.forms import Textarea, TextInput
+from django.contrib.auth.models import Group
+
+
+admin.site.unregister(Group)
+admin.site.site_header = 'Nesa Server Dashboard'
+
 
 class ContactUsAdmin(admin.ModelAdmin):
     list_display = ['fullName', 'email', 'phone', 'text'] 
@@ -48,23 +54,24 @@ class NewsAdmin(admin.ModelAdmin):
 admin.site.register(News, NewsAdmin)
 admin.site.register(NewsCategory)
 
-class PaymentHistoryAdmin(admin.ModelAdmin):
+# class PaymentHistoryAdmin(admin.ModelAdmin):
 
-    list_display = ['user', 'registered']
-    list_editable = ['registered']
+#     list_display = ['user', 'registered']
+#     list_editable = ['registered']
 
-admin.site.register(PaymentHistory, PaymentHistoryAdmin)
+# admin.site.register(PaymentHistory, PaymentHistoryAdmin)
 # admin.site.register(PaymentHistory)
 admin.site.register(User)
 
-class TempPaymentIdAdmin(admin.ModelAdmin):
-    list_display = ['user', 'bill_no', 'month', 'name']
+# class TempPaymentIdAdmin(admin.ModelAdmin):
+#     list_display = ['user', 'bill_no', 'month', 'name']
 
 
-admin.site.register(TempPaymentId, TempPaymentIdAdmin)
+# admin.site.register(TempPaymentId, TempPaymentIdAdmin)
 
 class WhitelistAdmin(admin.ModelAdmin):
     list_display = ['steamid', 'expDate']
     list_editable = ['expDate']
 
 admin.site.register(Whitelist, WhitelistAdmin)
+

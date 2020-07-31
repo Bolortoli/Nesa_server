@@ -64,21 +64,30 @@
                        
                     </div>
                     <!-- START: Pagination -->
-                    <div class="nk-pagination nk-pagination-center">
-                        <a href="#" class="nk-pagination-prev">
+                    <div class="nk-pagination nk-pagination-center pagination">
+                        {% if rewards.has_previous %}
+                        <a href="?page={{ rewards.previous_page_number }}" class="nk-pagination-prev">
                             <span class="ion-ios-arrow-back"></span>
                         </a>
+                        {% else %}
+                            <span class="ion-ios-arrow-back nk-pagination-prev"></span>
+                        {% endif %}
                         <nav>
-                            <a class="nk-pagination-current" href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <span>...</span>
-                            <a href="#">14</a>
+                        {% for n in rewards.paginator.page_range %}
+                            {% if rewards.number == n %}
+                                <a href="?page={{n}}" class="nk-pagination-current">{{n}}</a>   
+                            {% elif n > rewards.number|add:'-3' and n < rewards.number|add:'3' %}
+                                <a href="?page={{n}}">{{n}}</a>                                
+                            {% endif %}
+                        {% endfor %}
                         </nav>
-                        <a href="#" class="nk-pagination-next">
+                        {% if rewards.has_next %}
+                        <a href="?page={{rewards.next_page_number}}" class="nk-pagination-next">
                             <span class="ion-ios-arrow-forward"></span>
                         </a>
+                        {% else %}
+                            <span class="ion-ios-arrow-forward nk-pagination-next"></span>
+                        {% endif %}
                     </div>
                     <!-- END: Pagination -->
                 </div>

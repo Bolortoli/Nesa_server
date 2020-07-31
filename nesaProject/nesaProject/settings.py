@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # 'livereload',
     'nesa',
     'social_django',
+    'admin_reorder',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'livereload.middleware.LiveReloadScript',
+    'admin_reorder.middleware.ModelAdminReorder',
 ]
 
 ROOT_URLCONF = 'nesaProject.urls'
@@ -162,7 +164,7 @@ USE_TZ = True
 JET_MODULE_GOOGLE_ANALYTICS_CLIENT_SECRETS_FILE = os.path.join(BASE_DIR, 'client_secrets.json')
 
 JET_DEFAULT_THEME = 'light-gray'
-JET_SIDE_MENU_COMPACT = True
+# JET_SIDE_MENU_COMPACT = True
 
 JET_THEMES = [
     {
@@ -260,3 +262,39 @@ SOCIAL_AUTH_PIPELINE = (
     # Use a custom function for this, since the details are provided separately
     'nesa.pipeline.user_details',
 )
+
+ADMIN_REORDER = [
+    {
+        'app': 'nesa', 'label': 'Server',
+            'models': (
+                'nesa.ServerCategory',
+                'nesa.ActiveServers',
+                'nesa.Reward'
+            )
+    },
+    {
+        'app': 'nesa', 'label': 'News',
+            'models': (
+                'nesa.NewsCategory',
+                'nesa.News',
+            )
+    },
+    {
+        'app': 'nesa', 'label': 'Whitelist',
+            'models': (
+                'nesa.Whitelist',
+            )
+    },
+    {
+        'app': 'nesa', 'label': 'Contacts',
+            'models': (
+                'nesa.ContactUs',
+            )
+    },
+    {
+        'app': 'nesa', 'label': 'Website settings',
+            'models': (
+                'nesa.Settings',
+            )
+    },
+]
