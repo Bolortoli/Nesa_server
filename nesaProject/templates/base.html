@@ -84,6 +84,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <nav class="nav-bar-left">
                         <ul>
                             <li class="hover-effect-tuku">
@@ -162,21 +163,20 @@
 
 
 <script>
-    $(document).ready(function(){
-      $("#formbtn").click(function(event){
-        event.preventDefault();
-        $.ajax ({
-        method: 'post',
-        url: 'get/',   
-        success: function(response_data) {
-            console.log(response_data.tr)
-        },
-        error:function(data){
-            console.log('error')
-            console.log(data)
-        },
-    });
-});
+    $(document).ready(function () {
+        $("#formbtn").click(function () {
+            $.ajax({
+                method: 'post',
+                url: "get/",
+                success: function (response_data) {
+                    console.log(response_data.tr)
+                },
+                error: function (data) {
+                    console.log('error')
+                    console.log(data)
+                }
+            });
+        });
     });
 </script>
 

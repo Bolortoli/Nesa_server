@@ -316,7 +316,8 @@
                         <div class="row vertical-gap">
                             <div class="col-lg-4 col-md-6">
                                 <div class="nk-gallery-item-box">
-                                    <a href="{% static "/images/khanbank.png" %}"  class="nk-gallery-item" data-size="572x572">
+                                    <a href="{% static "/images/khanbank.png" %}" class="nk-gallery-item"
+                                        data-size="572x572">
                                         <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
                                         <img src="{% static "/images/khanbank.png" %}" alt="">
                                     </a>
@@ -408,13 +409,16 @@
                         <h4 class="modal-title">Бүртгүүлэх</h4>
                     </div>
                     <form>
-                        <input type="text" id="email" class="form-control required nk-error" name="email" placeholder="Email *">
-                        
-                        <input type="text" id="name" class="form-control required nk-error" name="name" placeholder="Нэр *">                
-                        <input type="text" id="phone" class="form-control required nk-error" name="phone" placeholder="Утас *">
+                        <input type="email" id="email" class="form-control required nk-error" name="email"
+                            placeholder="Email *">
+
+                        <input type="text" id="name" class="form-control required nk-error" name="name"
+                            placeholder="Нэр *">
+                        <input type="number" id="phone" class="form-control required nk-error" name="phone"
+                            placeholder="Утас *">
                     </form>
                     <div class="modal-footer">
-                        <button id="submit" type="button" class="btn btn-primary">Submit</button>
+                        <button id="submit" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -425,7 +429,7 @@
         <script type="text/javascript">
             // when .modal-wide opened, set content-body height based on browser height; 200 is appx height of modal padding, modal title and button bar
             $(document).ready(function () {
-                
+
                 $('#tallModal').modal({
                     keyboard: false,
                     show: true,
@@ -438,15 +442,15 @@
     </div>
 </div>
 <script>
-    $("#submit").click(function(){
+    $("#submit").click(function () {
         var name = $("#name").val();
         var name = $("#email").val();
         var name = $("#phone").val();
-        
-        if(name == '' || email == '' || phone == '') {
+
+        if (name == '' || email == '' || phone == '') {
             swal({
-                title: "Хоосон",
-                text: "Шалгануу",
+                title: "А",
+                text: "Мэдээллээ дахин шалгана уу ?",
                 icon: "warning",
                 button: "Ok"
             });
@@ -454,16 +458,18 @@
             swal({
                 title: "Амжилттай бүртгэлээ",
                 icon: "success",
-                button: "Submit"
+                button: "ХААХ"
             });
-            document.querySelector('#tallModal').style.display="none";
-            $('#tallModal').modal({
-                keyboard: false,
-                show: true,
-                backdrop: 'static'
+            $(function () {
+                $(".custom-close").on('click', function () {
+                    $('#submit,#tallModal').modal('hide');
+                });
             });
+
         }
     })
+    $(document).ready(function(){
+  $('.toast').toast('show');
+});
 </script>
 {% endblock %}
-
