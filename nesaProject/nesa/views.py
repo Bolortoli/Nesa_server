@@ -1,3 +1,4 @@
+from django.views.decorators.csrf import csrf_exempt
 from .models import *
 import uuid, datetime, requests, json, calendar
 from django.utils.text import slugify
@@ -8,7 +9,7 @@ from django.http import HttpResponse, JsonResponse
 # from django.views.generic.base import TemplateView
 from datetime import datetime as dt
 from datetime import timedelta  
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator 
 
 UPCOMING_REWARDS_COUNT = 3
 ONLY_ONE_REWARD_IN_QUERY = 1
@@ -33,8 +34,6 @@ def index(req):
         create_temp_id(req)
 
         register_payment(req)
-
-        payments = get_all_unregistered_payments(req)
 
         for i in range(QR_PICS_COUNT):
             # bill = uuid.uuid4()
@@ -85,12 +84,21 @@ def index(req):
             'reward_list': reward_list,
             'news_list': news_list
         }
-
+    print('before return html')
     return render(req, 'home.html', context)               
 
 def contactUs(req):
     contact_request(req)
     return render(req, 'contactUs.html')
+
+@csrf_exempt
+def kk(request):
+    register_payment(request)
+    generate_whitelist(request)
+    create_temp_id(request)
+    print("kk")
+
+    return JsonResponse({'tr': Whitelist.objects.get(steamid=request.user.steamid).expDate})
 
 def rewardsBlogArchive(req):
     obj_list = ActiveServers.objects.all()
@@ -254,13 +262,6 @@ def contact_request(request):
             item = ContactUs(fullName=request.POST['name'],email=request.POST['email']
                 ,phone=request.POST['phone'],text=request.POST['text'])
             item.save() 
-        if request.POST.get("prove") == '':
-            register_payment(request)
-            generate_whitelist(request)
-            create_temp_id(request)
-            print("kk")
-
-            # return HttpResponse("json.dumps(response_data)")
     
 def get_access_token(request):
     if 'access_token' not in request.session:

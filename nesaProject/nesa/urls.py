@@ -11,6 +11,7 @@ from nesa.views import IndexView, LogoutView
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('get/', views.kk, name='kk'),
     path('logindex', views.logindex, name='logindex'),
     path('contactus/', views.contactUs, name='contactUs'),
     path('rewards-blog-archive/', views.rewardsBlogArchive, name='rewards-blog-archive'),

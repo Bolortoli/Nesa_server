@@ -152,8 +152,8 @@
 </header>
 
 <form action="" method="post" class="nk-form nk-form-ajax">
-    {% csrf_token %}
     <button id="formbtn" class="nk-btn nk-btn-rounded nk-btn-color-white" name="prove">
+        {% csrf_token %}
         <span>Илгээх</span>
         <span class="icon"><i class="ion-paper-airplane"></i></span>
     </button>
@@ -161,43 +161,24 @@
 
 
 
-<<<<<<< HEAD
 <script>
-    $(document).ready(function () {
-        $("#formbtn").click(function () {
-            $.ajax({
-                method: 'POST',
-                url: "{% url 'index' %}",
-                headers: {
-                    "X-CSRFToken": '{{csrf_token}}'
-                },
-                success: function (response_data) {
-                    console.log(response_data)
-                },
-                error: function (data) {
-                    console.log('error')
-                    console.log(data)
-                }
-            });
-=======
-<!-- <script>
     $(document).ready(function(){
-      $("#formbtn").click(function(){
+      $("#formbtn").click(function(event){
+        event.preventDefault();
         $.ajax ({
-            method: 'POST',
-            url: "{% url 'index' %}",
-            headers: { "X-CSRFToken": '{{csrf_token}}'},
-            success: function(response_data) {
-                console.log(response_data)
-            },
-            error:function(data){
-                console.log('error')
-                console.log(data)
-            }
->>>>>>> fc6089720232b40cadbef7fd97947d654ace6b3d
-        });
+        method: 'post',
+        url: 'get/',   
+        success: function(response_data) {
+            console.log(response_data.tr)
+        },
+        error:function(data){
+            console.log('error')
+            console.log(data)
+        },
     });
-</script> -->
+});
+    });
+</script>
 
 
 <header class="mobile-header">
