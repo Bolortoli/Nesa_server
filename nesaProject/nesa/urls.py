@@ -11,7 +11,6 @@ from nesa.views import IndexView, LogoutView
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('get/', views.kk, name='kk'),
     path('logindex', views.logindex, name='logindex'),
     path('contactus/', views.contactUs, name='contactUs'),
     path('rewards-blog-archive/', views.rewardsBlogArchive, name='rewards-blog-archive'),
@@ -27,7 +26,12 @@ urlpatterns = [
     re_path(r'^logout', login_required(LogoutView.as_view(), login_url='/'), name='logout')
 ]
 
-
+# AJAX requests pattern
+urlpatterns = urlpatterns + [
+    path('get-approvement/', views.get_approvement, name='get-approvement'),
+    path('is-registered', views.check_user_if_registered, name='is-registered'),
+    path('save-user-detail', views.save_user_detail, name='save-user-detail')
+]
 
 # class CustomIndexDashboard(Dashboard):
 #     columns = 3

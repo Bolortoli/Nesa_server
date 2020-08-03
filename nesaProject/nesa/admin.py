@@ -54,13 +54,13 @@ class NewsAdmin(admin.ModelAdmin):
 admin.site.register(News, NewsAdmin)
 admin.site.register(NewsCategory)
 
-# class PaymentHistoryAdmin(admin.ModelAdmin):
+class PaymentHistoryAdmin(admin.ModelAdmin):
 
-#     list_display = ['user', 'registered']
-#     list_editable = ['registered']
+    list_display = ['user', 'registered']
+    list_editable = ['registered']
 
-# admin.site.register(PaymentHistory, PaymentHistoryAdmin)
-admin.site.register(PaymentHistory)
+admin.site.register(PaymentHistory, PaymentHistoryAdmin)
+# admin.site.register(PaymentHistory)
 admin.site.register(User)
 
 class TempPaymentIdAdmin(admin.ModelAdmin):

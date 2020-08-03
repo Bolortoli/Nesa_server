@@ -15,6 +15,7 @@
         </div>
     </div>
 </div>
+
 <!-- END: Navbar Mobile -->
 <div class="nk-main">
     <div class="nk-gap-2"></div>
@@ -22,44 +23,16 @@
     <div class="container">
         <!-- START: Image Slider -->
         <div class="nk-image-slider" data-autoplay="8000">
+            {% for reward in reward_list %}
             <div class="nk-image-slider-item">
-                <img src="static/images/show.png" alt="" class="nk-image-slider-img"
-                    data-thumb="static/images/show.png">
+                <img src="{{ reward.pic.url }}" alt="" class="nk-image-slider-img"
+                    data-thumb="{{ reward.pic.url }}">
                 <div class="nk-image-slider-content">
-                    <h3 class="h4">NESA.MN 6-р сарын Тэмцээн</h3>
-                    <p class="text-white">RTX-2080 Шагналтай серверийн Тэмцээн.</p>
+                    <h3 class="h4">{{ reward.title }}</h3>
+                    <p class="text-white">{{ reward.desc }}</p>
                 </div>
             </div>
-            <div class="nk-image-slider-item">
-                <img src="static/images/def.jpg" alt="" class="nk-image-slider-img" data-thumb="static/images/def.jpg">
-                <div class="nk-image-slider-content">
-                    <h3 class="h4">NESA.MN 6-р сарын Тэмцээн</h3>
-                    <p class="text-white">RTX-2080 Шагналтай серверийн Тэмцээн.</p>
-                </div>
-            </div>
-            <div class="nk-image-slider-item">
-                <img src="static/images/cbs.jpg" alt="" class="nk-image-slider-img" data-thumb="static/images/cbs.jpg">
-                <div class="nk-image-slider-content">
-                    <h3 class="h4">NESA.MN 6-р сарын Тэмцээн</h3>
-                    <p class="text-white">RTX-2080 Шагналтай серверийн Тэмцээн.</p>
-                </div>
-            </div>
-            <div class="nk-image-slider-item">
-                <img src="static/images/show.png" alt="" class="nk-image-slider-img"
-                    data-thumb="static/images/show.png">
-                <div class="nk-image-slider-content">
-                    <h3 class="h4">NESA.MN 6-р сарын Тэмцээн</h3>
-                    <p class="text-white">RTX-2080 Шагналтай серверийн Тэмцээн.</p>
-                </div>
-            </div>
-            <div class="nk-image-slider-item">
-                <img src="static/images/iem.jpg" alt="" class="nk-image-slider-img" data-thumb="static/images/iem.jpg">
-                <div class="nk-image-slider-content">
-                    <h3 class="h4">NESA.MN 6-р сарын Тэмцээн</h3>
-                    <p class="text-white">RTX-2080 Шагналтай серверийн Тэмцээн.</p>
-                    <p class="text-white">RTX-2080 Шагналтай серверийн Тэмцээн.</p>
-                </div>
-            </div>
+            {% endfor %}
         </div>
 
         <!-- START: feature -->
@@ -72,7 +45,7 @@
                     </div>
                     <div class="nk-feature-cont">
                         <h3 class="nk-feature-title"><a href="#">Серверийн жагсаалт</a></h3>
-                        <h4 class="nk-feature-title text-main-1"><a href="#">Серверийн мэдээлэл</a></h4>
+                        <h4 class="nk-feature-title text-main-1"><a href="{% url 'rewards-blog-archive' %}">Серверийн мэдээлэл</a></h4>
                     </div>
                 </div>
             </div>
@@ -83,7 +56,7 @@
                     </div>
                     <div class="nk-feature-cont">
                         <h3 class="nk-feature-title"><a href="#">Серверийн Шагналууд</a></h3>
-                        <h4 class="nk-feature-title text-main-1"><a href="#">Шагнал</a></h4>
+                        <h4 class="nk-feature-title text-main-1"><a href="{% url 'rewards-blog-grid' %}">Шагнал</a></h4>
                     </div>
                 </div>
             </div>
@@ -94,7 +67,7 @@
                     </div>
                     <div class="nk-feature-cont">
                         <h3 class="nk-feature-title"><a href="#">Хүсэлт илгээх</a></h3>
-                        <h4 class="nk-feature-title text-main-1"><a href="#">Холбоо барих</a></h4>
+                        <h4 class="nk-feature-title text-main-1"><a href="{% url 'contactUs' %}">Холбоо барих</a></h4>
                     </div>
                 </div>
             </div>
@@ -102,175 +75,68 @@
         <!-- END: feature -->
 
         <br>
-        <!-- Latest prize section-->
-        <div class="nk-gap-2"></div>
-        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Сүүлд</span> зарлагдсан шагнал</span></h3>
-        <div class="nk-gap"></div>
-
-        <div class="nk-news-box">
-            <div class="nk-news-box-list">
-                <div class="nano">
-                    <div class="nano-content">
-
-
-                        <div class="nk-news-box-item nk-news-box-item-active">
-                            <div class="nk-news-box-item-img">
-                                <img src="{% static "/images/rtx.png"%}" alt="">
-                            </div>
-                            <img src="{% static "/images/rtx.png"%}" alt="" class="nk-news-box-item-full-img">
-                            <h3 class="nk-news-box-item-title">Мэдээний гарчиг</h3>
-
-                            <span class="nk-news-box-item-categories">
-                                <span class="bg-main-4">Ивээн тэтгэгч</span>
-                            </span>
-
-                            <div class="nk-news-box-item-text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley</p>
-                            </div>
-                            <a href="blog-article.html" class="nk-news-box-item-url">Унших</a>
-                            <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Sep 18, 2018
-                            </div>
-                        </div>
-
-
-                        <div class="nk-news-box-item">
-                            <div class="nk-news-box-item-img">
-                                <img src="{% static "/images/rtx.png"%}" alt="">
-                            </div>
-                            <img src="{% static "/images/rtx.png"%}" alt="" class="nk-news-box-item-full-img">
-                            <h3 class="nk-news-box-item-title">Мэдээний гарчиг</h3>
-
-                            <span class="nk-news-box-item-categories">
-                                <span class="bg-main-1">Ивээн тэтгэгч</span>
-                            </span>
-
-                            <div class="nk-news-box-item-text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley</p>
-                            </div>
-                            <a href="blog-article.html" class="nk-news-box-item-url">Унших</a>
-                            <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Sep 5, 2018
-                            </div>
-                        </div>
-
-
-                        <div class="nk-news-box-item">
-                            <div class="nk-news-box-item-img">
-                                <img src="{% static "/images/rtx.png"%}" alt="">
-                            </div>
-                            <img src="{% static "/images/rtx.png"%}" alt="" class="nk-news-box-item-full-img">
-                            <h3 class="nk-news-box-item-title">Мэдээний гарчиг</h3>
-
-                            <span class="nk-news-box-item-categories">
-                                <span class="bg-main-2">Ивээн тэтгэгч</span>
-                            </span>
-
-                            <div class="nk-news-box-item-text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley</p>
-                            </div>
-                            <a href="blog-article.html" class="nk-news-box-item-url">Унших</a>
-                            <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Aug 27, 2018
-                            </div>
-                        </div>
+         <!-- Latest prize section-->
+         <div class="nk-gap-2"></div>
+         <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Сүүлд</span> зарлагдсан шагнал</span></h3>
+         <div class="nk-gap"></div>
+ 
+         <div class="nk-news-box">
+             <div class="nk-news-box-list">
+                 <div class="nano">
+                     <div class="nano-content">
+ 
+                         {% for reward in reward_list %}
+                         <div class="nk-news-box-item nk-news-box-item-active">
+                             <div class="nk-news-box-item-img">
+                                 <img src="{{ reward.pic.url }}" alt="">
+                             </div>
+                             <img src="{{ reward.pic.url }}" alt="" class="nk-news-box-item-full-img">
+                             <h3 class="nk-news-box-item-title">{{ reward.title }}</h3>
+ 
+                             <span class="nk-news-box-item-categories">
+                                 <span class="bg-main-4">{{ reward.sponsor_name}}</span>
+                             </span>
+ 
+                             <div class="nk-news-box-item-text">
+                                 <p>
+                                     {{ reward.desc }}
+                                 </p>
+                             </div>
+                             <a href="{% url 'rewards-blog-single' slug=reward.slug %}" class="nk-news-box-item-url">Унших</a>
+                             <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> {{ reward.published_date }}
+                             </div>
+                         </div>
+                         {% endfor %}
+ 
+                     </div>
+                 </div>
+             </div>
+             <div class="nk-news-box-each-info">
+                 <div class="nano">
+                     <div class="nano-content">
+                         <!-- There will be inserted info about selected news-->
+                         <div class="nk-news-box-item-image">
+                             <img src="assets/images/post-1.jpg" alt="">
+                             <span class="nk-news-box-item-categories">
+                                 <span class="bg-main-4">MMO</span>
+                             </span>
+                         </div>
+                         <h3 class="nk-news-box-item-title">Smell magic in the air. Or maybe barbecue</h3>
+                         <div class="nk-news-box-item-text">
+                             <p>With what mingled joy and sorrow do I take up the pen to write to my dearest friend!
+                                 Oh, what a change between to-day and yesterday! Now I am friendless and alone...</p>
+                         </div>
+                         <a href="blog-article.html" class="nk-news-box-item-more">Унших</a>
+                         <div class="nk-news-box-item-date">
+                             <span class="fa fa-calendar"></span> Sep 18, 2018
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <!-- Latest prize section end-->
 
 
-                        <div class="nk-news-box-item">
-                            <div class="nk-news-box-item-img">
-                                <img src="{% static "/images/rtx.png"%}" alt="">
-                            </div>
-                            <img src="{% static "/images/rtx.png"%}" alt="" class="nk-news-box-item-full-img">
-                            <h3 class="nk-news-box-item-title">Мэдээний гарчиг</h3>
-
-                            <span class="nk-news-box-item-categories">
-                                <span class="bg-main-3">Ивээн тэтгэгч</span>
-                            </span>
-
-                            <div class="nk-news-box-item-text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley</p>
-                            </div>
-                            <a href="blog-article.html" class="nk-news-box-item-url">Унших</a>
-                            <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Aug 14, 2018
-                            </div>
-                        </div>
-
-
-                        <div class="nk-news-box-item">
-                            <div class="nk-news-box-item-img">
-                                <img src="{% static "/images/rtx.png"%}" alt="">
-                            </div>
-                            <img src="{% static "/images/rtx.png"%}" alt="" class="nk-news-box-item-full-img">
-                            <h3 class="nk-news-box-item-title">Мэдээний гарчиг</h3>
-
-                            <span class="nk-news-box-item-categories">
-                                <span class="bg-main-5">Ивээн тэтгэгч</span>
-                            </span>
-
-                            <div class="nk-news-box-item-text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley</p>
-                            </div>
-                            <a href="blog-article.html" class="nk-news-box-item-url">Унших</a>
-                            <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Jul 23, 2018
-                            </div>
-                        </div>
-
-
-                        <div class="nk-news-box-item">
-                            <div class="nk-news-box-item-img">
-                                <img src="{% static "/images/rtx.png"%}" alt="">
-                            </div>
-                            <img src="{% static "/images/rtx.png"%}" alt="" class="nk-news-box-item-full-img">
-                            <h3 class="nk-news-box-item-title">Мэдээний гарчиг</h3>
-
-                            <span class="nk-news-box-item-categories">
-                                <span class="bg-main-5">Ивээн тэтгэгч</span>
-                            </span>
-
-                            <div class="nk-news-box-item-text">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley</p>
-                            </div>
-                            <a href="blog-article.html" class="nk-news-box-item-url">Унших</a>
-                            <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Jul 3, 2018
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="nk-news-box-each-info">
-                <div class="nano">
-                    <div class="nano-content">
-                        <!-- There will be inserted info about selected news-->
-                        <div class="nk-news-box-item-image">
-                            <img src="assets/images/post-1.jpg" alt="">
-                            <span class="nk-news-box-item-categories">
-                                <span class="bg-main-4">MMO</span>
-                            </span>
-                        </div>
-                        <h3 class="nk-news-box-item-title">Smell magic in the air. Or maybe barbecue</h3>
-                        <div class="nk-news-box-item-text">
-                            <p>With what mingled joy and sorrow do I take up the pen to write to my dearest friend!
-                                Oh, what a change between to-day and yesterday! Now I am friendless and alone...</p>
-                        </div>
-                        <a href="blog-article.html" class="nk-news-box-item-more">Унших</a>
-                        <div class="nk-news-box-item-date">
-                            <span class="fa fa-calendar"></span> Sep 18, 2018
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Latest prize section end-->
         <br>
         <div class="nk-gap-2"></div>
         <h3 class="nk-decorated-h-2"><span><span class="text-main-1">nesa.mn Premium </span>Серверийг Та авсанаар</span>
@@ -306,73 +172,56 @@
         <div class="nk-gap-2"></div>
 
 
-        <!-- START: payment qrcode section-->
+       <!-- START: payment qrcode section-->
+
+        {% if user.is_authenticated %}
 
 
-        <div class="container">
-            <div class="row vertical-gap">
-                <div class="col-lg-8">
-                    <div class="nk-popup-gallery">
-                        <div class="row vertical-gap">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="nk-gallery-item-box">
-                                    <a href="{% static "/images/khanbank.png" %}" class="nk-gallery-item"
-                                        data-size="572x572">
-                                        <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
-                                        <img src="{% static "/images/khanbank.png" %}" alt="">
-                                    </a>
-                                    <div class="nk-gallery-item-description">
-                                        <h4>Called Let</h4>
-                                        Divided thing, land it evening earth winged whose great after. Were grass night.
-                                        To Air itself saw bring fly fowl. Fly years behold spirit day greater of wherein
-                                        winged and form. Seed open don't thing midst created dry every greater divided
-                                        of, be man is. Second Bring stars fourth gathering he hath face morning fill.
-                                        Living so second darkness. Moveth were male. May creepeth. Be tree fourth.
+
+        <div class="row vertical-gap">
+            <div class="col-lg-8">
+                <div class="nk-popup-gallery">
+                    <div class="row">
+                        {% for qr in qlist %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="nk-gallery-item-box">
+
+                                <div class="nk-feature-2">
+                                    <div class="nk-feature-icon">
+                                        <a href="https://qrtag.net/api/qr.png?url={{ qr.qpay_qr }}" class="nk-gallery-item"
+                                            data-size="572x572">
+                                            <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
+                                            <img src="https://qrtag.net/api/qr.png?url={{ qr.qpay_qr }}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="nk-feature-cont text-center">
+                                        <h3 class="nk-feature-title"><span class="text-main-1">{{ qr.month }} сарын </span>
+                                            эрх авах</h3>
+                                        <div class="nk-gap-1"></div>
+                                        {{ qr.amount }}₮
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="nk-gallery-item-box">
-                                    <a href="assets/images/gallery-2.jpg" class="nk-gallery-item" data-size="1188x594">
-                                        <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
-                                        <img src="{% static "/images/khanbank.png" %}" alt="">
-                                    </a>
-                                    <div class="nk-gallery-item-description">
-                                        Seed open don't thing midst created dry every greater divided of, be man is.
-                                        Second Bring stars fourth gathering he hath face morning fill. Living so second
-                                        darkness. Moveth were male. May creepeth. Be tree fourth.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="nk-gallery-item-box">
-                                    <a href="assets/images/gallery-3.jpg" class="nk-gallery-item" data-size="625x350">
-                                        <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
-                                        <img src="{% static "/images/khanbank.png" %}" alt="">
-                                    </a>
-                                </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+
+                <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
+                    <div class="nk-widget nk-widget-highlighted">
+                        <h4 class="nk-widget-title"><span><span class="text-main-1">Latest</span> Video</span></h4>
+                        <div class="nk-widget-content">
+                            <div class="nk-plain-video" data-video="https://www.youtube.com/watch?v=vXy8UBazlO8">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-
-                    <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
-                        <div class="nk-widget nk-widget-highlighted">
-                            <h4 class="nk-widget-title"><span><span class="text-main-1">Latest</span> Video</span></h4>
-                            <div class="nk-widget-content">
-                                <div class="nk-plain-video" data-video="https://www.youtube.com/watch?v=vXy8UBazlO8">
-                                </div>
-                            </div>
-                        </div>
-                    </aside>
-                    <!-- END: Sidebar -->
-                </div>
+                </aside>
+                <!-- END: Sidebar -->
             </div>
-
         </div>
-
-
+        {% endif %}
         <!-- End payment qrcode section-->
 
 
@@ -402,74 +251,11 @@
 
 
 
-        <div id="tallModal" class="modal modal-wide fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Бүртгүүлэх</h4>
-                    </div>
-                    <form>
-                        <input type="email" id="email" class="form-control required nk-error" name="email"
-                            placeholder="Email *">
-
-                        <input type="text" id="name" class="form-control required nk-error" name="name"
-                            placeholder="Нэр *">
-                        <input type="number" id="phone" class="form-control required nk-error" name="phone"
-                            placeholder="Утас *">
-                    </form>
-                    <div class="modal-footer">
-                        <button id="submit" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
 
 
-
-        <script type="text/javascript">
-            // when .modal-wide opened, set content-body height based on browser height; 200 is appx height of modal padding, modal title and button bar
-            $(document).ready(function () {
-
-                $('#tallModal').modal({
-                    keyboard: false,
-                    show: true,
-                    backdrop: 'static'
-                });
-            });
-        </script>
+        
 
         <!--Premium server description end -->
     </div>
 </div>
-<script>
-    $("#submit").click(function () {
-        var name = $("#name").val();
-        var name = $("#email").val();
-        var name = $("#phone").val();
-
-        if (name == '' || email == '' || phone == '') {
-            swal({
-                title: "А",
-                text: "Мэдээллээ дахин шалгана уу ?",
-                icon: "warning",
-                button: "Ok"
-            });
-        } else {
-            swal({
-                title: "Амжилттай бүртгэлээ",
-                icon: "success",
-                button: "ХААХ"
-            });
-            $(function () {
-                $(".custom-close").on('click', function () {
-                    $('#submit,#tallModal').modal('hide');
-                });
-            });
-
-        }
-    })
-    $(document).ready(function(){
-  $('.toast').toast('show');
-});
-</script>
 {% endblock %}

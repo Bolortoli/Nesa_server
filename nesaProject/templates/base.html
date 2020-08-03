@@ -167,9 +167,13 @@
         $("#formbtn").click(function () {
             $.ajax({
                 method: 'post',
-                url: "get/",
+                url: "{% url 'get-approvement' %}",
                 success: function (response_data) {
-                    console.log(response_data.tr)
+                    if (response_data.expire == undefined) {
+                        alert(response_data.latest_payment)
+
+                    }
+                    alert("Амжиллтай " + response_data.expire + "-нд дуусна.")
                 },
                 error: function (data) {
                     console.log('error')
@@ -214,6 +218,102 @@
         </ul>
     </div>
 </header>
+
+
+<div id="tallModal" class="modal modal-wide fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Бүртгүүлэх</h4>
+            </div>
+            <form>
+                <input type="email" id="email" class="form-control required nk-error" name="email"
+                    placeholder="Email *">
+
+                <input type="text" id="name" class="form-control required nk-error" name="name"
+                    placeholder="Нэр *">
+                <input type="number" id="phone" class="form-control required nk-error" name="phone"
+                    placeholder="Утас *">
+            </form>
+            <div class="modal-footer">
+                <button id="submit" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+    // If user 
+    $(document).ready(function () {
+        $.ajax({
+            method: 'post',
+            url: "{% url 'is-registered' %}",
+            success: function (response_data) {
+                if(response_data.registered == 0) {
+                    $('#tallModal').modal({
+                        keyboard: false,
+                        show: true,
+                        backdrop: 'static',
+                    })
+                }
+                else {
+                    alert('2')
+                }
+            },       
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("#submit").click(function () {
+            var name = $("#name").val();
+            var email = $("#email").val();
+            var phone = $("#phone").val();
+            var succeeded = false
+            if (name == '' || email == '' || phone == '') {
+                swal({
+                    title: "А",
+                    text: "Мэдээллээ дахин шалгана уу ?",
+                    icon: "warning",
+                    button: "Ok"
+                });
+            } else {
+                swal({
+                    title: "Амжилттай бүртгэлээ",
+                    icon: "success",
+                    button: "ХААХ"
+                });
+                succeeded = true
+                $(function () {
+                    $(".custom-close").on('click', function () {
+                        $('#submit,#tallModal').modal('hide');
+                        
+                    });
+                });
+            }
+            if(succeeded) {
+                $.ajax({
+                    method: 'post',
+                    url: "{% url 'save-user-detail' %}",
+                    data: {
+                        phone_number: phone,
+                        e_mail: email
+                    },
+                    success: function(response_data) {
+                        alert("Success")
+                    }
+                });
+            }
+        });
+    });
+    $(document).ready(function(){
+  $('.toast').toast('show');
+});
+</script>
+
+
+
 {% block content %}
 
 

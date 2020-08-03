@@ -29,8 +29,6 @@ def index(req):
 
         get_access_token(req)
 
-        register_user(req)
-
         create_temp_id(req)
 
         register_payment(req)
@@ -75,6 +73,7 @@ def index(req):
             # 'check': check,
 
         }
+        return render(req, 'home.html', context)               
 
     else :
         reward_list = get_rewards(count=REWARDS_COUNT_IN_HOME)
@@ -84,21 +83,58 @@ def index(req):
             'reward_list': reward_list,
             'news_list': news_list
         }
+        return render(req, 'home.html', context)               
+
     print('before return html')
-    return render(req, 'home.html', context)               
+
+@csrf_exempt
+def check_user_if_registered(request):
+    is_registered = register_user(request)
+    if is_registered:
+        return JsonResponse({'registered': '1'})
+    return JsonResponse({'registered': '0'})
 
 def contactUs(req):
     contact_request(req)
     return render(req, 'contactUs.html')
 
 @csrf_exempt
-def kk(request):
+def get_approvement(request):
     register_payment(request)
     generate_whitelist(request)
     create_temp_id(request)
     print("kk")
 
-    return JsonResponse({'tr': Whitelist.objects.get(steamid=request.user.steamid).expDate})
+
+    whitelist = Whitelist.objects.get(steamid=request.user.steamid)
+
+    payment = PaymentHistory.objects.filter(user=User.objects.get(steamuser=request.user))
+
+    if not payment.exists() and not whitelist.expDate:
+        return JsonResponse({'latest_payment': "Төлбөрийн түүх олдсонгүй"})
+    if payment.exists():
+        dat = json.loads(payment.first().data)
+        latest_payment = "Сүүлийн төлөлт: " + dat["payment_info"]["transactions"][0]["transaction_date"]
+        # latest_payment +=  + "/nТөлбөрийн хэмжээ:" + dat["payment_info"]["transactions"][0]["transaction_amount"]
+    else:
+        latest_payment = "Төлбөрийн түүх олдсонгүй"
+    return JsonResponse({'expire': whitelist.expDate, 'latest_payment': latest_payment})
+
+
+@csrf_exempt
+def save_user_detail(request):
+    if request.method == 'POST':
+        print("Here")
+        phone = request.POST['phone_number']
+        email = request.POST['e_mail']
+
+        user = User.objects.get(steamuser=request.user)
+        user.email = email
+        user.phone_no = phone
+        user.save()
+
+        return HttpResponse()
+
 
 def rewardsBlogArchive(req):
     obj_list = ActiveServers.objects.all()
@@ -276,9 +312,18 @@ def get_access_token(request):
         request.session["access_token"] = response.json()["access_token"]
 
 def register_user(request):
-    if not User.objects.filter(steamuser=request.user).exists():
-        item = User(email="bo@gmail.com", phone_no="99111111", steamuser=request.user)
+    user = User.objects
+    if not user.filter(steamuser=request.user).exists():
+        item = User(steamuser=request.user)
         item.save()
+        print("False1")
+        return False
+    elif not user.get(steamuser=request.user).phone_no or not user.get(steamuser=request.user).email:
+        print("False2")
+        return False
+    else:
+        print("True")
+        return True
 
 def create_temp_id(req):
     if not TempPaymentId.objects.filter(name=req.user.personaname).exists():
