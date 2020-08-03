@@ -160,31 +160,6 @@
     </button>
 </form>
 
-
-
-<script>
-    $(document).ready(function () {
-        $("#formbtn").click(function () {
-            $.ajax({
-                method: 'post',
-                url: "{% url 'get-approvement' %}",
-                success: function (response_data) {
-                    if (response_data.expire == undefined) {
-                        alert(response_data.latest_payment)
-
-                    }
-                    alert("Амжиллтай " + response_data.expire + "-нд дуусна.")
-                },
-                error: function (data) {
-                    console.log('error')
-                    console.log(data)
-                }
-            });
-        });
-    });
-</script>
-
-
 <header class="mobile-header">
     <div class="mobile-header-container">
         <div class="mobile-inner-header">
@@ -242,6 +217,29 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<script>
+    $(document).ready(function () {
+        $("#formbtn").click(function () {
+            $.ajax({
+                method: 'post',
+                url: "{% url 'get-approvement' %}",
+                success: function (response_data) {
+                    if (response_data.expire == undefined) {
+                        alert(response_data.latest_payment)
+
+                    }
+                    alert("Амжиллтай " + response_data.expire + "-нд дуусна.")
+                },
+                error: function (data) {
+                    console.log('error')
+                    console.log(data)
+                }
+            });
+        });
+    });
+</script>
+
+<!--  -->
 <script type="text/javascript">
     // If user 
     $(document).ready(function () {
@@ -257,7 +255,7 @@
                     })
                 }
                 else {
-                    alert('2')
+                    alert('User has been registered')
                 }
             },       
         });
@@ -311,9 +309,6 @@
   $('.toast').toast('show');
 });
 </script>
-
-
-
 {% block content %}
 
 
