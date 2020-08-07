@@ -65,7 +65,18 @@
 							<a href="https://nkdev.info">Zeno</a> {{ obj.published_date }}
 						</div>
 						<div class="nk-gap"></div>
-						<p> {{ obj.desc }}
+						<p> {{ obj.desc }}</p>
+						<div class="user-block">
+                <div class="block">
+                    <script>CheckAvatar = 0; if (CheckAvatar == 1) { avatar.push("76561198959919818"); }</script>                    <a href="https://steamcommunity.com/profiles/76561198959919818" target="_blank"><img id="76561198959919818" class="rounded-circle avatar lazy-loaded lazy-hidden" data-src="storage/cache/img/avatars/76561198959919818.jpg" src="storage/cache/img/avatars/76561198959919818.jpg"></a>
+                    <div class="name">Mark$Senpa!</div>
+                    <div class="country">Mongolia, Ulan Bator</div>
+                                            <img class="rank-img" src="storage/cache/img/ranks/default/14.png">
+                        <div class="rank">Distinguished Master Guardian</div>
+                                        <div class="user-stats" style="background-color:#ff6d0a">SENIOR admin</div>
+                </div>
+            </div>
+
 
 
 							<div class="nk-gap"></div>
@@ -78,7 +89,87 @@
 							<h1>Server shagnalgui baina odoogoor</h1>
 							{% endif %}
 
+ <!-- START: Comments -->
+                    <div id="comments"></div>
+                    <h3 class="nk-decorated-h-2"><span><span class="text-main-1">3</span> Сэтгэгдэл</span></h3>
+                    <div class="nk-gap"></div>
+                    <div class="nk-comments">
+                        <!-- START: Comment -->
+                        <div class="nk-comment">
+                            <div class="nk-comment-meta">
+                                <img src="assets/images/avatar-2.jpg" alt="Witch Murder" class="rounded-circle"
+                                    width="35"> <a href="https://nkdev.info">Ээгий</a> 7-р сарын 28,
+                                2018
+                                <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 float-right">Хариулах</a>
+                            </div>
+                            <div class="nk-comment-text">
+                                <p>This sounded nonsense to Alice, so she said nothing, but set off at once toward
+                                    the Red Queen. To her surprise, she lost sight of her in a moment, and found
+                                    herself walking in at the front-door again.</p>
+                            </div>
 
+                            <!-- START: Comment -->
+                            <div class="nk-comment">
+                                <div class="nk-comment-meta">
+                                    <img src="assets/images/avatar-1.jpg" alt="Hitman" class="rounded-circle"
+                                        width="35"> <a href="https://nkdev.info">Hitman</a> 7-р сарын 28, 2018
+                                    <a href="#"
+                                        class="nk-btn nk-btn-rounded nk-btn-color-dark-3 float-right">Хариулах</a>
+                                </div>
+                                <div class="nk-comment-text">
+                                    <p>To her surprise, she lost sight of her in a moment, and found herself walking
+                                        in at the front-door again.</p>
+                                </div>
+                            </div>
+                            <!-- END: Comment -->
+                        </div>
+                        <!-- END: Comment -->
+
+                        <!-- START: Comment -->
+                        <div class="nk-comment">
+                            <div class="nk-comment-meta">
+                                <img src="assets/images/avatar-3.jpg" alt="Wolfenstein" class="rounded-circle"
+                                    width="35"> <a href="https://nkdev.info">Wolfenstein</a> 7-р сарын 28,
+                                2018
+                                <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 float-right">Хариулах</a>
+                            </div>
+                            <div class="nk-comment-text">
+                                <p>The sight of the tumblers restored Bob Sawyer to a degree of equanimity which he
+                                    had not possessed since his interview with his landlady. His face brightened up,
+                                    and he began to feel quite convivial.</p>
+                            </div>
+                        </div>
+                        <!-- END: Comment -->
+                    </div>
+                    <!-- END: Comments -->
+
+                    <!-- START: Reply -->
+                    <div class="nk-gap-2"></div>
+                    <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Сэтгэгдэл</span> үлдээх</span></h3>
+                    <div class="nk-gap"></div>
+                    <div class="nk-reply">
+                        <form action="#" class="nk-form" novalidate="novalidate">
+                            <div class="row sm-gap vertical-gap">
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control required" name="email"
+                                        placeholder="Цахим хаяг *">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control required" name="name" placeholder="Нэр *">
+                                </div>
+
+                            </div>
+                            <div class="nk-gap-1"></div>
+                            <textarea class="form-control required" name="message" rows="5" placeholder="Message *"
+                                aria-required="true"></textarea>
+                            <div class="nk-gap-1"></div>
+                            <div class="nk-form-response-success"></div>
+                            <div class="nk-form-response-error"></div>
+                            <button class="nk-btn nk-btn-rounded nk-btn-color-main-1 disabled"
+                                onclick="ButtonAlert()">Нийтлэх </button>
+                        </form>
+                    </div>
+                    <!-- END: Reply -->
 							<div class="nk-gap"></div>
 							<div class="nk-gap"></div>
 					</div>

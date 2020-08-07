@@ -84,7 +84,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <nav class="nav-bar-left">
                         <ul>
                             <li class="hover-effect-tuku">
@@ -131,7 +131,8 @@
                             <div class="nk-post-text">
                                 <img src="{{ user.avatar }}" style="border-radius: 50%;">
                                 <span style="font-size:1.8vh;"> {{ user.personaname }}</span>
-                                <a href="{% url "auth:logout" %}" class="nk-btn nk-btn-outline nk-btn-color-success" style="font-size:1.5vh;">
+                                <a href="{% url "auth:logout" %}" class="nk-btn nk-btn-outline nk-btn-color-success"
+                                    style="font-size:1.5vh;">
                                     ГАРАХ
                                 </a>
                             </div>
@@ -177,6 +178,8 @@
     <div class="mobile-nav">
         <ul id="mobileNavInner" class="mobile-nav-inner">
             <li><a href="{% url "index" %}">НҮҮР</a></li>
+            <li><a href="{% url "social:begin" "steam" %}">НЭВТРЭХ</a></li>
+
             <li><a href="#">МЭДЭЭЛЭЛ</a>
                 <ul>
                     <li><a href="{% url "rewards-blog-archive" %}">SERVER</a></li>
@@ -195,7 +198,7 @@
 </header>
 
 
-<div id="tallModal" class="modal modal-wide fade">
+{% comment %} <div id="tallModal" class="modal modal-wide fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -205,17 +208,19 @@
                 <input type="email" id="email" class="form-control required nk-error" name="email"
                     placeholder="Email *">
 
-                <input type="text" id="name" class="form-control required nk-error" name="name"
-                    placeholder="Нэр *">
+                <input type="text" id="name" class="form-control required nk-error" name="name" placeholder="Нэр *">
                 <input type="number" id="phone" class="form-control required nk-error" name="phone"
                     placeholder="Утас *">
+                <button style="margin-top: 3%;" class="nk-btn nk-btn-rounded nk-btn-color-white" name="form_type" data-dismiss="#tallModal" onclick="#submit">
+
+                    <span >Илгээх</span>
+                    <span class="icon"><i class=""></i></span>
+                </button>
             </form>
-            <div class="modal-footer">
-                <button id="submit" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
-            </div>
+
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+</div><!-- /.modal --> {% endcomment %}
 
 <script>
     $(document).ready(function () {
@@ -247,23 +252,22 @@
             method: 'post',
             url: "{% url 'is-registered' %}",
             success: function (response_data) {
-                if(response_data.registered == 0) {
+                if (response_data.registered == 0) {
                     $('#tallModal').modal({
                         keyboard: false,
                         show: true,
                         backdrop: 'static',
                     })
-                }
-                else {
+                } else {
                     alert('User has been registered')
                 }
-            },       
+            },
         });
     });
 </script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $("#submit").click(function () {
             var name = $("#name").val();
             var email = $("#email").val();
@@ -271,10 +275,9 @@
             var succeeded = false
             if (name == '' || email == '' || phone == '') {
                 swal({
-                    title: "А",
+                    title: "LANN.MN",
                     text: "Мэдээллээ дахин шалгана уу ?",
                     icon: "warning",
-                    button: "Ok"
                 });
             } else {
                 swal({
@@ -286,11 +289,11 @@
                 $(function () {
                     $(".custom-close").on('click', function () {
                         $('#submit,#tallModal').modal('hide');
-                        
+
                     });
                 });
             }
-            if(succeeded) {
+            if (succeeded) {
                 $.ajax({
                     method: 'post',
                     url: "{% url 'save-user-detail' %}",
@@ -298,16 +301,16 @@
                         phone_number: phone,
                         e_mail: email
                     },
-                    success: function(response_data) {
+                    success: function (response_data) {
                         alert("Success")
                     }
                 });
             }
         });
     });
-    $(document).ready(function(){
-  $('.toast').toast('show');
-});
+    $(document).ready(function () {
+        $('.toast').toast('show');
+    });
 </script>
 {% block content %}
 
