@@ -30,7 +30,9 @@ urlpatterns = [
 urlpatterns = urlpatterns + [
     path('get-approvement/', views.get_approvement, name='get-approvement'),
     path('is-registered', views.check_user_if_registered, name='is-registered'),
-    path('save-user-detail', views.save_user_detail, name='save-user-detail')
+    path('save-user-detail', views.save_user_detail, name='save-user-detail'),
+    path('save-comment', views.save_comment, name='save-comment'),
+    path('save-contact-us', views.save_contact_us, name='save-contact-us')
 ]
 
 # class CustomIndexDashboard(Dashboard):

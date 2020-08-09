@@ -64,7 +64,7 @@ def index(req):
         reward_list = get_rewards(count=REWARDS_COUNT_IN_HOME)
         
         news_list = News.objects.all()
-        contact_request(req)
+        
 
         context = {
             'reward_list': reward_list,
@@ -78,7 +78,7 @@ def index(req):
     else :
         reward_list = get_rewards(count=REWARDS_COUNT_IN_HOME)
         news_list = News.objects.all()
-        contact_request(req)
+        
         context = {
             'reward_list': reward_list,
             'news_list': news_list
@@ -95,8 +95,8 @@ def check_user_if_registered(request):
     return JsonResponse({'registered': '0'})
 
 def contactUs(req):
-    contact_request(req)
     return render(req, 'contactUs.html')
+
 
 @csrf_exempt
 def get_approvement(request):
@@ -120,6 +120,18 @@ def get_approvement(request):
         latest_payment = "Төлбөрийн түүх олдсонгүй"
     return JsonResponse({'expire': whitelist.expDate, 'latest_payment': latest_payment})
 
+# Get contact request
+@csrf_exempt
+def save_contact_us(request):
+    if request.method == 'POST':
+        mail = request.POST['mail']
+        phone = request.POST['phone']
+        name = request.POST['name']
+        message = request.POST['message']
+
+        ContactUs(text=message, fullName=name, phone=phone, email=mail).save()
+
+        return HttpResponse()
 
 @csrf_exempt
 def save_user_detail(request):
@@ -135,6 +147,22 @@ def save_user_detail(request):
 
         return HttpResponse()
 
+@csrf_exempt
+def save_comment(request):
+    if request.method == 'POST':
+        slug = request.POST['news_slug']
+        comment = request.POST['comment_text']
+
+        new_comment = Comment(name=request.user.personaname, slug=slug, pic_url=request.user.avatar, comment=comment, steamid=request.user.steamid)
+        new_comment.save()
+
+        data= {
+            'name': new_comment.name,
+            'pic': new_comment.pic_url,
+            'comment': new_comment.comment,
+            'created': str(new_comment.created)
+        }
+        return JsonResponse({'name': new_comment.name,'pic': new_comment.pic_url,'comment': new_comment.comment,'created': str(new_comment.created)}, safe=False)
 
 def rewardsBlogArchive(req):
     obj_list = ActiveServers.objects.all()
@@ -142,7 +170,7 @@ def rewardsBlogArchive(req):
     single_prem_srv = premium_obj(obj_list=obj_list)
     single_non_prem_srv = non_premium_obj(obj_list=obj_list)
     upcoming_events = get_rewards(count=UPCOMING_REWARDS_COUNT)
-    contact_request(req)
+    
 
     context = {
         'servers': obj_list,
@@ -155,7 +183,7 @@ def rewardsBlogArchive(req):
 def newsBlogArchive(req):
     news_list = News.objects.all()
     category_list = NewsCategory.objects.all()
-    contact_request(req)
+    
 
     context = {
         'news_list': news_list,
@@ -169,7 +197,7 @@ def rewardsBlogSingle_by_slug(req, slug):
     upcoming_events = get_rewards(specified_slug=slug, count=UPCOMING_REWARDS_COUNT)       
     paid_server_list = ActiveServers.objects.filter(server_type="Premium")
     obj_list = Reward.objects.get(slug=slug)
-    contact_request(req)
+    
 
     context = {
             'obj': obj_list,
@@ -213,7 +241,7 @@ def rewardsBlogSingle_by_server(req, server):
 
 
     paid_server_list = ActiveServers.objects.filter(server_type="Premium").exclude(name=server)
-    contact_request(req)
+    
 
     context = {
         'obj': reward_object,
@@ -226,11 +254,11 @@ def rewardsBlogSingle_by_server(req, server):
 
 def newsBlogSingle(req, slug):
     single_news = News.objects.get(slug=slug)
-    contact_request(req)
+    comments = Comment.objects.filter(slug=slug)
 
     context = {
-        'object': single_news,
         'news': single_news,
+        'comments': comments,
     }
 
     return render(req, 'news-blog-single.html', context)        
@@ -244,7 +272,7 @@ def rewardsBlogGrid(req):
 
     upcoming_events = get_rewards(count=UPCOMING_REWARDS_COUNT)   
     latest_news = get_news(3, True)
-    contact_request(req)
+    
 
     context = {
         'rewards': page_obj,
@@ -291,14 +319,6 @@ def non_premium_obj(obj_list):
         if obj.is_premium() is not True:
             return obj 
         
-# Get contact request
-def contact_request(request):
-    if not request.user.is_superuser:
-        if request.POST.get("form_type") == '':
-            item = ContactUs(fullName=request.POST['name'],email=request.POST['email']
-                ,phone=request.POST['phone'],text=request.POST['text'])
-            item.save() 
-    
 def get_access_token(request):
     if 'access_token' not in request.session:
         response = requests.post("https://api.qpay.mn/v1/auth/token",json={

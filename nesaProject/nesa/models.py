@@ -194,7 +194,20 @@ class News(models.Model):
     class Meta: 
         verbose_name="Мэдээ"
         verbose_name_plural="Мэдээ"
+class Comment(models.Model):
+    slug = models.CharField(verbose_name="Холбогдох мэдээ", max_length=255, default="")
+    name = models.CharField(verbose_name="Нэр", max_length=255, default="")
+    pic_url = models.CharField(verbose_name="Зураг", max_length=255, default="")
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    comment = models.TextField(verbose_name="Сэтгэгдэл", default="")
+    steamid = models.CharField(verbose_name="Steam ID", max_length=255, default="")
 
+    def __str(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Сэтгэгдэл"
+        verbose_name_plural = "Сэтгэгдэл"
 
 
 class SteamUserManager(BaseUserManager):

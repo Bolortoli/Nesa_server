@@ -326,25 +326,25 @@
                 <div class="nk-widget">
                     <h4 class="nk-widget-title"><span class="text-main-1">Холбоо</span> Барих</h4>
                     <div class="nk-widget-content">
-                        <form action="" class="nk-form nk-form-ajax" method="post">
+                        <form action="" class="nk-form nk-form-ajax" method="post" id="contact-us">
                             {% csrf_token %}
                             <div class="row vertical-gap sm-gap">
                                 <div class="col-md-6">
-                                    <input type="email" class="form-control required" name="email"
+                                    <input id="contact-us-email" type="email" class="form-control required" name="email"
                                         placeholder="Email *">
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control required" name="name" placeholder="Нэр *">
+                                    <input id="contact-us-name" type="text" class="form-control required" name="name" placeholder="Нэр *">
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control required" name="phone" placeholder="Утас *">
+                                    <input id="contact-us-phone" type="text" class="form-control required" name="phone" placeholder="Утас *">
                                 </div>
                             </div>
                             <div class="nk-gap"></div>
-                            <textarea class="form-control required" name="text" rows="5"
+                            <textarea id="contact-us-message" class="form-control required" name="text" rows="5"
                                 placeholder="Message *"></textarea>
                             <div class="nk-gap-1"></div>
-                            <button class="nk-btn nk-btn-rounded nk-btn-color-white" name="form_type">
+                            <button id="contact-us-button" class="nk-btn nk-btn-rounded nk-btn-color-white" name="form_type">
                                 <span>Илгээх</span>
                                 <span class="icon"><i class="ion-paper-airplane"></i></span>
                             </button>
@@ -354,6 +354,37 @@
                     </div>
                 </div>
             </div>
+            <script>
+                $(document).ready(function() {
+                    $('#contact-us-button').click(function() {
+                        let mail = $('#contact-us-email').val();
+                        let phone = $('#contact-us-phone').val();
+                        let name = $('#contact-us-name').val();
+                        let message = $('#contact-us-message').val();
+
+                        if(mail && phone && name && message) {
+                            $.ajax({
+                                method: 'post',
+                                url: "{% url 'save-contact-us' %}",
+                                data: {
+                                    mail: mail,
+                                    phone: phone,
+                                    name: name,
+                                    message: message
+                                },
+                                success: function() {
+                                    $("#contact-us-button").closest('form').find("input[type=text], input[type=email], textarea").val("");
+                                    alert("yes")
+                                },
+                                error: function(message) {
+                                    alert(message);
+                                }
+                            });
+                        }
+                    
+                    });
+                });
+            </script>
             <div class="col-md-6">
                 <div class="nk-widget">
                     <h4 class="nk-widget-title"><span class="text-main-1">Онцлох</span> Posts</h4>

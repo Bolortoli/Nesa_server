@@ -85,55 +85,28 @@
 
                     <!-- START: Comments -->
                     <div id="comments"></div>
-                    <h3 class="nk-decorated-h-2"><span><span class="text-main-1">3</span> Сэтгэгдэл</span></h3>
+                    <h3 class="nk-decorated-h-2"><span><span class="text-main-1">{{ comments.count }}</span> Сэтгэгдэл</span></h3>
                     <div class="nk-gap"></div>
                     <div class="nk-comments">
                         <!-- START: Comment -->
+                        {% if not comments %}
+                        NO Comments
+                        {% else %}
+                        {% for comment in comments %}
                         <div class="nk-comment">
                             <div class="nk-comment-meta">
-                                <img src="assets/images/avatar-2.jpg" alt="Witch Murder" class="rounded-circle"
-                                    width="35"> <a href="https://nkdev.info">Ээгий</a> 7-р сарын 28,
-                                2018
-                                <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 float-right">Хариулах</a>
+                                <img src="{{ comment.pic_url }}" alt="Witch Murder" class="rounded-circle"
+                                    width="35"> <a href="https://steamcommunity.com/profiles/{{ comment.steamid }}">{{ comment.name }}</a> {{ comment.created }}
+                                <!-- <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 float-right">Хариулах</a> -->
                             </div>
                             <div class="nk-comment-text">
-                                <p>This sounded nonsense to Alice, so she said nothing, but set off at once toward
-                                    the Red Queen. To her surprise, she lost sight of her in a moment, and found
-                                    herself walking in at the front-door again.</p>
-                            </div>
-
-                            <!-- START: Comment -->
-                            <div class="nk-comment">
-                                <div class="nk-comment-meta">
-                                    <img src="assets/images/avatar-1.jpg" alt="Hitman" class="rounded-circle"
-                                        width="35"> <a href="https://nkdev.info">Hitman</a> 7-р сарын 28, 2018
-                                    <a href="#"
-                                        class="nk-btn nk-btn-rounded nk-btn-color-dark-3 float-right">Хариулах</a>
-                                </div>
-                                <div class="nk-comment-text">
-                                    <p>To her surprise, she lost sight of her in a moment, and found herself walking
-                                        in at the front-door again.</p>
-                                </div>
-                            </div>
-                            <!-- END: Comment -->
-                        </div>
-                        <!-- END: Comment -->
-
-                        <!-- START: Comment -->
-                        <div class="nk-comment">
-                            <div class="nk-comment-meta">
-                                <img src="assets/images/avatar-3.jpg" alt="Wolfenstein" class="rounded-circle"
-                                    width="35"> <a href="https://nkdev.info">Wolfenstein</a> 7-р сарын 28,
-                                2018
-                                <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 float-right">Хариулах</a>
-                            </div>
-                            <div class="nk-comment-text">
-                                <p>The sight of the tumblers restored Bob Sawyer to a degree of equanimity which he
-                                    had not possessed since his interview with his landlady. His face brightened up,
-                                    and he began to feel quite convivial.</p>
+                                <p>{{ comment.comment }}</p>
                             </div>
                         </div>
+                        {% endfor %}
                         <!-- END: Comment -->
+                        {% endif %}
+
                     </div>
                     <!-- END: Comments -->
 
@@ -142,45 +115,22 @@
                     <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Сэтгэгдэл</span> үлдээх</span></h3>
                     <div class="nk-gap"></div>
                     <div class="nk-reply">
-                        <form action="#" class="nk-form" novalidate="novalidate">
-                            <div class="row sm-gap vertical-gap">
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control required" name="email"
-                                        placeholder="Цахим хаяг *">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control required" name="name" placeholder="Нэр *">
-                                </div>
-
-                            </div>
+                        <form action="" class="nk-form nk-form-ajax" method="POST">
+                            {% csrf_token %}
+                            <!-- <div class="nk-gap-1"></div> -->
+                            <textarea id="comment-text" class="form-control required" name="text" rows="5"
+                                placeholder="Message *"></textarea>
                             <div class="nk-gap-1"></div>
-                            <textarea class="form-control required" name="message" rows="5" placeholder="Message *"
-                                aria-required="true"></textarea>
-                            <div class="nk-gap-1"></div>
+                            <button id="comment-submit" class="nk-btn nk-btn-rounded nk-btn-color-white" name="form_type">
+                                <span>Илгээх</span>
+                                <span class="icon"><i class="ion-paper-airplane"></i></span>
+                            </button>
                             <div class="nk-form-response-success"></div>
                             <div class="nk-form-response-error"></div>
-                            <button class="nk-btn nk-btn-rounded nk-btn-color-main-1 disabled"
-                                onclick="ButtonAlert()">Нийтлэх </button>
                         </form>
                     </div>
                     <!-- END: Reply -->
-                    <script>
-                        var data = {
-                            action: 'is_user_logged_in'
-                        };
-
-                        jQuery.post(ajaxurl, data, function (response) {
-                            if (response == 'yes') {
-                               
-                            } else {
-                                function ButtonAlert(){ action: ' alert("Та нэвтэрч орон сэтгэгдэл үлдээнэ үү ?, Баярлалаа")'; }
-                            }
-                        });
-
-                        {% comment %} function ButtonAlert() {
-                            alert("Та нэвтэрч орон сэтгэгдэл үлдээнэ үү ?, Баярлалаа");
-                        } {% endcomment %}
-                    </script>
+                   
                 </div>
                 <!-- END: Post -->
             </div>
@@ -290,6 +240,33 @@
 
 
 <!-- START: Scripts -->
+
+<!-- Comment -->
+<script>
+    $(document).ready(function () {
+        $("#comment-submit").click(function() {
+            var comment = $("#comment-text").val();
+            var slug = "{{news.slug}}"
+            if(comment) {
+               $.ajax({
+                method: 'post',
+                url: "{% url 'save-comment' %}",
+                data: {
+                    comment_text: comment,
+                    news_slug: slug,
+                },
+                success: function(response) {
+                    alert(response.comment)
+                },
+                error: function() {
+                    alert("Error")
+                }
+               });
+            }
+        });
+    });
+</script>
+
 
 <!-- Object Fit Polyfill -->
 <script>

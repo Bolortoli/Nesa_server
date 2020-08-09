@@ -74,4 +74,4 @@ class WhitelistAdmin(admin.ModelAdmin):
     list_editable = ['expDate']
 
 admin.site.register(Whitelist, WhitelistAdmin)
-
+admin.site.register(Comment)
